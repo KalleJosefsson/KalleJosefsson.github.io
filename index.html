@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project 1: Object Detection</title>
+    <title>Project 1: Aligning RGB images and then processing the results</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,10 +56,12 @@
     <section>
         <h2>Introduction</h2>
         <p>
-            In this project, I developed an object detection model using the YOLOv4 architecture.
-            The system is capable of detecting multiple objects in real-time, achieving high accuracy
-            on various datasets. The project explores the use of deep learning to recognize and
-            classify objects from live video streams or static images.
+            In this project, I developed three algorithms which tackles the task of image alignment similarly. For handling smaller jpeg images with fewer pixels and smaller displacements
+            I just do normal MSE of each pixel in the middle part of the image to ingore the edges and then shift the image one pixel to find the best alignment. For larger images this is not effective so compress the image using convolutions with 3x3 kernels and 
+            perform average pooling. This is done twice compressing the image to be 1/81 the size of the original image. Then I find the best alignment using the same algorithm as for the jpegs. After doing that
+            I move up a level in the pyramid shift the image based on the findings in the below level and repeat, now the image is just 1/9 the size of the original image and we find a better match. The final shift is then done on the original image to
+            get the alignment as close as possible. For some images just basing the alignment on pixels is not possible so I wrote an algorithm which does it based one edges and features instead, this was made by
+            filtering the image using the sobel filter and then doing the same procedure using the pyramid alignment algorithm, this worked very well and the results are presented below.
         </p>
     </section>
 
