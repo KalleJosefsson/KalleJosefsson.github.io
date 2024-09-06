@@ -56,55 +56,49 @@
     <section>
         <h2>Introduction</h2>
         <p>
-            In this project, I developed three algorithms which tackles the task of image alignment similarly. For handling smaller jpeg images with fewer pixels and smaller displacements
-            I just do normal MSE of each pixel in the middle part of the image to ingore the edges and then shift the image one pixel to find the best alignment. For larger images this is not effective so compress the image using convolutions with 3x3 kernels and 
-            perform average pooling. This is done twice compressing the image to be 1/81 the size of the original image. Then I find the best alignment using the same algorithm as for the jpegs. After doing that
-            I move up a level in the pyramid shift the image based on the findings in the below level and repeat, now the image is just 1/9 the size of the original image and we find a better match. The final shift is then done on the original image to
-            get the alignment as close as possible. For some images just basing the alignment on pixels is not possible so I wrote an algorithm which does it based one edges and features instead, this was made by
-            filtering the image using the sobel filter and then doing the same procedure using the pyramid alignment algorithm, this worked very well and the results are presented below.
+            In this project, I developed three algorithms that tackle the task of image alignment similarly. 
+            For handling smaller JPEG images with fewer pixels and smaller displacements, I used normal Mean Squared Error (MSE) 
+            for each pixel in the middle part of the image (to ignore the edges), and then I shifted the image one pixel at a time 
+            to find the best alignment. For larger images, this was not effective, so I compressed the image using convolutions 
+            with 3x3 kernels and performed average pooling. This was done twice, compressing the image to be 1/81 the size of the original image. 
+            After that, I found the best alignment using the same algorithm as for the JPEGs.
+        </p>
+        <p>
+            Moving up a level in the pyramid, I shifted the image based on the findings at the lower level and repeated, 
+            now the image was 1/9 the size of the original image, which resulted in a better match. The final shift was 
+            then done on the original image to get the best possible alignment. For some images, pixel-based alignment was 
+            not sufficient, so I developed an algorithm based on edges and features instead, using a Sobel filter followed 
+            by the same pyramid alignment procedure. This worked well, and the results are presented below.
         </p>
     </section>
 
-    <!-- Screenshot Section -->
+    <!-- Image Before Processing Section -->
     <section>
-        <h2>Image before processing and alignment without shifts</h2>
+        <h2>Image Before Processing and Alignment</h2>
         <div class="screenshot">
-            <!-- Insert image of the project -->
-            <img src="./project1-image.jpg" alt="Project 1 Object Detection Example">
+            <!-- Insert image before processing -->
+            <img src="./images/rgb_train_unaligned.jpg" alt="Image before processing and alignment">
         </div>
         <p>
-            Above is images shows the original image before processing and an alignment without shifting the images.
+            The image above shows the original image before processing and alignment without shifts.
         </p>
     </section>
 
-    <!-- Project Description Section -->
+    <!-- Image After Processing Section -->
     <section>
-        <h2>How It Works</h2>
+        <h2>Image After Alignment and Processing</h2>
+        <div class="screenshot">
+            <!-- Insert image after processing -->
+            <img src="./images/rgb_tobolsk.jpg" alt="Image after alignment and processing">
+        </div>
         <p>
-            The object detection model is built using the YOLOv4 architecture, which is known for its balance
-            between speed and accuracy. By feeding the model images or frames from a video, it applies a convolutional
-            neural network (CNN) to detect and classify objects within bounding boxes.
-        </p>
-        <p>
-            The system works by breaking down the image into grid cells and assigning probabilities to each grid.
-            If the probability exceeds a threshold, a bounding box is created, identifying the object within that region.
-            The result is a real-time detection system with accurate bounding boxes around detected objects.
+            The image above shows the processed image after applying the alignment and feature detection algorithms.
         </p>
     </section>
 
-    <!-- Conclusion Section -->
-    <section>
-        <h2>Conclusion</h2>
-        <p>
-            This project demonstrated the powerful capabilities of YOLOv4 in object detection, achieving fast and accurate
-            results. The model can be further optimized by training on larger datasets or by fine-tuning hyperparameters to
-            improve performance.
-        </p>
-    </section>
-
-    <!-- Footer -->
+    <!-- Footer Section -->
     <footer>
-        <p>© 2024 Kalle's Portfolio | Project 1: Object Detection</p>
+        <p>© 2024 Kalle's Portfolio | Project 1: Aligning RGB Images</p>
         <p>Contact: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
     </footer>
 </body>
