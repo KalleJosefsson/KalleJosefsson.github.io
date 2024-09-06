@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>Project 1: Object Detection</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,19 +19,21 @@
             font-size: 2.5em;
             color: #4CAF50;
         }
-        nav a {
-            text-decoration: none;
-            color: #ffffff;
-            background-color: #4CAF50;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-right: 10px;
+        h2 {
+            color: #4CAF50;
         }
-        nav a:hover {
-            background-color: #45a049;
+        p {
+            font-size: 1.2em;
+            line-height: 1.6em;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
         }
         section {
-            margin-top: 30px;
+            margin-bottom: 40px;
         }
         footer {
             text-align: center;
@@ -39,91 +41,69 @@
             font-size: 0.8em;
             color: #777;
         }
-        .intro {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .intro p {
-            font-size: 1.2em;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .projects {
+        .screenshot {
             display: flex;
-            justify-content: space-around;
-            margin-top: 30px;
-        }
-        .project {
-            width: 30%;
-            background-color: #e8e8e8;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        .project img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
-        .project h2 {
-            color: #4CAF50;
-        }
-        .project a {
-            display: inline-block;
-            margin-top: 10px;
-            color: #ffffff;
-            background-color: #4CAF50;
-            padding: 10px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .project a:hover {
-            background-color: #45a049;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Welcome to My CS180 Portfolio!</h1>
+        <h1>Project 1: Object Detection with YOLOv4</h1>
     </header>
 
     <!-- Introduction Section -->
-    <section class="intro">
+    <section>
+        <h2>Introduction</h2>
         <p>
-            Hello! My name is Kalle, and I’m a computer science student with a passion for computer vision and AI. This portfolio showcases my projects in CS180A and beyond. Take a look at some of the projects I've worked on!
+            In this project, I developed an object detection model using the YOLOv4 architecture.
+            The system is capable of detecting multiple objects in real-time, achieving high accuracy
+            on various datasets. The project explores the use of deep learning to recognize and
+            classify objects from live video streams or static images.
         </p>
     </section>
 
-    <!-- Projects Section -->
-    <section class="projects">
-        <!-- Project 1 -->
-        <div class="project">
-            <h2>Project 1: Object Detection</h2>
-            <img src="./images/project1.jpg" alt="Project 1 screenshot">
-            <p>In this project, I wrote code to align RGB images and the stack them to create a color imgage, the alignment was made using pixel comparison as well as edge comparison. I then autocrop and increase the contrast of the colorized image.</p>
-            <a href="./1/index.html">View Project</a>
+    <!-- Screenshot Section -->
+    <section>
+        <h2>Project Screenshot</h2>
+        <div class="screenshot">
+            <!-- Insert image of the project -->
+            <img src="./project1-image.jpg" alt="Project 1 Object Detection Example">
         </div>
-
-        <!-- Project 2 -->
-        <div class="project">
-            <h2>Project 2: Image Classification</h2>
-            <img src="./images/project2.jpg" alt="Project 2 screenshot">
-            <p>This project focuses on image classification using convolutional neural networks (CNNs). It classifies images into multiple categories with over 90% accuracy.</p>
-            <a href="./2/index.html">View Project</a>
-        </div>
-
-        <!-- Project 3 -->
-        <div class="project">
-            <h2>Project 3: 3D Reconstruction</h2>
-            <img src="./images/project3.jpg" alt="Project 3 screenshot">
-            <p>I used 4D X-ray imaging to create detailed 3D reconstructions. This project combines computer vision and AI to improve temporal resolution significantly.</p>
-            <a href="./3/index.html">View Project</a>
-        </div>
+        <p>
+            Above is a screenshot from the object detection model, where the system identifies objects
+            such as cars, people, and bicycles in real-time.
+        </p>
     </section>
 
-    <!-- Footer Section -->
+    <!-- Project Description Section -->
+    <section>
+        <h2>How It Works</h2>
+        <p>
+            The object detection model is built using the YOLOv4 architecture, which is known for its balance
+            between speed and accuracy. By feeding the model images or frames from a video, it applies a convolutional
+            neural network (CNN) to detect and classify objects within bounding boxes.
+        </p>
+        <p>
+            The system works by breaking down the image into grid cells and assigning probabilities to each grid.
+            If the probability exceeds a threshold, a bounding box is created, identifying the object within that region.
+            The result is a real-time detection system with accurate bounding boxes around detected objects.
+        </p>
+    </section>
+
+    <!-- Conclusion Section -->
+    <section>
+        <h2>Conclusion</h2>
+        <p>
+            This project demonstrated the powerful capabilities of YOLOv4 in object detection, achieving fast and accurate
+            results. The model can be further optimized by training on larger datasets or by fine-tuning hyperparameters to
+            improve performance.
+        </p>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>© 2024 My Portfolio | All rights reserved.</p>
+        <p>© 2024 Kalle's Portfolio | Project 1: Object Detection</p>
         <p>Contact: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
     </footer>
 </body>
