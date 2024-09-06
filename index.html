@@ -70,11 +70,20 @@
             not sufficient, so I developed an algorithm based on edges and features instead, using a Sobel filter followed 
             by the same pyramid alignment procedure. This worked well, and the results are presented below.
         </p>
+
+        <p>
+    After the image alignment, I also made some automatic refinements to enhance the final result. First, I cropped the image to remove the edges of the frame, which often contain unwanted color artifacts or white spaces. This was achieved by removing rows and columns with low variance compared to the rest of the image, ensuring that only the significant portion of the image is retained.
+        
+    After cropping, I enhanced the image by increasing the contrast. This was done using a technique that passes the image through a Gaussian filter. Specifically, I applied a Gaussian blur to the image, and then subtracted the blurred image from the original to isolate the high-frequency details (sharp edges and features). This creates a "high-pass" filter effect, which emphasizes the details and suppresses smoother areas.
+        
+    The enhancement was then done by adding the high-pass filtered details back to the original image with an adjustable intensity controlled by a parameter `alpha`. This process boosts the contrast and sharpness, making the features more pronounced. Finally, I clipped the pixel values to ensure they remain within a valid range (0 to 1), preserving the color integrity of the image.
+    </p>
+
     </section>
 
-    <!-- Image Before Processing Section -->
+    <!-- JPG Image Before Processing Section -->
     <section>
-        <h2>Image Before Processing and Alignment</h2>
+        <h2> JPG Image Before Processing and Alignment</h2>
         <div class="screenshot">
             <!-- Insert image before processing -->
             <img src="./images/rgb_train_unaligned.jpg" alt="Image before processing and alignment">
@@ -84,15 +93,27 @@
         </p>
     </section>
 
-    <!-- Image After Processing Section -->
+    <!--JPG Image After Processing Section -->
     <section>
-        <h2>Image After Alignment and Processing</h2>
+        <h2>JPG Image After Alignment </h2>
         <div class="screenshot">
             <!-- Insert image after processing -->
             <img src="./images/rgb_tobolsk.jpg" alt="Image after alignment and processing">
         </div>
         <p>
-            The image above shows the processed image after applying the alignment and feature detection algorithms.
+            The image above shows the processed image after applying the simple alignment function.
+        </p>
+    </section>
+
+    <!--JPG Image After alignment, automatic edgecrop and contrast enhancement  -->
+    <section>
+        <h2>JPG Image After Alignment and Processing</h2>
+        <div class="screenshot">
+            <!-- Insert image after processing -->
+            <img src="./images/rgb_tobolsk_final.jpg" alt="Image after alignment and processing">
+        </div>
+        <p>
+            The image above shows the processed image after applying the alignment and image enhancement algorithms.
         </p>
     </section>
 
