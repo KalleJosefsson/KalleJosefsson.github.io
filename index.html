@@ -130,16 +130,25 @@
     </p>
 
 
-        <!--Image after passing through the sobel filter  -->
-    <section>
-        <h2>TIF Image after passing through the sobel filter</h2>
-        <div class="screenshot">
-            <!-- Insert image after processing -->
-            <img src="./images/sobel_emir.jpg" alt="Image after alignment and processing">
+       <section>
+    <h2>TIF Image after passing through the sobel filter</h2>
+    <div class="screenshot" style="display: flex; justify-content: space-between; align-items: center;">
+        <!-- Insert first image after processing -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images/sobel_emir.jpg" alt="Image after alignment and processing" style="max-width: 100%;">
         </div>
-        <p>
-            The image above shows the processed image after applying the sobelfilter notice how the edges are lit up and have increased pixelvalues which is exploited when finding the best alignment.
-        </p>
+        
+        <!-- Insert second image (green_emir) next to it -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images/green_emir.jpg" alt="Green Emir image" style="max-width: 100%;">
+        </div>
+    </div>
+    
+    <p>
+        The images above show the preprocessed image after applying the Sobel filter (left) and the green channel of the image (right). Notice how the edges in the left image are lit up, which helps during alignment.
+    </p>
+</section>
+
     </section>
         
     <!-- Footer Section -->
