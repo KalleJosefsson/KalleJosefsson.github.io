@@ -73,7 +73,8 @@
         </p>
 
         <p>
-    After the image alignment, I also made some automatic refinements to enhance the final image First, I cropped the image to remove the edges of the frame, which often contain unwanted color artifacts or white spaces. This was achieved by removing rows and columns with low variance compared to the rest of the image, ensuring that only the significant portion of the image is retained.
+    After the image alignment, I also made some automatic refinements to enhance the final image First, I cropped the image to remove the edges of the frame, which often contain unwanted color artifacts or white spaces. This was achieved by removing rows and columns with low variance compared to the rest of the image, ensuring that only the significant portion of the image is retained. However finding a good threshold 
+            of minimum variance to remove was difficult since it varied from picture to picture and so I settled on removing rows and columns with variance lower than 25% of the variance of the entire picture. This worked best in the general case of edge removal.
         
     After cropping, I enhanced the image by increasing the contrast. This was done using a technique that passes the image through a Gaussian filter. Specifically, I applied a Gaussian blur to the image, and then subtracted the blurred image from the original to isolate the high-frequency details (sharp edges and features). This creates a "high-pass" filter effect, which emphasizes the details and suppresses smoother areas.
         
