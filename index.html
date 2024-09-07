@@ -54,7 +54,7 @@
 
     <!-- Introduction Section -->
     <section>
-        <h2>Introduction</h2>
+        <h2>Overview of project</h2>
         <p>
             In this project, I developed three algorithms that tackle the task of image alignment similarly. 
             For handling smaller JPEG images with fewer pixels and smaller displacements, I used normal Mean Squared Error (MSE) 
@@ -117,6 +117,17 @@
             The image above shows the processed image after applying the alignment and image enhancement algorithms, notice how most of the edges are removed and the contrast is increased.
         </p>
     </section>
+
+    <!-- Sobel Section -->
+    <section>
+        <h2> Sobel filter when pixel comparison does not work</h2>
+        <p>
+            When just plain pixel comparison does not work as in the case of Emir due to difference in intensity of the images, we have to try another approach to align the images.
+            Instead we compare edges in the pictures, in order to do this we have to extract the edges in the images. This is done by letting the image pass through a sobel filter which produces an image highlighting the edges in the picture
+            which works the same for all images invariant to the intensity of the pictures. When the edge focused images are extracted I perform the pyramid alignment algorithm and it works fine aligning the pictures well, however not as
+            perfect as the pyramid alignment on the processed images. Below image illustrating the results from letting an image pass through the sobel filter. 
+           
+    </p>
 
     <!-- Footer Section -->
     <footer>
