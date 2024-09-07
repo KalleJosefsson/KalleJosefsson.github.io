@@ -73,7 +73,7 @@
         </p>
 
         <p>
-    After the image alignment, I also made some automatic refinements to enhance the final result. First, I cropped the image to remove the edges of the frame, which often contain unwanted color artifacts or white spaces. This was achieved by removing rows and columns with low variance compared to the rest of the image, ensuring that only the significant portion of the image is retained.
+    After the image alignment, I also made some automatic refinements to enhance the final image First, I cropped the image to remove the edges of the frame, which often contain unwanted color artifacts or white spaces. This was achieved by removing rows and columns with low variance compared to the rest of the image, ensuring that only the significant portion of the image is retained.
         
     After cropping, I enhanced the image by increasing the contrast. This was done using a technique that passes the image through a Gaussian filter. Specifically, I applied a Gaussian blur to the image, and then subtracted the blurred image from the original to isolate the high-frequency details (sharp edges and features). This creates a "high-pass" filter effect, which emphasizes the details and suppresses smoother areas.
         
@@ -123,12 +123,25 @@
         <h2> Sobel filter when pixel comparison does not work</h2>
         <p>
             When just plain pixel comparison does not work as in the case of Emir due to difference in intensity of the images, we have to try another approach to align the images.
-            Instead we compare edges in the pictures, in order to do this we have to extract the edges in the images. This is done by letting the image pass through a sobel filter which produces an image highlighting the edges in the picture
+            Instead we compare edges in the pictures, in order to do this we have to extract the edges in the images. This is done by letting the image pass through a sobel filter after passing through a gaussian filter which produces an image highlighting the edges in the picture
             which works the same for all images invariant to the intensity of the pictures. When the edge focused images are extracted I perform the pyramid alignment algorithm and it works fine aligning the pictures well, however not as
             perfect as the pyramid alignment on the processed images. Below image illustrating the results from letting an image pass through the sobel filter. 
            
     </p>
 
+
+        <!--Image after passing through the sobel filter  -->
+    <section>
+        <h2>TIF Image after passing through the sobel filter</h2>
+        <div class="screenshot">
+            <!-- Insert image after processing -->
+            <img src="./images/rgb_train_final.jpg" alt="Image after alignment and processing">
+        </div>
+        <p>
+            The image above shows the processed image after applying the sobelfilter notice how the edges are lit up and have increased pixelvalues which is exploited when finding the best alignment.
+        </p>
+    </section>
+        
     <!-- Footer Section -->
     <footer>
         <p>© 2024 Kalle's Portfolio | Project 1: Aligning RGB Images</p>
