@@ -173,9 +173,10 @@
     </div>
     
     <p>
-        The images above show the processed image after applying the gaussian enhancement algorithm and the automatic edgecrop (left) and the stacked image without processing(right). Notice how the contrast is increased and some of the edges surrounding the pictures have disapeared. 
+        The images above show the processed image after applying the gaussian contrast enhancement algorithm and the automatic edgecrop (left) and the stacked image without processing(right). Notice how the contrast is increased and some of the edges surrounding the pictures have disapeared. 
         The reason some are left is due to the fact that there is still part of the image "hiding" under the edges and the variance is high enough for it to be still in the picture as well as the numver in the top right corner which is still part of the edge but making the columns have a high enough variance
-        to not get cropped. However I think this is good since this part is valuable information for the image. But we can see that the pink edge at the top as well as the bottom edge is removed since it contributes no information about the picture which is a good removal.
+        to not get cropped. However I think this is good since this part is valuable information for the image. But we can see that the pink edge at the top as well as the bottom edge is removed since it contributes no information about the picture which is a good removal. I wanted to keep all parameters constant hence 
+        some images show more edges than others after the automatic cropping due to the large difference in variance between images and the edges being rather constant.
     
     </p>
 </section>
@@ -273,9 +274,9 @@
 
         <!-- Image 11 -->
         <div style="flex: 0 0 30%; margin-bottom: 20px; text-align: center;">
-            <h3>Result 11: Aligned Image</h3>
-            <img src="./images/result11.jpg" alt="Result 11" style="width: 100%; border-radius: 8px;">
-            <p>Red displacement (-1, -1), Green displacement (0, 2)</p>
+            <h3>Result 11: Self Portrait</h3>
+            <img src="./images/rgb_self_portrait_final1" alt="Result 11" style="width: 100%; border-radius: 8px;">
+            <p>Red displacement (36, 172), Green displacement (29, 78)</p>
             <p>Alignment function: pyramid_align</p>
         </div>
 
