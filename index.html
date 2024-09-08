@@ -61,7 +61,8 @@
             for each pixel in the middle part of the image (to ignore the edges), and then I shifted the image one pixel at a time 
             to find the best alignment. For larger images, this was not effective since the displacement could be way more than 15 pixels and therefor the search takes much longer, this and
             that there is to many pixels to effectevily compare them, so I compressed the image using convolutions 
-            with 3x3 kernels and performed average pooling. This was done twice, compressing the image to be 1/81 the size of the original image. 
+            with 3x3 kernels and a stride of three and performed average pooling. The choice of stride and kernel size to match was in order to compress the image effectively using every pixel only once.
+            This was done twice, compressing the image to be 1/81 the size of the original image. 
             After that, I found the best alignment using the same algorithm as for the JPEGs.
         </p>
         <p>
