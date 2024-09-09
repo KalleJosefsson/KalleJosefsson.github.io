@@ -14,15 +14,16 @@ from skimage import io, filters, color
 
 # name of the input file depending on which of the pictures you want work with
 #imname = "cathedral.jpg" 
-#imname = "tobolsk.jpg"
+#imname = "icon.tif"
 #imname = "train.tif"
 #imname = "emir.tif"
-#imname = "church.tif"
+#imname = "onion_church.tif"
 # read in the image
 #imname = "monastery.jpg"
 #imname = "sculpture.tif"
 #imname = "harvesters.tif"
-imname = "three_generations.tif"
+#imname = "three_generations.tif"
+imname = "self_portrait.tif"
 
 im = skio.imread(imname)
 
@@ -49,10 +50,18 @@ r = im[2*height: 3*height]
 
 # calculate the mse between the pixels of the middle part of the images
 def euclidian(img1,img2):
+
+    if img1.shape[0] > 1500:
+        width_range = np.floor(img1.shape[1]/8.0).astype(np.int64)
+        height_range = np.floor(img1.shape[0] / 8.0).astype(np.int64)
+    else:
+        height_range = np.floor(img1.shape[0] / 4.0).astype(np.int64)
+        width_range = np.floor(img1.shape[1] / 4.0).astype(np.int64)
+    
+
     height = np.floor(img1.shape[0] / 2.0).astype(np.int64)
     width = np.floor(img1.shape[1] / 2.0).astype(np.int64)
-    height_range = np.floor(img1.shape[0] / 4.0).astype(np.int64)
-    width_range = np.floor(img1.shape[1] / 4.0).astype(np.int64)
+    
     img1 = img1[height-height_range:height + height_range, width - width_range:width + width_range]
     img2 = img2[height-height_range:height + height_range, width - width_range:width + width_range]
     return np.sqrt(np.sum((img1 - img2) ** 2))
@@ -105,11 +114,7 @@ def pyramid_align(img1, img_blue):
     
     stride = 3
     
-    skio.imshow(scaled2_blue)
-    skio.show()
 
-    skio.imshow(scaled2_img1)
-    skio.show()
 
     #alignment at the lowest resolution
     dx, dy, aligned_img = align(scaled2_img1, scaled2_blue)
@@ -140,8 +145,8 @@ def pyramid_align(img1, img_blue):
     
     # final alignment at the original resolution based on the previous levels alignment
     best_align = euclidian(img1,img_blue)
-    for i in range(dy * stride - stride, dy * stride + stride + 1):
-        for j in range(dx * stride - stride, dx * stride + stride + 1):
+    for i in range(dy * stride - stride*2, dy * stride + stride*2 + 1):
+        for j in range(dx * stride - stride*2, dx * stride + stride*2 + 1):
             temp_img = np.roll(img1, shift=i, axis=0)
             temp_img = np.roll(temp_img, shift=j, axis=1)
             current_align = euclidian(temp_img, img_blue)
@@ -159,15 +164,27 @@ def pyramid_align(img1, img_blue):
 
 
 
-# increase the contrast on the processed images using gaussian filters
-def gaussian(img):
-    blurred_img = sk.filters.gaussian(img, sigma = 1)
+# increase the contrast on the processed images using addaptive histograms as recommended in the textbook
+
+def apply_clahe_color(img, clip_limit=2.0, tile_grid_size=(16, 16)):
+   
+    # converting the images from RGB to the LAB color space
+    lab = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
     
-    high_pass = img-blurred_img
-    alpha = 1.5
-    enhanced_img = img + alpha*high_pass
-    enhanced_img = np.clip( enhanced_img, 0,1)
-    return enhanced_img 
+    # split the LAB image to separate channels
+    l, a, b = cv2.split(lab)
+    
+    # apply CLAHE to the L channel (lightness)
+    clahe = cv2.createCLAHE(clipLimit=clip_limit, tileGridSize=tile_grid_size)
+    l_clahe = clahe.apply(l)
+    
+    # merging the CLAHE enhanced L channel with the original A and B channels
+    lab_clahe = cv2.merge((l_clahe, a, b))
+    
+    # covnvert the LAB image back into RGB color space
+    enhanced_img = cv2.cvtColor(lab_clahe, cv2.COLOR_LAB2BGR)
+    
+    return enhanced_img
     
 
 
@@ -216,7 +233,7 @@ def edge_align(img1, img_blue):
     
     # refine alignment based on results in previous level of resolution
     for i in range(dy * stride - stride, dy * stride + stride + 1):
-        for j in range(dx * stride - stride, dx * stride + stride + 1):
+        for j in range(dx * stride - stride*2, dx * stride + stride + 1):
             temp_img = np.roll(scaled1_img1, shift=i, axis=0)
             temp_img = np.roll(temp_img, shift=j, axis=1)
             current_align = euclidian(temp_img, scaled1_blue)
@@ -283,7 +300,7 @@ def auto_edgecrop(img):
 
 #for smaller images (jpeg) 
 #ag_delta_x, ag_delta_y,ag = align(g, b) #uncomment if jpg
-#r_delta_x, ar_delta_y,ar = align(r, b) #uncomment if jpg
+#ar_delta_x, ar_delta_y,ar = align(r, b) #uncomment if jpg
 
 
 #for biggerimages (tifs)
@@ -302,10 +319,24 @@ im_out = np.dstack([ar, ag, b])
 #edge cropping on the stacked image
 im_out = auto_edgecrop(im_out)
 
-
 #increase contrast
-im_out = gaussian(im_out)
+im_out = apply_clahe_color(im_out)
 
+
+
+
+
+
+
+# save the image
+#fname = 'C:\\Users\\kalle\\OneDrive\\Skrivbord\\Berkeley Courses\\Computer Vision\\Project 1\\rgb_train_final1.jpg'
+#fname = 'C:\\Users\\kalle\\OneDrive\\Skrivbord\\Berkeley Courses\\Computer Vision\\Project 1\\rgb_tobolsk_final1.jpg'
+#fname = 'C:\\Users\\kalle\\OneDrive\\Skrivbord\\Berkeley Courses\\Computer Vision\\Project 1\\rgb_train_final1.jpg'
+#fname = 'C:\\Users\\kalle\\OneDrive\\Skrivbord\\Berkeley Courses\\Computer Vision\\Project 1\\rgb_emir_final1.jpg'
+fname = 'C:\\Users\\kalle\\OneDrive\\Skrivbord\\Berkeley Courses\\Computer Vision\\Project 1\\rgb_selft_portrait_final1.jpg'
+#fname = 'C:\\Users\\kalle\\OneDrive\\Skrivbord\\Berkeley Courses\\Computer Vision\\Project 1\\rgb_harvester_final1.jpg'
+#fname = 'C:\\Users\\kalle\\OneDrive\\Skrivbord\\Berkeley Courses\\Computer Vision\\Project 1\\rgb_onion_church_final1.jpg'
+skio.imsave(fname, im_out)
 
 # display the image
 skio.imshow(im_out)
