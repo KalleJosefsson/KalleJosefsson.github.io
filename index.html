@@ -77,10 +77,10 @@
     After the image alignment, I also made some automatic refinements to enhance the final image First, I cropped the image to remove the edges of the frame, which often contain unwanted color artifacts or white spaces. This was achieved by removing rows and columns with low variance compared to the rest of the image, ensuring that only the significant portion of the image is retained. However finding a good threshold 
             of minimum variance to remove was difficult since it varied from picture to picture and so I settled on removing rows and columns with variance lower than 25% of the variance of the entire picture. This worked best in the general case of edge removal.
         
-    After cropping, I enhanced the image by increasing the contrast. This was done using a technique that passes the image through a Gaussian filter. Specifically, I applied a Gaussian blur to the image, and then subtracted the blurred image from the original to isolate the high-frequency details (sharp edges and features). This creates a "high-pass" filter effect, which emphasizes the details and suppresses smoother areas.
-        
-    The enhancement was then done by adding the high-pass filtered details back to the original image with an adjustable intensity controlled by a parameter `alpha`. This process boosts the contrast and sharpness, making the features more pronounced. Finally, I clipped the pixel values to ensure they remain within a valid range (0 to 1), preserving the color integrity of the image.
-    </p>
+    
+After cropping, I boosted the contrast using CLAHE (Contrast Limited Adaptive Histogram Equalization), like recommended in the course literature. Instead of blurring like the Gaussian filter which I tried at first, CLAHE enhances the image by adjusting the contrast in small sections, making details stand out more in low-contrast areas.
+
+It also limits the contrast boost to avoid over-enhancing, using a clipLimit parameter to control how much contrast is added in each part. This keeps the overall contrast balanced while highlighting finer details. Finally, I made sure the pixel values stay within a valid range to preserve the color and look of the image.
 
     </section>
 
