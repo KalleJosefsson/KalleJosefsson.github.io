@@ -51,7 +51,7 @@ r = im[2*height: 3*height]
 # calculate the mse between the pixels of the middle part of the images
 def euclidian(img1,img2):
 
-    if img1.shape[0] > 1500:
+    if img1.shape[0] > 1500: #if running edge_change this to 5000 so that it runs on larger part of image
         width_range = np.floor(img1.shape[1]/8.0).astype(np.int64)
         height_range = np.floor(img1.shape[0] / 8.0).astype(np.int64)
     else:
@@ -309,8 +309,8 @@ ar_delta_x, ar_delta_y,ar = pyramid_align(r, b) #uncomment if tif
 
 
 #for edge alignment (emir)
-#ag_delta_x, ag_delta_y,ag = edge_align(g, b) #uncomment if emir or tif
-#ar_delta_x, ar_delta_y,ar = edge_align(r, b) #uncomment if emir or tif
+#ag_delta_x, ag_delta_y,ag = edge_align(g, b) #uncomment if emir
+#ar_delta_x, ar_delta_y,ar = edge_align(r, b) #uncomment if emir note to change in euclidian function threshold to 5000
 
 
 # create a color image
