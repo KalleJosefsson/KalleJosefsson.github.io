@@ -174,7 +174,7 @@
     </div>
     
     <p>
-        The images above show the processed image after applying the gaussian contrast enhancement algorithm and the automatic edgecrop (left) and the stacked image without processing(right). Notice how the contrast is increased and some of the edges surrounding the pictures have disapeared. 
+        The images above show the processed image after applying the CLAHE contrast enhancement algorithm and the automatic edgecrop (left) and the stacked image without processing(right). Notice how the contrast is increased and some of the edges surrounding the pictures have disapeared. 
         The reason some are left is due to the fact that there is still part of the image "hiding" under the edges and the variance is high enough for it to be still in the picture as well as the number in the top right corner which is still part of the edge but making the columns have a high enough variance
         to not get cropped. However I think this is good since this part is valuable information for the image. But we can see that the pink edge at the top as well as the bottom edge is removed since it contributes no information about the picture which is a good removal. I wanted to keep all parameters constant hence 
         some images show more edges than others after the automatic cropping due to the large difference in variance between images and the edges being rather constant.
