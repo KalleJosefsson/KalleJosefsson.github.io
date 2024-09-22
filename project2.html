@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 1: Aligning RGB images and then processing the results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #4CAF50;
+        }
+        h2 {
+            color: #4CAF50;
+        }
+        p {
+            font-size: 1.2em;
+            line-height: 1.6em;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        section {
+            margin-bottom: 40px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.8em;
+            color: #777;
+        }
+        .screenshot {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Aligning RGB images and then processing the results</h1>
+    </header>
+
+    <!-- Introduction Section -->
+    <section>
+        <h2>Overview of project</h2>
+        <p>
+            In this project, I developed three algorithms that tackle the task of image alignment similarly. 
+            For handling smaller JPEG images with fewer pixels and smaller displacements, I used normal Mean Squared Error (MSE) 
+            for each pixel in the middle part of the image (to ignore the edges), and then I shifted the image one pixel at a time 
+            to find the best alignment. For larger images, this was not effective since the displacement could be way more than 15 pixels and therefor the search takes much longer, this and
+            that there is to many pixels to effectevily compare them, so I compressed the image using convolutions 
+            with 3x3 kernels and a stride of three and performed average pooling. The choice of stride and kernel size to match was in order to compress the image effectively using every pixel only once.
+            This was done twice, compressing the image to be 1/81 the size of the original image. 
+            After that, I found the best alignment using the same algorithm as for the JPEGs.
+        </p>
+        <p>
+            Moving up a level in the pyramid, I shifted the image based on the findings at the lower level and repeated, 
+            now the image was 1/9 the size of the original image, which resulted in a better match. The final shift was 
+            then done on the original image to get the best possible alignment. For some images, pixel-based alignment was 
+            not sufficient, so I developed an algorithm based on edges and features instead, using a Sobel filter followed 
+            by the same pyramid alignment procedure. This worked well, and the results are presented below.
+        </p>
+
+        <p>
+    After the image alignment, I also made some automatic refinements to enhance the final image First, I cropped the image to remove the edges of the frame, which often contain unwanted color artifacts or white spaces. This was achieved by removing rows and columns with low variance compared to the rest of the image, ensuring that only the significant portion of the image is retained. However finding a good threshold 
+            of minimum variance to remove was difficult since it varied from picture to picture and so I settled on removing rows and columns with variance lower than 25% of the variance of the entire picture. This worked best in the general case of edge removal.
+        
+    
+After cropping, I boosted the contrast using CLAHE (Contrast Limited Adaptive Histogram Equalization), like recommended in the course literature. Instead of blurring like the Gaussian filter which I tried at first, CLAHE enhances the image by adjusting the contrast in small sections, making details stand out more in low-contrast areas.
+
+It also limits the contrast boost to avoid over-enhancing, using a clipLimit parameter to control how much contrast is added in each part. This keeps the overall contrast balanced while highlighting finer details. Finally, I made sure the pixel values stay within a valid range to preserve the color and look of the image.
+
+    </section>
+
+   <!-- TIF Image Before Processing Section -->
+<section>
+    <h2>TIF Image Before Processing and Alignment</h2>
+    <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <!-- First image: Before processing -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images/rgb_train_raw.jpg" alt="Image before processing and alignment" style="max-width: 100%; border-radius: 8px;">
+            <p>
+                The image above shows the original image before processing and alignment without shifts.
+            </p>
+        </div>
+
+        <!-- Second image: New image next to the first one -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images/train_jpg.jpg" alt="New image for comparison" style="max-width: 100%; border-radius: 8px;">
+            <p>
+                The image above is the original picture that we start with, of the three channels for red green and blue before alignment.
+            </p>
+        </div>
+    </div>
+</section>
+
+   <!--TIF Image After Processing Section -->
+<section>
+    <h2>TIF Image After Alignment and Processing</h2>
+    <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <!-- First image: After alignment -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images/rgb_train.jpg" alt="Image after alignment and processing" style="max-width: 100%; border-radius: 8px;">
+            <p>
+                The image above shows the processed image after applying the pyramid alignment function.
+            </p>
+        </div>
+
+        <!-- Second image: After alignment and processing -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images/rgb_train_final1.jpg" alt="Image after alignment and processing" style="max-width: 100%; border-radius: 8px;">
+            <p>
+                The image above shows the processed image after applying the alignment and image enhancement algorithms. Notice how most of the edges are removed and the contrast is increased.
+            </p>
+        </div>
+    </div>
+</section>
+
+    <!-- Sobel Section -->
+    <section>
+        <h2> Sobel filter when pixel comparison does not work</h2>
+        <p>
+            When just plain pixel comparison does not work as in the case of Emir due to difference in intensity of the images, we have to try another approach to align the images.
+            Instead we compare edges in the pictures, in order to do this we have to extract the edges in the images. This is done by letting the image pass through a sobel filter after passing through a gaussian filter which produces an image highlighting the edges in the picture
+            which works the same for all images invariant to the intensity of the pictures. When the edge focused images are extracted I perform the pyramid alignment algorithm and it works fine aligning the pictures well, however not as
+            perfect as the pyramid alignment on the processed images. Below image illustrating the results from letting an image pass through the sobel filter. 
+           
+    </p>
+
+
+       <section>
+    <h2>TIF Image after passing through the sobel filter</h2>
+    <div class="screenshot" style="display: flex; justify-content: space-between; align-items: center;">
+        <!-- Insert first image after processing -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images/sobel_emir.jpg" alt="Image after alignment and processing" style="max-width: 100%;">
+        </div>
+        
+        <!-- Insert second image (green_emir) next to it -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images/green_emir.jpg" alt="Green Emir image" style="max-width: 100%;">
+        </div>
+    </div>
+    
+    <p>
+        The images above show the preprocessed image after applying the Sobel filter (left) and the green channel of the image (right). Notice how the edges in the left image are lit up, which helps during alignment.
+    </p>
+</section>
+
+        <section>
+    <h2>TIF Image after contrast enhancement</h2>
+    <div class="screenshot" style="display: flex; justify-content: space-between; align-items: center;">
+        <!-- Insert first image after processing -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images/rgb_church_final1.jpg" alt="Image after alignment and processing" style="max-width: 100%;">
+        </div>
+        
+        <!-- Insert second image pre contrast enhancement -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images/rgb_church.jpg" alt="Aligned chruch" style="max-width: 100%;">
+        </div>
+    </div>
+    
+    <p>
+        The images above show the processed image after applying the CLAHE contrast enhancement algorithm and the automatic edgecrop (left) and the stacked image without processing(right). Notice how the contrast is increased and some of the edges surrounding the pictures have disapeared. 
+        The reason some are left is due to the fact that there is still part of the image "hiding" under the edges and the variance is high enough for it to be still in the picture as well as the number in the top right corner which is still part of the edge but making the columns have a high enough variance
+        to not get cropped. However I think this is good since this part is valuable information for the image. But we can see that the pink edge at the top as well as the bottom edge is removed since it contributes no information about the picture which is a good removal. I wanted to keep all parameters constant hence 
+        some images show more edges than others after the automatic cropping due to the large difference in variance between images and the edges being rather constant.
+    
+    </p>
+</section>
+
+    </section>
+
+    <section>
+    <h2>Results (Displacement is in amount of pixels (x,y) )</h2>
+    <div class="results" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+        <!-- Image 1 -->
+        <div style="flex: 0 0 30%; margin-bottom: 20px; text-align: center;">
+            <h3>Result 1: Train</h3>
+            <img src="./images/rgb_train_final1.jpg" alt="Result 1" style="width: 100%; border-radius: 8px;">
+            <p>R:(32, 85), G:(7, 42)</p>
+            <p>Alignment function: Standard Pyramid </p>
+        </div>
+
+        <!-- Image 2 -->
+        <div style="flex: 0 0 30%; margin-bottom: 20px; text-align: center;">
+            <h3>Result 2: Church </h3>
+            <img src="./images/rgb_church_final1.jpg" alt="Result 2" style="width: 100%; border-radius: 8px;">
+            <p>R:(-4, 58), G:(4, 25)</p>
+            <p>Alignment function: Standard Pyramid</p>
+        </div>
+
+        <!-- Image 3 -->
+        <div style="flex: 0 0 30%; margin-bottom: 20px; text-align: center;">
+            <h3>Result 3: Sculpture</h3>
+            <img src="./images/rgb_sculpture_final1.jpg" alt="Result 3" style="width: 100%; border-radius: 8px;">
+            <p>R:(-27, 140), G:(-11, 33)</p>
+            <p>Alignment function: Standard Pyramid</p>
+        </div>
+
+        <!-- Row 2 -->
+
+        <!-- Image 4 -->
+        <div style="flex: 0 0 30%; margin-bottom: 20px; text-align: center;">
+            <h3>Result 4: Harvesters</h3>
+            <img src="./images/rgb_harvester_final1.jpg" alt="Result 4" style="width: 100%; border-radius: 8px;">
+            <p>R:(15, 123), G:(18, 51)</p>
+            <p>Alignment function: Edge Pyramid</p>
+        </div>
+
+        <!-- Image 5 -->
+        <div style="flex: 0 0 30%; margin-bottom: 20px; text-align: center;">
+            <h3>Result 5: Emir </h3>
+            <img src="./images/rgb_emir_final1.jpg" alt="Result 5" style="width: 100%; border-radius: 8px;">
+            <p>R:(36, 96), G:(21, 42)</p>
+            <p>Alignment function: Edge Pyramid</p>
+        </div>
+
+        <!-- Image 6 -->
+        <div style="flex: 0 0 30%; margin-bottom: 20px; text-align: center;">
+            <h3>Result 6: Tobolsk </h3>
+            <img src="./images/rgb_tobolsk_final1.jpg" alt="Result 6" style="width: 100%; border-radius: 8px;">
+            <p>R:(3, 7), G:(3, 3)</p>
+            <p>Alignment function: JPG Align</p>
+        </div>
+
+        <!-- Row 3 -->
+
+        <!-- Image 7 -->
+        <div style="flex: 0 0 30%; margin-bottom: 20px; text-align: center;">
+            <h3>Result 7: Cathedral</h3>
+            <img src="./images/rgb_cathedral_final1.jpg" alt="Result 7" style="width: 100%; border-radius: 8px;">
+            <p>R:(3, 12), G:(2, 5)</p>
+            <p>Alignment function: JPG Align</p>
+        </div>
+
+        <!-- Image 8 -->
+        <div style="flex: 0 0 30%; margin-bottom: 20px; text-align: center;">
+            <h3>Result 8: Icon</h3>
+            <img src="./images/rgb_icon_final1.jpg" alt="Result 8" style="width: 100%; border-radius: 8px;">
+            <p>R:(23, 87), G:(18, 41)</p>
+            <p>Alignment function: Standard Pyramid</p>
+        </div>
+
+        <!-- Image 9 -->
+        <div style="flex: 0 0 30%; margin-bottom: 20px; text-align: center;">
+            <h3>Result 9: Onion Church</h3>
+            <img src="./images/rgb_onion_church_final1.jpg" alt="Result 9" style="width: 100%; border-radius: 8px;">
+            <p>R:(37, 105), G:(26, 50)</p>
+            <p>Alignment function: Standard Pyramid</p>
+        </div>
+
+        <!-- Row 4 -->
+
+        <!-- Image 10 -->
+        <div style="flex: 0 0 30%; margin-bottom: 20px; text-align: center;">
+            <h3>Result 10: Lady </h3>
+            <img src="./images/rgb_lady_final1.jpg" alt="Result 10" style="width: 100%; border-radius: 8px;">
+            <p>R:(14, 114), G:(8, 51)</p>
+            <p>Alignment function: Standard Pyramid</p>
+        </div>
+
+        <!-- Image 11 -->
+        <div style="flex: 0 0 30%; margin-bottom: 20px; text-align: center;">
+            <h3>Result 11: Self Portrait</h3>
+            <img src="./images/rgb_selft_portrait_final1.jpg" alt="Result 11" style="width: 100%; border-radius: 8px;">
+            <p>R:(37, 175), G:(29, 77)</p>
+            <p>Alignment function: Standard Pyramid</p>
+        </div>
+
+        <!-- Image 12 -->
+        <div style="flex: 0 0 30%; margin-bottom: 20px; text-align: center;">
+            <h3>Result 12: Three Generations</h3>
+            <img src="./images/rgb_three_generations_final1.jpg" alt="Result 12" style="width: 100%; border-radius: 8px;">
+            <p>R:(12, 108), G:(15, 51)</p>
+            <p>Alignment function: Standard Pyramid</p>
+        </div>
+    </div>
+</section>
+
+    <div id="countdown"></div>
+
+<script>
+// Set the date we're counting down to
+const countDownDate = new Date("Nov 1, 2024 16:40:00").getTime();
+
+// Update the count down every 1 second
+const countdownFunction = setInterval(function() {
+
+  // Get today's date and time
+  const now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  const distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="countdown"
+  document.getElementById("countdown").innerHTML = "RB i SF: " + days + "d " + hours + "h " 
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(countdownFunction);
+    document.getElementById("countdown").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
+     <!-- Final Remarks Section -->
+    <section>
+        <h2>Final Remarks</h2>
+        <p>
+            I have never made a website before so I took some help from ChatGPT with the HTML code for presenting my images next to each other, oterwise it was pretty straight forward, kind of similar to latex. Otherwise everythig is done by myself and using the course literature. 
+            A very intersting first project and I had a lot of fun doing it but also a little bit frustrating. Hope you enjoyed the reading and the images.
+
+
+        </p>
+           
+
+    </section>
+
+        
+    <!-- Footer Section -->
+    <footer>
+        <p>© 2024 Kalle's Portfolio | Project 1: Aligning RGB Images</p>
+        <p>Contact: <a href="mailto:kj00@berkeley.edu">kj00@berkeley.edu</a></p>
+    </footer>
+</body>
+</html>
