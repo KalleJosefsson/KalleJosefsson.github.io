@@ -376,7 +376,17 @@
             We then create the Laplacian pyramid using the Gaussian pyramid. This is done by just making the level of a Laplacian pyramid is equal to the the difference between the corresponding level and the next level in the Gaussian pyramid.
             For the last level in the Laplacian pyramid we just set that to be the last level of the Gaussian pyramid. Now we have created a Laplcian pyramid with each level corresponds to a certain amount of frequenceis in the image.
             I have 5 levels in my pyramids as displayed below. The first level is the highest frequencies since it is the original image minus the first blurr. Then the next three levels are like bandpass filters with decreasing frequencies. Then the last
-            image in the Laplacian pyramid is just the remaining low frequencies of the original image. As can be seen below the results illustrate what I just explained.
+            image in the Laplacian pyramid is just the remaining low frequencies of the original image. In order to see if my implementation was correct I just collapsed the pyramid to see if it resulted in the
+            orginal image. As can be seen below the results illustrate what I just explained.
+        </p>
+
+        <p>
+            These pyramids can be used to blend images, when blending the apple and the orange I wanted to blend them vertically. In order to do this I masked the images using a vertical mask.
+            Then creating a gaussian pyramid of the vertical mask which I multiply with one of the gaussian pyramids for the images. For the second image I multiply the gaussian pyramid with (1- the gaussian 
+            pyramid of the vertical mask). In order to get a smooth transition I made the mask to not just be a binary threshold at the middle of the image but a smooth transition from a short
+            range at the left of the image center to an equally short range to the right of the image. Letting the value decrease linearly from one to zero. The laplacian pyramids
+            of the halforange, halfapple and apporange are presented below.
+            
         </p>
 
 
@@ -404,6 +414,24 @@
         <div style="padding: 10px;">
             <img src="./images2/lap_orange.jpeg" alt="Image 4" style="width: 100%; border-radius: 8px;">
             <p>Laplacian Pyramid Orange</p>
+        </div>
+
+              <!-- Image 5 -->
+        <div style="padding: 10px;">
+            <img src="./images2/apple_half.jpeg" alt="Image 2" style="width: 100%; border-radius: 8px;">
+            <p>Laplacian Pyramid half apple</p>
+        </div>
+
+        <!-- Image 3 -->
+        <div style="padding: 10px;">
+            <img src="./images2/orange_half.jpeg" alt="Image 3" style="width: 100%; border-radius: 8px;">
+            <p>Laplacian Pyramid half organge</p>
+        </div>
+
+        <!-- Image 4 -->
+        <div style="padding: 10px;">
+            <img src="./images2/lap_apporange.jpeg" alt="Image 4" style="width: 100%; border-radius: 8px;">
+            <p>Laplacian Pyramid Apporange</p>
         </div>
 
        
