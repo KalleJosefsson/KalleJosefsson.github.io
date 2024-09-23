@@ -70,27 +70,41 @@
 
     </section>
 
-   <!-- TIF Image Before Processing Section -->
+<!-- TIF Image Before Processing Section -->
 <section>
-    <h2>TIF Image Before Processing and Alignment</h2>
-    <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start;">
-        <!-- First image: Before processing -->
-        <div style="flex: 1; padding: 10px;">
-            <img src="./images/rgb_train_raw.jpg" alt="Image before processing and alignment" style="max-width: 100%; border-radius: 8px;">
-            <p>
-                The image above shows the original image before processing and alignment without shifts.
-            </p>
+    <h2>TIF Images Before and After Processing</h2>
+    
+    <!-- First row of images -->
+    <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <!-- First image: Camerman before processing -->
+        <div style="flex: 1; padding: 10px; min-width: 48%;">
+            <img src="./images2/cameraman.png" alt="Image before processing " style="max-width: 100%; border-radius: 8px;">
+            <p>The image above shows the original image before processing.</p>
         </div>
 
-        <!-- Second image: New image next to the first one -->
-        <div style="flex: 1; padding: 10px;">
-            <img src="./images/train_jpg.jpg" alt="New image for comparison" style="max-width: 100%; border-radius: 8px;">
-            <p>
-                The image above is the original picture that we start with, of the three channels for red green and blue before alignment.
-            </p>
+        <!-- Second image: Original image for comparison -->
+        <div style="flex: 1; padding: 10px; min-width: 48%;">
+            <img src="./images2/edge_pic_camerman.jpeg" alt="Gradient Magnitude" style="max-width: 100%; border-radius: 8px;">
+            <p>The image above is the edgeimage gotten from the combination of the partial derivatives in x and y.</p>
+        </div>
+    </div>
+    
+    <!-- Second row of images -->
+    <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <!-- Third image: Aligned image -->
+        <div style="flex: 1; padding: 10px; min-width: 48%;">
+            <img src="./images2/partal_x_cameraman.jpeg" alt="Image after alignment" style="max-width: 100%; border-radius: 8px;">
+            <p>The image above shows the partial derivative of the original image in x direction.</p>
+        </div>
+
+        <!-- Fourth image: Final image after enhancement -->
+        <div style="flex: 1; padding: 10px; min-width: 48%;">
+            <img src="./images2/partal_y_cameraman.jpeg" alt="Final processed image" style="max-width: 100%; border-radius: 8px;">
+            <p>The image above shows the  partial derivative of the orginal iamage in y direction.</p>
         </div>
     </div>
 </section>
+
 
    <!--TIF Image After Processing Section -->
 <section>
