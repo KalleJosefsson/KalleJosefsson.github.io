@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project 1: Aligning RGB images and then processing the results</title>
+    <title>Project 1: Fun with filters</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -49,21 +49,17 @@
 </head>
 <body>
     <header>
-        <h1>Aligning RGB images and then processing the results</h1>
+        <h1> Filters and Frequencies</h1>
     </header>
 
     <!-- Introduction Section -->
     <section>
-        <h2>Overview of project</h2>
+        <h2>1.1 Finite difference operators</h2>
         <p>
-            In this project, I developed three algorithms that tackle the task of image alignment similarly. 
-            For handling smaller JPEG images with fewer pixels and smaller displacements, I used normal Mean Squared Error (MSE) 
-            for each pixel in the middle part of the image (to ignore the edges), and then I shifted the image one pixel at a time 
-            to find the best alignment. For larger images, this was not effective since the displacement could be way more than 15 pixels and therefor the search takes much longer, this and
-            that there is to many pixels to effectevily compare them, so I compressed the image using convolutions 
-            with 3x3 kernels and a stride of three and performed average pooling. The choice of stride and kernel size to match was in order to compress the image effectively using every pixel only once.
-            This was done twice, compressing the image to be 1/81 the size of the original image. 
-            After that, I found the best alignment using the same algorithm as for the JPEGs.
+            In the first part of the project the task was to find the partial derivative in x and y for an image using convolutions. In order to extract the image showing the partial derivative of the image
+            in x, we convolute the one 2D image with it's corresponding finite differenece kernel Dx. Dx in this calculations is constructed as: np.array([[1, -1]]). In order to calculate
+            the partial derivative of y, we do the same thing but letting the kernel which the image is convolved be: dy_kernel = np.array([[1], [-1]]). In order to not change the imagesize
+            during convolution we let the mode be 'same' when using the scipy built in function convolve2D.
         </p>
         <p>
             Moving up a level in the pyramid, I shifted the image based on the findings at the lower level and repeated, 
