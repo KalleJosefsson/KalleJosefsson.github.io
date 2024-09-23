@@ -106,38 +106,21 @@
 </section>
 
 
-   <!--TIF Image After Processing Section -->
-<section>
-    <h2>TIF Image After Alignment and Processing</h2>
-    <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start;">
-        <!-- First image: After alignment -->
-        <div style="flex: 1; padding: 10px;">
-            <img src="./images/rgb_train.jpg" alt="Image after alignment and processing" style="max-width: 100%; border-radius: 8px;">
-            <p>
-                The image above shows the processed image after applying the pyramid alignment function.
-            </p>
-        </div>
 
-        <!-- Second image: After alignment and processing -->
-        <div style="flex: 1; padding: 10px;">
-            <img src="./images/rgb_train_final1.jpg" alt="Image after alignment and processing" style="max-width: 100%; border-radius: 8px;">
-            <p>
-                The image above shows the processed image after applying the alignment and image enhancement algorithms. Notice how most of the edges are removed and the contrast is increased.
-            </p>
-        </div>
-    </div>
-</section>
-
-    <!-- Sobel Section -->
+    <!-- 1.2 Section -->
     <section>
-        <h2> Sobel filter when pixel comparison does not work</h2>
+        <h2> 1.2 Using gaussian blurring to improve edgeimages</h2>
         <p>
-            When just plain pixel comparison does not work as in the case of Emir due to difference in intensity of the images, we have to try another approach to align the images.
-            Instead we compare edges in the pictures, in order to do this we have to extract the edges in the images. This is done by letting the image pass through a sobel filter after passing through a gaussian filter which produces an image highlighting the edges in the picture
-            which works the same for all images invariant to the intensity of the pictures. When the edge focused images are extracted I perform the pyramid alignment algorithm and it works fine aligning the pictures well, however not as
-            perfect as the pyramid alignment on the processed images. Below image illustrating the results from letting an image pass through the sobel filter. 
+            For the first part of task 1.2 we do the same operations as we did in task 1.1. But before taking the partial derivative we first blurr the image using a gaussian kernel. For this image I choose to 
+            use a kernelsize of 11 and a sigma of 1.5 which I convolved with the original image in order to blurr the picture. 
            
     </p>
+
+        <p>
+            For the second part of 1.2 we would take the partial derivatives of the gaussian filter which we would the convolute with the image in order partial derivatives of the blurred image. Then we would compute the gradient magnitude once again 
+            using the same method as before. However when does this for both tasks in section 1.2 I would have to lower the threshold quite significantly but the results were much clearer as will be shown in the below results. The threshold that I thought
+            worked best was having it at 0.07 instead of 0.3 as in task 1.1.
+        </p>
 
 
        <section>
