@@ -365,6 +365,21 @@
 
     <section>
 
+        <p>
+            In this part of the project we were suppsoed to create a Laplacian and a Gaussian stack/pyramid. The Gaussian pyrmaid is quite simple to create, it is just constructing a pyramid 
+            with the desired amount of levels were the first level is the original image, the second level is the gaussian blurring of the first image. Then the third level is the gaussian blurring of the second level. So what we do is just blurring the image more and more
+            with the last level being the most blurred, which is also the image with the lowest frequencies. 
+        
+        </p>
+
+        <p>
+            We then create the Laplacian pyramid using the Gaussian pyramid. This is done by just making the level of a Laplacian pyramid is equal to the the difference between the corresponding level and the next level in the Gaussian pyramid.
+            For the last level in the Laplacian pyramid we just set that to be the last level of the Gaussian pyramid. Now we have created a Laplcian pyramid with each level corresponds to a certain amount of frequenceis in the image.
+            I have 5 levels in my pyramids as displayed below. The first level is the highest frequencies since it is the original image minus the first blurr. Then the next three levels are like bandpass filters with decreasing frequencies. Then the last
+            image in the Laplacian pyramid is just the remaining low frequencies of the original image. As can be seen below the results illustrate what I just explained.
+        </p>
+
+
          <div style="display: block;">
         
         <!-- Image 1 -->
