@@ -311,15 +311,62 @@
 
     </div>
 
+
+
         <p>
             I tried different combinations for color settings when doing the hybrid images and came to the conclusion that gray and gray is not that great but works fine, 
             gray and color works as combination if you put the high frequency picture as colorized and the low frequency picture in grayscale otherwise the the contours in the high frequency image will
             not be as clear. However I liked having both images in color since it made the hybrid images more vivid and fun to look at.
         </p>
 
-    </section>
+        <p>
+            For my favorite merger, aka Kallrut I also did fourier analysis. For this I fouriertransformed the images and plotted the results in frequency domain. Below you will see the 
+            fourier transfrom of me, rut, lowpass rut, highpass me and also the hybrid image after merging us.
+        </p>
 
-    
+          </div>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <!-- Image 1 -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images2/rut_fft.jpg" alt="Image 1" style="width: 100%; border-radius: 8px;">
+            <p>Rut: FFT.</p>
+        </div>
+
+        <!-- Image 2 -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images2/kalle_fft.jpg" alt="Image 2" style="width: 100%; border-radius: 8px;">
+            <p>Kalle: FFT.</p>
+        </div>
+
+        
+
+        <!-- Image 3 -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images2/lowpass_fft.jpg" alt="Image 3" style="width: 100%; border-radius: 8px;">
+            <p>Rut Filtered (LF): FFT </p>
+        </div>
+
+        <!-- Image 4 -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images2/highpass_fft.jpg" alt="Image 3" style="width: 100%; border-radius: 8px;">
+            <p>Kalle Filtered (HF): FFT </p>
+        </div>
+
+        <!-- Image 5 -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images2/rutkalle_fft.jpg" alt="Image 3" style="width: 100%; border-radius: 8px;">
+            <p>Kallrut Hybrid Image: FFT </p>
+        </div>
+
+    </div>
+
+    </section>
+             <h2>2.3 Laplacian and Gaussian Pyramids </h2>
+
+    <section>
+
+        
+    </section>
     <div id="countdown"></div>
 
 <script>
