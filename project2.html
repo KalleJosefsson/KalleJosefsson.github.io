@@ -61,22 +61,12 @@
             the partial derivative of y, we do the same thing but letting the kernel which the image is convolved be: dy_kernel = np.array([[1], [-1]]). In order to not change the imagesize
             during convolution we let the mode be 'same' when using the scipy built in function convolve2D.
         </p>
+
         <p>
-            Moving up a level in the pyramid, I shifted the image based on the findings at the lower level and repeated, 
-            now the image was 1/9 the size of the original image, which resulted in a better match. The final shift was 
-            then done on the original image to get the best possible alignment. For some images, pixel-based alignment was 
-            not sufficient, so I developed an algorithm based on edges and features instead, using a Sobel filter followed 
-            by the same pyramid alignment procedure. This worked well, and the results are presented below.
+            In order to get an image showing the edges in a picture we just combine the two calculated partial derivatives.  The calculations is done by pixelwise taking 
+            square root of the sum of the images squared, i.e np.sqrt(partial_x**2 + partial_y**2). After this operation, we can set a threshold for how sharp edges must be in order to be in the edgeimage.
+            I found the when binarizing, letting the threshold be 0.3 was most suitable. The results are presented below.
         </p>
-
-        <p>
-    After the image alignment, I also made some automatic refinements to enhance the final image First, I cropped the image to remove the edges of the frame, which often contain unwanted color artifacts or white spaces. This was achieved by removing rows and columns with low variance compared to the rest of the image, ensuring that only the significant portion of the image is retained. However finding a good threshold 
-            of minimum variance to remove was difficult since it varied from picture to picture and so I settled on removing rows and columns with variance lower than 25% of the variance of the entire picture. This worked best in the general case of edge removal.
-        
-    
-After cropping, I boosted the contrast using CLAHE (Contrast Limited Adaptive Histogram Equalization), like recommended in the course literature. Instead of blurring like the Gaussian filter which I tried at first, CLAHE enhances the image by adjusting the contrast in small sections, making details stand out more in low-contrast areas.
-
-It also limits the contrast boost to avoid over-enhancing, using a clipLimit parameter to control how much contrast is added in each part. This keeps the overall contrast balanced while highlighting finer details. Finally, I made sure the pixel values stay within a valid range to preserve the color and look of the image.
 
     </section>
 
