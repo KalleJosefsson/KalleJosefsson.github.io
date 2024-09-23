@@ -93,13 +93,13 @@
     <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
         <!-- Third image: Aligned image -->
         <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images2/partal_x_cameraman.jpeg" alt="Image after alignment" style="max-width: 100%; border-radius: 8px;">
+            <img src="./images2/partali_x_cameraman.jpeg" alt="Image after alignment" style="max-width: 100%; border-radius: 8px;">
             <p>The image above shows the partial derivative of the original image in x direction.</p>
         </div>
 
         <!-- Fourth image: Final image after enhancement -->
         <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images2/partal_y_cameraman.jpeg" alt="Final processed image" style="max-width: 100%; border-radius: 8px;">
+            <img src="./images2/partial_y_cameraman.jpeg" alt="Final processed image" style="max-width: 100%; border-radius: 8px;">
             <p>The image above shows the  partial derivative of the orginal iamage in y direction.</p>
         </div>
     </div>
@@ -119,17 +119,62 @@
         <p>
             For the second part of 1.2 we would take the partial derivatives of the gaussian filter which we would the convolute with the image in order partial derivatives of the blurred image. Then we would compute the gradient magnitude once again 
             using the same method as before. However when does this for both tasks in section 1.2 I would have to lower the threshold quite significantly but the results were much clearer as will be shown in the below results. The threshold that I thought
-            worked best was having it at 0.07 instead of 0.3 as in task 1.1.
+            worked best was having it at 0.07 instead of 0.3 as in task 1.1. As we can also see in the results there is no differenece between the partial derivatives of the images and the gradient magnitude. This is due to the fact that we can convolve the iamges in
+            any order that we want and will still get the same final result, which is nice. Also the noice from the edge image has been removed due to the blurring.
         </p>
 
 
        <section>
-    <h2>TIF Image after passing through the sobel filter</h2>
-    <div class="screenshot" style="display: flex; justify-content: space-between; align-items: center;">
-        <!-- Insert first image after processing -->
-        <div style="flex: 1; padding: 10px;">
-            <img src="./images/sobel_emir.jpg" alt="Image after alignment and processing" style="max-width: 100%;">
+  <!-- Section for Displaying Images -->
+<section>
+    <h2>Gallery of Images for 1.2</h2>
+
+    <!-- Flex Container for Images -->
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start;">
+
+        <!-- Row 1 -->
+        <div style="flex: 1 1 48%; padding: 10px;">
+            <img src="./images/image1.jpg" alt="Image 1" style="width: 100%; border-radius: 8px;">
+            <p>Image description 1.</p>
         </div>
+        <div style="flex: 1 1 48%; padding: 10px;">
+            <img src="./images/image2.jpg" alt="Image 2" style="width: 100%; border-radius: 8px;">
+            <p>Image description 2.</p>
+        </div>
+
+        <!-- Row 2 -->
+        <div style="flex: 1 1 48%; padding: 10px;">
+            <img src="./images/image3.jpg" alt="Image 3" style="width: 100%; border-radius: 8px;">
+            <p>Image description 3.</p>
+        </div>
+        <div style="flex: 1 1 48%; padding: 10px;">
+            <img src="./images/image4.jpg" alt="Image 4" style="width: 100%; border-radius: 8px;">
+            <p>Image description 4.</p>
+        </div>
+
+        <!-- Row 3 -->
+        <div style="flex: 1 1 48%; padding: 10px;">
+            <img src="./images/image5.jpg" alt="Image 5" style="width: 100%; border-radius: 8px;">
+            <p>Image description 5.</p>
+        </div>
+        <div style="flex: 1 1 48%; padding: 10px;">
+            <img src="./images/image6.jpg" alt="Image 6" style="width: 100%; border-radius: 8px;">
+            <p>Image description 6.</p>
+        </div>
+
+        <!-- Row 4 -->
+        <div style="flex: 1 1 48%; padding: 10px;">
+            <img src="./images/image7.jpg" alt="Image 7" style="width: 100%; border-radius: 8px;">
+            <p>Image description 7.</p>
+        </div>
+        <div style="flex: 1 1 48%; padding: 10px;">
+            <img src="./images/image8.jpg" alt="Image 8" style="width: 100%; border-radius: 8px;">
+            <p>Image description 8.</p>
+        </div>
+
+    </div>
+</section>
+
         
         <!-- Insert second image (green_emir) next to it -->
         <div style="flex: 1; padding: 10px;">
