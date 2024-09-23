@@ -265,11 +265,51 @@
             and increased the weight of the high frequency image by some to really make it pop when looking at the image up close, I think gave more exciting results.
         </p>
 
-        <p>
-            In order to get an image showing the edges in a picture we just combine the two calculated partial derivatives.  The calculations is done by pixelwise taking 
-            square root of the sum of the images squared, i.e np.sqrt(partial_x**2 + partial_y**2). After this operation, we can set a threshold for how sharp edges must be in order to be in the edgeimage.
-            I found the when binarizing, letting the threshold be 0.3 was most suitable. The results are presented below.
-        </p>
+        <!-- Image 1 -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images2/DerekPicture.jpg" alt="Image 1" style="width: 100%; border-radius: 8px;">
+            <p>Derek: Low Frecuency Image.</p>
+        </div>
+
+        <!-- Image 2 -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images2/nutmeg.jpg" alt="Image 2" style="width: 100%; border-radius: 8px;">
+            <p>Nutmeg: High Frecuency Image.</p>
+        </div>
+
+        <!-- Image 3 -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images2/catrek.jpg" alt="Image 3" style="width: 100%; border-radius: 8px;">
+            <p>Catrek: Hybrid Image.</p>
+        </div>
+
+    </div>
+
+        <!-- Image 1 -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images2/rut1.jpg" alt="Image 1" style="width: 100%; border-radius: 8px;">
+            <p>Rut: Low Frecuency Image.</p>
+        </div>
+
+        <!-- Image 2 -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images2/nutmeg.jpg" alt="Image 2" style="width: 100%; border-radius: 8px;">
+            <p>Kalle: High Frecuency Image.</p>
+        </div>
+
+        <!-- Image 3 -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images2/rutkalle_final.jpg" alt="Image 3" style="width: 100%; border-radius: 8px;">
+            <p>Kallrut: Hybrid Image both colorized.</p>
+        </div>
+
+        <!-- Image 3 -->
+        <div style="flex: 1; padding: 10px;">
+            <img src="./images2/rutkalle_grayrgb.jpg" alt="Image 3" style="width: 100%; border-radius: 8px;">
+            <p>Kallrut: Hybrid Image LF grayscale and HF RGB</p>
+        </div>
+
+    </div>
 
     </section>
 
