@@ -1,5 +1,3 @@
 # -KalleJosefsson-.github.io
 CS 180A Computer Vision
-
-When running the code just choose what image to work on and based on that, choose which alignment function to use based on if it is a tif, jpg or emir.
-Choose alignment function by commenting/uncommenting the correct alignment function and press run. When runnig the edge align you have to increase the threshold to be above the size of emir since there is less information due to edges we need a bigger portion of the picture than 1/16 so if you increase the first if statement to 5000 pixels it works.
+Course in Computer Vision and Image Analysis at UC Berkeley. I am taking the course during the fall of 2024 and it consists of 5 computr projects and then one large final project. I will post my results and websites continously while taking the course. For anti-copying reasons the code will be posted after the course is done in December. My website where I post the results can be found by following the link: kallejosefsson.github.io
