@@ -139,6 +139,8 @@
     </header>
 
     <section>
+
+        <p>
         Now that we know how to create the halfway face we should also be able to create other fractions of blending. Well luckely it is the same exact process
         just instead of taking the average we use other fractions than 1/2. The task was to create a video which is a sequence of 46 images starting with the
         original image of one face and ending with the original image of the other face. I did this by doing to the same process as before but 46 times with 44 fractions
@@ -146,7 +148,7 @@
         on the fraction, q, as (q*kalle_triangles + (1-q)*leo_triangles). I warp both sets of triangles into this shape and then cross dissolve using the same fraction to get
         the morphed image for fraction q as (q*morphed_kalle + (1-q)*morphed_leo). I then stacked the images together and displayed them in a sequence with each frame being
         shown for 30 ms. The cool result is presented below.
-
+        </p>
          <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
 
         <div style="flex: 1; padding: 10px; min-width: 48%;">
@@ -163,13 +165,33 @@
     </header>
 
     <section>
+
+        <p>
         Now that we have started to get warm we can do other cool stuff. The first thing being calculating the average face of danish people. I used
         the danish dataset that was recommended which was already anotated with corresponding points, however I added the 4 corner points because I liked the results
         more using them. Then I took the average of the corresponding points for both males and femlas creating the average faceshape for both males and females. After that
         I morphed each male and female into their correspending gender average shape. When this is done we can calculate the average face by cross dissolving the images
         this was done by just taking the mean of each pixel for the warped males and females. The results of the average faces are presented below as well as some exaples
         of males and females warped into the average shape.
-        
+    </p>
+          </div>
+        <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+
+        <div style="flex: 1; padding: 10px; min-width: 48%;">
+            <img src="./images3/average_female_dane.jpg" alt="Image before processing " style="max-width: 100%; border-radius: 8px;">
+            <p>The average face of a Danish Female</p>
+        </div>
+
+        <!-- Second image: Original image for comparison -->
+        <div style="flex: 1; padding: 10px; min-width: 48%;">
+            <img src="./images3/average_male_dane.jpg" alt="Gradient Magnitude" style="max-width: 100%; border-radius: 8px;">
+            <p>The average face of a Danish male</p>
+        </div>
+    </div>
+        <p>
+            Note that the average male is more symmetric but also has much smoother skin, this is due to the fact that there were much more males in the dataset
+            than females, hence the deviations from the average face get much more smoothed out for the males.
+        </p>
     </section>
     <!-- Footer Section -->
     <footer>
