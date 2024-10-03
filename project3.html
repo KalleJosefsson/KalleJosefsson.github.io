@@ -66,7 +66,7 @@
     <section>
         <p>
             For this task I used the program recommended for annotating correspodning points for two images, one of me and one of famous actor Leonardo DiCaprio. I chose 66 corresponding points on each face
-            and then added 4 more corner points at each of the image in order to get better results. Below I present the triangulation of the corresponding points. Note that I tried to capture as many facial features
+            and then added 4 more corner points leading to a total of 70 points in each image. Below I present the triangulation of the corresponding points. Note that I tried to capture as many facial features
             with as few points as possible in order to get as good of a result possible with less computation time.
         </p>
 
@@ -74,13 +74,47 @@
 
         <div style="flex: 1; padding: 10px; min-width: 48%;">
             <img src="./images3/kalle_triangles.png" alt="Image before processing " style="max-width: 100%; border-radius: 8px;">
-            <p>Triangulation of coressponding points on my face</p>
+            <p>Triangulation of corressponding points on my face</p>
         </div>
 
         <!-- Second image: Original image for comparison -->
         <div style="flex: 1; padding: 10px; min-width: 48%;">
             <img src="./images3/leo_triangles.png" alt="Gradient Magnitude" style="max-width: 100%; border-radius: 8px;">
-            <p>Triangulation of coressponding points on Leo's face</p>
+            <p>Triangulation of corressponding points on Leo's face</p>
+        </div>
+    </div>
+    </section>
+
+    <header>
+        <h3> Part 2: Computing the halfway face </h3>
+    </header>
+
+    <section>
+        <p>
+            Now that I have the corresponding triangulations for each face the fun begins. The first thing I do is calculate the halfway face which is done by doing the follow. First we calculate the halfway keypoints
+            by taking the average of my key points and Leo's keypoints. Then we again triangulate using our new halfway keypoints so that we get a new set of triangles. Then we warp my triangles into the corresponding 
+            trinagles of the midway face as well as Leo's triangles. This is done by affine transformation which maps one trinagle into another, we calculate the transformation matrix , T, for transforming a source triangle, X, into a target triangle
+            , y, by solving the linear system using numpy's function linalgsolve(x,y). This is done for each triangle in both the image of me and Leo, now we have warped our faces into the average between our faces. Now we want to
+            change the color so that we get a good blend between not only the shapes, this is done by cross dissolving, take the average of the pixel values and adding them together. After normalization I got the following
+            results.
+        </p>
+
+         <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+
+        <div style="flex: 1; padding: 10px; min-width: 48%;">
+            <img src="./images3/kalle_triangles.png" alt="Image before processing " style="max-width: 100%; border-radius: 8px;">
+            <p>Triangulation of corressponding points on my face</p>
+        </div>
+
+        <!-- Second image: Original image for comparison -->
+        <div style="flex: 1; padding: 10px; min-width: 48%;">
+            <img src="./images3/leo_triangles.png" alt="Gradient Magnitude" style="max-width: 100%; border-radius: 8px;">
+            <p>Triangulation of corressponding points on Leo's face</p>
+        </div>
+
+        <div style="flex: 1; padding: 10px; min-width: 48%;">
+            <img src="./images3/leo_triangles.png" alt="Gradient Magnitude" style="max-width: 100%; border-radius: 8px;">
+            <p>Triangulation of corressponding points on Leo's face</p>
         </div>
     </div>
     </section>
