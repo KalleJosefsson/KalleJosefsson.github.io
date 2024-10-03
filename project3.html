@@ -128,12 +128,26 @@
         </div>
 
         <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/midway_blend" alt="Gradient Magnitude" style="max-width: 100%; border-radius: 8px;">
+            <img src="./images3/midway_blend.jpg" alt="Gradient Magnitude" style="max-width: 100%; border-radius: 8px;">
             <p>After cross dissolving, i.e averaging the two faces</p>
         </div>
     </div>
     </section>
+
+    <header>
+        <h4> Part 3: The morph sequence </h4>
+    </header>
+
+    <section>
+        Now that we know how to create the halfway face we should also be able to create other fractions of blending. Well luckely it is the same exact process
+        just instead of taking the average we use other fractions than 1/2. The task was to create a video which is a sequence of 46 images starting with the
+        original image of one face and ending with the original image of the other face. I did this by doing to the same process as before but 46 times with 44 fractions
+        evenely spanned between zero and one in order to get a clean smooth transition. What we do is we compute the source trinagles which is now calculated based
+        on the fraction, q, as (q*kalle_triangles + (1-q)*leo_triangles). I warp both sets of triangles into this shape and then cross dissolve using the same fraction to get
+        the morphed image for fraction q as (q*morphed_kalle + (1-q)*morphed_leo). I then stacked the images together and displayed them in a sequence with each frame being
+        shown for 30 ms. The cool result is presented below.
         
+    </section>
     <!-- Footer Section -->
     <footer>
         <p>© 2024 Kalle's Portfolio | Project 1: Aligning RGB Images</p>
