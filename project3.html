@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project 1: Morphing faces for fun</title>
+    <title>Project 1: Morphing Faces for Fun</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,8 +19,9 @@
             font-size: 2.5em;
             color: #4CAF50;
         }
-        h2 {
+        h2, h3, h4, h5, h6 {
             color: #4CAF50;
+            margin-top: 40px;
         }
         p {
             font-size: 1.2em;
@@ -44,245 +45,221 @@
         .screenshot {
             display: flex;
             justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .image-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .image-pair {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        .image-pair img {
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+        .caption {
+            font-style: italic;
         }
     </style>
 </head>
 <body>
+    <!-- Main Header -->
     <header>
-        <h1> Overview of project </h1>
+        <h1>Overview of Project</h1>
     </header>
-  <section>
-    <p>
-      For project 3 we are supposed to do morphing between faces, change facial features and expressions. This is actually done quite easily by first just manually annotating corresponding points on faces.
-      Then  triangulation of these points which is done using the Delaunay algorithm so that we get corresponing triangulation betweeen two different faces. After that we can do all sorts of cool stuff by just
-      warping and cross disolving. By using affine transformations we warp faceshapes into other peoples shapes and by crossdissolving which is essentially linear interpolation of the colors we can create
-      realistic blends of faces using more than jsut the shapes. Below I will go through the process step by step following the project tasks
-    </p>
-  </section>
 
-    <header>
-        <h2> Part 1: Coressponding points </h2>
-    </header>
+    <!-- Section: Project Introduction -->
     <section>
         <p>
-            For this task I used the program recommended for annotating correspodning points for two images, one of me and one of famous actor Leonardo DiCaprio. I chose 66 corresponding points on each face
-            and then added 4 more corner points leading to a total of 70 points in each image. Below I present the triangulation of the corresponding points. Note that I tried to capture as many facial features
-            with as few points as possible in order to get as good of a result possible with less computation time.
+            For project 3 we are supposed to do morphing between faces, change facial features and expressions. This is actually done quite easily by first just manually annotating corresponding points on faces.
+            Then triangulation of these points which is done using the Delaunay algorithm so that we get corresponding triangulation between two different faces. After that, we can do all sorts of cool stuff by just
+            warping and cross dissolving. By using affine transformations we warp face shapes into other people's shapes and by cross dissolving, which is essentially linear interpolation of the colors, we can create
+            realistic blends of faces using more than just the shapes. Below I will go through the process step by step following the project tasks.
         </p>
-
-         <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
-
-        <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/kalle_triangles.png" alt="Image before processing " style="max-width: 100%; border-radius: 8px;">
-            <p>Triangulation of corressponding points on my face</p>
-        </div>
-
-        <!-- Second image: Original image for comparison -->
-        <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/leo_triangles.png" alt="Gradient Magnitude" style="max-width: 100%; border-radius: 8px;">
-            <p>Triangulation of corressponding points on Leo's face</p>
-        </div>
-    </div>
     </section>
 
-    <header>
-        <h3> Part 2: Computing the halfway face </h3>
-    </header>
-
+    <!-- Section: Part 1 -->
     <section>
+        <h2>Part 1: Corresponding Points</h2>
         <p>
-            Now that I have the corresponding triangulations for each face the fun begins. The first thing I do is calculate the halfway face which is done by doing the follow. First we calculate the halfway keypoints
+            For this task, I used the program recommended for annotating corresponding points for two images, one of me and one of famous actor Leonardo DiCaprio. I chose 66 corresponding points on each face
+            and then added 4 more corner points leading to a total of 70 points in each image. Below I present the triangulation of the corresponding points. Note that I tried to capture as many facial features
+            with as few points as possible in order to get as good of a result as possible with less computation time.
+        </p>
+        <div class="screenshot">
+            <div>
+                <img src="./images3/kalle_triangles.png" alt="Triangulation of corresponding points on my face">
+                <p class="caption">Triangulation of corresponding points on my face</p>
+            </div>
+            <div>
+                <img src="./images3/leo_triangles.png" alt="Triangulation of corresponding points on Leo's face">
+                <p class="caption">Triangulation of corresponding points on Leo's face</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Part 2 -->
+    <section>
+        <h3>Part 2: Computing the Halfway Face</h3>
+        <p>
+            Now that I have the corresponding triangulations for each face, the fun begins. The first thing I do is calculate the halfway face which is done by doing the following: First, we calculate the halfway keypoints
             by taking the average of my key points and Leo's keypoints. Then we again triangulate using our new halfway keypoints so that we get a new set of triangles. Then we warp my triangles into the corresponding 
-            trinagles of the midway face as well as Leo's triangles. This is done by affine transformation which maps one trinagle into another, we calculate the transformation matrix , T, for transforming a source triangle, X, into a target triangle
-            , y, by solving the linear system using numpy's function linalgsolve(x,y). This is done for each triangle in both the image of me and Leo, now we have warped our faces into the average between our faces. Now we want to
-            change the color so that we get a good blend between not only the shapes, this is done by cross dissolving, take the average of the pixel values and adding them together. After normalization I got the following
+            triangles of the midway face as well as Leo's triangles. This is done by affine transformation which maps one triangle into another. This is done for each triangle in both the image of me and Leo. Now we have warped our faces into the average between our faces. Now we want to
+            change the color so that we get a good blend between not only the shapes, this is done by cross dissolving, taking the average of the pixel values and adding them together. After normalization, I got the following
             results.
         </p>
-
-         <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
-
-        <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/kalle1.jpg" alt="Image before processing " style="max-width: 100%; border-radius: 8px;">
-            <p> Original image of me</p>
+        <div class="screenshot">
+            <div>
+                <img src="./images3/kalle1.jpg" alt="Original image of me">
+                <p class="caption">Original image of me</p>
+            </div>
+            <div>
+                <img src="./images3/leo.jpg" alt="Original image of Leo">
+                <p class="caption">Original image of Leo</p>
+            </div>
         </div>
-
-        <!-- Second image: Original image for comparison -->
-        <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/leo.jpg" alt="Gradient Magnitude" style="max-width: 100%; border-radius: 8px;">
-            <p>Original image of Leo</p>
+        <div class="screenshot">
+            <div>
+                <img src="./images3/midway_kalle.jpg" alt="My face warped into the halfway shape">
+                <p class="caption">My face warped into the halfway shape</p>
+            </div>
+            <div>
+                <img src="./images3/midway_leo.jpg" alt="Leo's face warped into the halfway shape">
+                <p class="caption">Leo's face warped into the halfway shape</p>
+            </div>
+            <div>
+                <img src="./images3/midway_blend.jpg" alt="After cross dissolving">
+                <p class="caption">After cross dissolving, averaging the two faces</p>
+            </div>
         </div>
-
-     
-    </div>
-        <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
-
-        <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/midway_kalle.jpg" alt="Image before processing " style="max-width: 100%; border-radius: 8px;">
-            <p>My face warped into the halfway shape</p>
-        </div>
-
-        <!-- Second image: Original image for comparison -->
-        <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/midway_leo.jpg" alt="Gradient Magnitude" style="max-width: 100%; border-radius: 8px;">
-            <p>Leo's face warped into the halfway shape</p>
-        </div>
-
-        <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/midway_blend.jpg" alt="Gradient Magnitude" style="max-width: 100%; border-radius: 8px;">
-            <p>After cross dissolving, i.e averaging the two faces</p>
-        </div>
-    </div>
     </section>
 
-    <header>
-        <h4> Part 3: The morph sequence </h4>
-    </header>
-
+    <!-- Section: Part 3 -->
     <section>
-
+        <h4>Part 3: The Morph Sequence</h4>
         <p>
-        Now that we know how to create the halfway face we should also be able to create other fractions of blending. Well luckely it is the same exact process
-        just instead of taking the average we use other fractions than 1/2. The task was to create a video which is a sequence of 46 images starting with the
-        original image of one face and ending with the original image of the other face. I did this by doing to the same process as before but 46 times with 44 fractions
-        evenely spanned between zero and one in order to get a clean smooth transition. What we do is we compute the source trinagles which is now calculated based
-        on the fraction, q, as (q*kalle_triangles + (1-q)*leo_triangles). I warp both sets of triangles into this shape and then cross dissolve using the same fraction to get
-        the morphed image for fraction q as (q*morphed_kalle + (1-q)*morphed_leo). I then stacked the images together and displayed them in a sequence with each frame being
-        shown for 30 ms. The cool result is presented below.
+            Now that we know how to create the halfway face, we should also be able to create other fractions of blending. Luckily, it is the same exact process
+            just instead of taking the average we use other fractions than 1/2. The task was to create a video which is a sequence of 46 images starting with the
+            original image of one face and ending with the original image of the other face. I did this by performing the same process as before but 46 times with 44 fractions
+            evenly spanned between zero and one in order to get a clean, smooth transition. The cool result is presented below.
         </p>
-         <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
-
-        <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/leo_to_kalle.gif" alt="Image before processing " style="max-width: 50%; border-radius: 8px;">
-            <p>Triangulation of corressponding points on my face</p>
+        <div class="screenshot">
+            <div>
+                <img src="./images3/leo_to_kalle.gif" alt="Morph Sequence GIF">
+                <p class="caption">Morphing sequence from Leo to me</p>
+            </div>
         </div>
-
-        
-    </div>
     </section>
 
-    <header>
-        <h5>Part 4: Calculating the mean face of the population and more</h5>
-    </header>
-
+    <!-- Section: Part 4 -->
     <section>
-
+        <h5>Part 4: Calculating the Mean Face of the Population and More</h5>
         <p>
-        Now that we have started to get warm we can do other cool stuff. The first thing being calculating the average face of danish people. I used
-        the danish dataset that was recommended which was already anotated with corresponding points, however I added the 4 corner points because I liked the results
-        more using them. Then I took the average of the corresponding points for both males and femlas creating the average faceshape for both males and females. After that
-        I morphed each male and female into their correspending gender average shape. When this is done we can calculate the average face by cross dissolving the images
-        this was done by just taking the mean of each pixel for the warped males and females. The results of the average faces are presented below as well as some exaples
-        of males and females warped into the average shape.
-    </p>
-          </div>
-        <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
-
-        <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/average_female_dane.jpg" alt="Image before processing " style="max-width: 100%; border-radius: 8px;">
-            <p>The average face of a Danish Female</p>
-        </div>
-
-        <!-- Second image: Original image for comparison -->
-        <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/average_male_dane.jpg" alt="Gradient Magnitude" style="max-width: 100%; border-radius: 8px;">
-            <p>The average face of a Danish male</p>
-        </div>
-    </div>
-        <p>
-            Note that the average male is more symmetric but also has much smoother skin, this is due to the fact that there were much more males in the dataset
-            than females, hence the deviations from the average face get much more smoothed out for the males and the variance is much higher for the females.
+            Now that we have started to get warm, we can do other cool stuff. The first thing is calculating the average face of Danish people. I used
+            the Danish dataset that was recommended which was already annotated with corresponding points; however, I added the 4 corner points because I liked the results
+            more using them. Then I took the average of the corresponding points for both males and females, creating the average face shape for both males and females. After that,
+            I morphed each male and female into their corresponding gender average shape. When this was done, I calculated the average face by cross dissolving the images.
+            The results of the average faces are presented below, as well as some examples of males and females warped into the average shape.
         </p>
-
-         <div class="image-grid">
-        <div class="image-pair">
-            <img src="/images3/07-1m.bmp" alt="Original Image 1">
-            <img src="/images3/dane_to_avg1.jpg" alt="Warped Image 1">
-            <div class="caption">Example 1 Original and Warped</div>
+        <div class="screenshot">
+            <div>
+                <img src="./images3/average_female_dane.jpg" alt="The average face of a Danish female">
+                <p class="caption">The average face of a Danish female</p>
+            </div>
+            <div>
+                <img src="./images3/average_male_dane.jpg" alt="The average face of a Danish male">
+                <p class="caption">The average face of a Danish male</p>
+            </div>
         </div>
-        <div class="image-pair">
-            <img src="/images3/09-1m.bmp" alt="Original Image 2">
-            <img src="/images3/dane_to_avg2.jpg" alt="Warped Image 2">
-            <div class="caption">Example 2 Original and Warped</div>
-        </div>
-        <div class="image-pair">
-            <img src="/images3/30-1f.bmp" alt="Original Image 3">
-            <img src="/images3/dane_to_avg4.jpg" alt="Warped Image 3">
-            <div class="caption">Example 3 Original and Warped</div>
-        </div>
-        <div class="image-pair">
-            <img src="/images3/22-1f.bmp" alt="Original Image 4">
-            <img src="/images3/dane_to_avg5.jpg" alt="Warped Image 4">
-            <div class="caption">Example 4 Original and Warped</div>
-        </div>
-    </div>
-
         <p>
-            I also warped my face into the geometry of the average male dane as well as warping the average male dane into my geometry, the results are presented below.
+            Note that the average male is more symmetric but also has much smoother skin. This is due to the fact that there were many more males in the dataset
+            than females, hence the deviations from the average face get much more smoothed out for the males, and the variance is much higher for the females.
         </p>
-
-        <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
-        <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/kalle_to_avg_dane.jpg" alt="Image before processing " style="max-width: 100%; border-radius: 8px;">
-            <p> Me warped into the average male dane shape</p>
+        <div class="image-grid">
+            <div class="image-pair">
+                <img src="/images3/07-1m.bmp" alt="Original Image 1">
+                <img src="/images3/dane_to_avg1.jpg" alt="Warped Image 1">
+                <p class="caption">Example 1 Original and Warped</p>
+            </div>
+            <div class="image-pair">
+                <img src="/images3/09-1m.bmp" alt="Original Image 2">
+                <img src="/images3/dane_to_avg2.jpg" alt="Warped Image 2">
+                <p class="caption">Example 2 Original and Warped</p>
+            </div>
+            <div class="image-pair">
+                <img src="/images3/30-1f.bmp" alt="Original Image 3">
+                <img src="/images3/dane_to_avg4.jpg" alt="Warped Image 3">
+                <p class="caption">Example 3 Original and Warped</p>
+            </div>
+            <div class="image-pair">
+                <img src="/images3/22-1f.bmp" alt="Original Image 4">
+                <img src="/images3/dane_to_avg5.jpg" alt="Warped Image 4">
+                <p class="caption">Example 4 Original and Warped</p>
+            </div>
         </div>
-
-        <!-- Second image: Original image for comparison -->
-        <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/avg_dane_to_kalle.jpg" alt="Gradient Magnitude" style="max-width: 100%; border-radius: 8px;">
-            <p>The average male dane warped into my shape</p>
-        </div>
+        <p>
+            I also warped my face into the geometry of the average male Dane, as well as warping the average male Dane into my geometry. The results are presented below.
+        </p>
+        <div class="screenshot">
+            <div>
+                <img src="./images3/kalle_to_avg_dane.jpg" alt="Me warped into the average male Dane shape">
+                <p class="caption">Me warped into the average male Dane shape</p>
+            </div>
+            <div>
+                <img src="./images3/avg_dane_to_kalle.jpg" alt="The average male Dane warped into my shape">
+                <p class="caption">The average male Dane warped into my shape</p>
+            </div>
         </div>
     </section>
 
-    <header>
-        <h6>Part 5: Extracting my charecteristcs</h6>
-    </header>
-
-    <secttion>
-        
-    </secttion>
-
-
-    <header>
-        <h7>Bells and Whistles: Changing ethnicity on myself</h7>
-    </header>
-
+    <!-- Section: Part 5 -->
     <section>
-        For the bells and whistles I choose to change my ethnicity to Chinese by using the average face of a chinese male. I tried three different combinations.
-        The first being me warped into the shape of the geometry of the average chinese male. The second warping a chinese male into my shape and then cross dissolving and then the
-        last one which worked best. Morphing me into the average chinese male shape, and then cross disolving with a fraction of 0.5 The results are presented below.
+        <h6>Part 5: Extracting My Characteristics</h6>
+        <p>
+            (Content Missing)
+        </p>
+    </section>
 
-          <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
-        <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/chineseaverageman.jpg" alt="Image before processing " style="max-width: 100%; border-radius: 8px;">
-            <p> Average Chinese male </p>
+    <!-- Section: Bells and Whistles -->
+    <section>
+        <h6>Bells and Whistles: Changing Ethnicity on Myself</h6>
+        <p>
+            For the bells and whistles, I chose to change my ethnicity to Chinese by using the average face of a Chinese male. I tried three different combinations.
+            The first was me warped into the shape of the geometry of the average Chinese male. The second was warping a Chinese male into my shape and then cross dissolving, and then the
+            last one, which worked best: morphing me into the average Chinese male shape, and then cross dissolving with a fraction of 0.5. The results are presented below.
+        </p>
+        <div class="screenshot">
+            <div>
+                <img src="./images3/chineseaverageman.jpg" alt="Average Chinese male">
+                <p class="caption">Average Chinese male</p>
+            </div>
+            <div>
+                <img src="./images3/kalle_color_chinese.jpg" alt="Just cross dissolve">
+                <p class="caption">Just cross dissolve</p>
+            </div>
         </div>
-
-       
-        <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/kalle_color_chinese.jpg" alt="Gradient Magnitude" style="max-width: 100%; border-radius: 8px;">
-            <p>Just crossdissolve</p>
-        </div>
-        </div>
-        
-        <div class="screenshot" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
-        <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/kalle_shape_chinese.jpg" alt="Image before processing " style="max-width: 100%; border-radius: 8px;">
-            <p> Just warp </p>
-        </div>
-
-     
-        <div style="flex: 1; padding: 10px; min-width: 48%;">
-            <img src="./images3/kalle_full_chinese.jpg" alt="Gradient Magnitude" style="max-width: 100%; border-radius: 8px;">
-            <p>Full warp and half crossdissolve</p>
-        </div>
+        <div class="screenshot">
+            <div>
+                <img src="./images3/kalle_shape_chinese.jpg" alt="Just warp">
+                <p class="caption">Just warp</p>
+            </div>
+            <div>
+                <img src="./images3/kalle_full_chinese.jpg" alt="Full warp and half cross dissolve">
+                <p class="caption">Full warp and half cross dissolve</p>
+            </div>
         </div>
     </section>
 
-    
     <!-- Footer Section -->
     <footer>
-        <p>© 2024 Kalle's Portfolio | Project 1: Aligning RGB Images</p>
+        <p>© 2024 Kalle's Portfolio | Project 3: Morphing faces</p>
         <p>Contact: <a href="mailto:kj00@berkeley.edu">kj00@berkeley.edu</a></p>
     </footer>
 </body>
