@@ -87,7 +87,7 @@
 
     <!-- Section: Part 1 -->
     <section>
-        <h2>Part 1: Corresponding Points</h2>
+        <h1>Part 1: Corresponding Points</h1>
         <p>
             For this task, I used the program recommended for annotating corresponding points for two images, one of me and one of famous actor Leonardo DiCaprio. I chose 66 corresponding points on each face
             and then added 4 more corner points leading to a total of 70 points in each image. Below I present the triangulation of the corresponding points. Note that I tried to capture as many facial features
@@ -107,7 +107,7 @@
 
     <!-- Section: Part 2 -->
     <section>
-        <h3>Part 2: Computing the Halfway Face</h3>
+        <h1>Part 2: Computing the Halfway Face</h1>
         <p>
             Now that I have the corresponding triangulations for each face, the fun begins. The first thing I do is calculate the halfway face which is done by doing the following: First, we calculate the halfway keypoints
             by taking the average of my key points and Leo's keypoints. Then we again triangulate using our new halfway keypoints so that we get a new set of triangles. Then we warp my triangles into the corresponding 
@@ -143,7 +143,7 @@
 
     <!-- Section: Part 3 -->
     <section>
-        <h4>Part 3: The Morph Sequence</h4>
+        <h1>Part 3: The Morph Sequence</h1>
         <p>
             Now that we know how to create the halfway face, we should also be able to create other fractions of blending. Luckily, it is the same exact process
             just instead of taking the average we use other fractions than 1/2. The task was to create a video which is a sequence of 46 images starting with the
@@ -160,7 +160,7 @@
 
     <!-- Section: Part 4 -->
     <section>
-        <h5>Part 4: Calculating the Mean Face of the Population and More</h5>
+        <h1>Part 4: Calculating the Mean Face of the Population and More</h1>
         <p>
             Now that we have started to get warm, we can do other cool stuff. The first thing is calculating the average face of Danish people. I used
             the Danish dataset that was recommended which was already annotated with corresponding points; however, I added the 4 corner points because I liked the results
@@ -221,7 +221,7 @@
 
     <!-- Section: Part 5 -->
     <section>
-        <h6>Part 5: Extracting My Characteristics</h6>
+        <h1>Part 5: Extracting My Characteristics</h1>
         <p>
             (Content Missing)
         </p>
@@ -229,7 +229,7 @@
 
     <!-- Section: Bells and Whistles -->
     <section>
-        <h6>Bells and Whistles: Changing Ethnicity on Myself</h6>
+        <h1>Bells and Whistles: Changing Ethnicity on Myself</h1>
         <p>
             For the bells and whistles, I chose to change my ethnicity to Chinese by using the average face of a Chinese male. I tried three different combinations.
             The first was me warped into the shape of the geometry of the average Chinese male. The second was warping a Chinese male into my shape and then cross dissolving, and then the
