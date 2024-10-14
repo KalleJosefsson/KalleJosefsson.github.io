@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 4: Mosaics</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #4CAF50;
+        }
+        h2, h3, h4, h5, h6 {
+            color: #4CAF50;
+            margin-top: 40px;
+        }
+        p {
+            font-size: 1.2em;
+            line-height: 1.6em;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        section {
+            margin-bottom: 40px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.8em;
+            color: #777;
+        }
+        .screenshot {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .image-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .image-pair {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        .image-pair img {
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+        .caption {
+            font-style: italic;
+        }
+        .equation-container {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Header -->
+    <header>
+        <h1>Theory</h1>
+    </header>
+
+    <p>
+        In order to create the homographies and mosaics, we need to calculate the homography matrix \( \mathbf{H} \), which is defined as:
+    </p>
+
+    <div class="equation-container">
+        <h2>1. Homography Transformation</h2>
+        <p>Points \( p = (x, y) \) in one image are mapped to points \( p' = (x', y') \) in another image:</p>
+        <p>
+            \[
+            s \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} =
+            \mathbf{H} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+            \]
+        </p>
+        <p>where \( \mathbf{H} \) is the \( 3 \times 3 \) homography matrix and \( s \) is a scale factor.</p>
+    </div>
+
+    <div class="equation-container">
+        <h2>2. Structure of Homography Matrix \( \mathbf{H} \)</h2>
+        <p>
+            \[
+            \mathbf{H} =
+            \begin{bmatrix}
+            h_{11} & h_{12} & h_{13} \\
+            h_{21} & h_{22} & h_{23} \\
+            h_{31} & h_{32} & h_{33}
+            \end{bmatrix}
+            \]
+        </p>
+    </div>
+
+    <div class="equation-container">
+        <h2>3. Linear System for Estimating \( \mathbf{H} \)</h2>
+        <p>Given corresponding points \( (x, y) \) and \( (x', y') \), the following equations are formed:</p>
+        <p>
+            \[
+            \begin{aligned}
+            x' &= \frac{h_{11}x + h_{12}y + h_{13}}{h_{31}x + h_{32}y + h_{33}} \\
+            y' &= \frac{h_{21}x + h_{22}y + h_{23}}{h_{31}x + h_{32}y + h_{33}}
+            \end{aligned}
+            \]
+        </p>
+    </div>
+
+    <div class="equation-container">
+        <h2>4. Matrix Formulation for Multiple Points</h2>
+        <p>The system can be linearized as:</p>
+        <p>
+            \[
+            \mathbf{A} \mathbf{h} = 0
+            \]
+        </p>
+        <p>where \( \mathbf{A} \) is the design matrix and \( \mathbf{h} \) is a vector of the elements of \( \mathbf{H} \).</p>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>© 2024 Kalle's Portfolio | Project 3: Morphing faces</p>
+        <p>Contact: <a href="mailto:kj00@berkeley.edu">kj00@berkeley.edu</a></p>
+    </footer>
+</body>
+</html>
