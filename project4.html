@@ -157,9 +157,37 @@
         </p>
     </div>
 
+    <div class="equation-container">
+    <h2>6. Image Warping</h2>
+    <p>
+        Image warping is a key step in creating mosaics, where the goal is to transform one image to align with another using the homography matrix \( \mathbf{H} \). Once we have calculated the homography matrix, we apply it to map the points in the source image to the corresponding points in the target image.
+    </p>
+    <p>
+        To warp an image, for each pixel \( (x', y') \) in the target image, we calculate the corresponding point \( (x, y) \) in the source image using the inverse of the homography transformation:
+    </p>
+    <p>
+        \[
+        s \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} =
+        \mathbf{H}^{-1} \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix}
+        \]
+    </p>
+    <p>
+        Here, \( \mathbf{H}^{-1} \) is the inverse of the homography matrix, and the resulting point \( (x, y) \) is mapped back into the original image.
+    </p>
+
+    <p>
+        Since the result of this transformation may not lie exactly on an integer pixel, interpolation is used to estimate the pixel intensity at fractional coordinates. Common interpolation methods include nearest-neighbor, bilinear, or bicubic interpolation. This ensures that the warped image retains high-quality visual features.
+    </p>
+
+    <p>
+        The warping process is repeated for every pixel in the target image, transforming the entire source image to align with the desired view. This enables smooth blending and accurate alignment between images in the final mosaic.
+    </p>
+</div>
+
+
     <!-- Footer Section -->
     <footer>
-        <p>© 2024 Kalle's Portfolio | Project 3: Morphing faces</p>
+        <p>© 2024 Kalle's Portfolio | Project 4: Mosaics</p>
         <p>Contact: <a href="mailto:kj00@berkeley.edu">kj00@berkeley.edu</a></p>
     </footer>
 </body>
