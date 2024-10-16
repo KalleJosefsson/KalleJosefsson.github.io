@@ -248,6 +248,48 @@
     </p>
 </div>
 
+    <div class="equation-container">
+    <h2>10. Image Rectification</h2>
+    <p>
+        Image rectification is the process of transforming two or more images to align them onto a common plane. This technique is particularly useful when dealing with stereo images or overlapping images that need to be stitched together. The goal of rectification is to make corresponding points in the images appear at the same vertical position, which simplifies the stitching or matching process.
+    </p>
+    <p>
+        Rectification involves calculating the homography transformations needed to warp both images so that their epipolar lines are aligned. Once the images are rectified, any point in one image will have a corresponding point along the same row in the second image. This ensures that when images are stitched together or matched, the alignment is accurate and seamless.
+    </p>
+    <p>
+        Below are examples of image rectification applied to two pairs of images. For each pair, we show the original images followed by the rectified versions. The rectified images demonstrate how the homography transformation has aligned them onto a common plane, making it easier to perform tasks such as image stitching.
+    </p>
+
+    <h3>10.1 Pair 1: Original and Rectified Images</h3>
+    <div class="image-grid">
+        <div class="image-pair">
+            <img src="images4/book_fron.jpg" alt="Original Image 1">
+            <p class="caption">Figure 1: Original Image of book from the front</p>
+        </div>
+        <div class="image-pair">
+            <img src="images4/book up.jpg" alt="Rectified Image 1">
+            <p class="caption">Figure 2: Rectified Image seeing the book from above </p>
+        </div>
+    </div>
+    
+    <div class="image-grid">
+        <div class="image-pair">
+            <img src="comp_left.jpg" alt="Original Image 2">
+            <p class="caption">Figure 3: Original Image of computer from the left </p>
+        </div>
+        <div class="image-pair">
+            <img src="comp_front.jpg" alt="Rectified Image 2">
+            <p class="caption">Figure 4: Rectified Image seing the computer from the front </p>
+        </div>
+    </div>
+
+   
+
+    <p>
+        These rectified images illustrate how the process transforms the original images, ensuring that they are aligned on the same plane. This alignment is crucial for performing tasks like image stitching or stereo matching, where corresponding points must appear at the same vertical location in both images.
+    </p>
+</div>
+
 
 
 
