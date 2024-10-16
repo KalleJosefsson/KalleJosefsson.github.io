@@ -100,14 +100,14 @@
     </div>
 
     <div class="equation-container">
-        <h2>2. Structure of Homography Matrix \( \mathbf{H} \)</h2>
+        <h2>2. Structure of Homography Matrix (note the scaling factor h_{33} = 1)\( \mathbf{H} \)</h2>
         <p>
             \[
             \mathbf{H} =
             \begin{bmatrix}
             h_{11} & h_{12} & h_{13} \\
             h_{21} & h_{22} & h_{23} \\
-            h_{31} & h_{32} & h_{33}
+            h_{31} & h_{32} & 1
             \end{bmatrix}
             \]
         </p>
@@ -119,8 +119,8 @@
         <p>
             \[
             \begin{aligned}
-            x' &= \frac{h_{11}x + h_{12}y + h_{13}}{h_{31}x + h_{32}y + h_{33}} \\
-            y' &= \frac{h_{21}x + h_{22}y + h_{23}}{h_{31}x + h_{32}y + h_{33}}
+            x' &= \frac{h_{11}x + h_{12}y + h_{13}}{h_{31}x + h_{32}y + 1} \\
+            y' &= \frac{h_{21}x + h_{22}y + h_{23}}{h_{31}x + h_{32}y + 1}
             \end{aligned}
             \]
         </p>
@@ -135,6 +135,13 @@
             \]
         </p>
         <p>where \( \mathbf{A} \) is the design matrix and \( \mathbf{h} \) is a vector of the elements of \( \mathbf{H} \).</p>
+    </div>
+
+    <div class="equation-container">
+        <h2>5. Using More Points and Least Squares</h2>
+        <p>
+            Although four points are sufficient to estimate the homography matrix \( \mathbf{H} \), using more than four points improves accuracy. By including additional point correspondences, we create an overdetermined system, which can be solved using the least squares method. The least squares approach minimizes the sum of squared errors between the predicted and actual point correspondences, yielding a more robust estimate of \( \mathbf{H} \) that accounts for noise and small variations in the data.
+        </p>
     </div>
 
     <!-- Footer Section -->
