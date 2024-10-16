@@ -136,17 +136,17 @@
         </p>
         <p>where \( \mathbf{A} \) is the design matrix and \( \mathbf{h} \) is a vector of the elements of \( \mathbf{H} \).</p>
 
-        <p>The design matrix \( \mathbf{A} \) for a set of corresponding points \( (x_{\text{left}}, y_{\text{left}}) \) and \( (x_{\text{right}}, y_{\text{right}}) \) is constructed as follows:</p>
+        <p>The design matrix \( \mathbf{A} \) for a set of corresponding points \( (x_1, y_1) \) and \( (x_1', y_1') \) is constructed as follows:</p>
         <p>
             \[
             \mathbf{A} = \begin{bmatrix}
-            x_{\text{left}} & y_{\text{left}} & 1 & 0 & 0 & 0 & -x_{\text{left}} x_{\text{right}} & -y_{\text{left}} x_{\text{right}} \\
-            0 & 0 & 0 & x_{\text{left}} & y_{\text{left}} & 1 & -x_{\text{left}} y_{\text{right}} & -y_{\text{left}} y_{\text{right}}
+            x_1 & y_1 & 1 & 0 & 0 & 0 & -x_1 x_1' & -y_1 x_1' \\
+            0 & 0 & 0 & x_1 & y_1 & 1 & -x_1 y_1' & -y_1 y_1'
             \end{bmatrix}
             \]
         </p>
         <p>
-            Each pair of corresponding points contributes two rows to the matrix \( \mathbf{A} \). By including multiple point correspondences, the system can be solved for the vector \( \mathbf{h} \), which contains the elements \( h_{11}, h_{12}, h_{13}, h_{21}, h_{22}, h_{23}, h_{31}, h_{32} \).
+            Each pair of corresponding points contributes two rows to the matrix \( \mathbf{A} \). For additional point correspondences, the same pattern repeats, adding new rows to \( \mathbf{A} \). The system is then solved for the vector \( \mathbf{h} \), which contains the elements \( h_{11}, h_{12}, h_{13}, h_{21}, h_{22}, h_{23}, h_{31}, h_{32} \).
         </p>
     </div>
 
