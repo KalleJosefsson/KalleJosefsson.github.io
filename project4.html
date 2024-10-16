@@ -135,6 +135,22 @@
             \]
         </p>
         <p>where \( \mathbf{A} \) is the design matrix and \( \mathbf{h} \) is a vector of the elements of \( \mathbf{H} \).</p>
+
+        <p>The design matrix \( \mathbf{A} \) for a set of corresponding points \( (x, y) \) and \( (x', y') \) is constructed as follows:</p>
+        <p>
+            \[
+            \mathbf{A} = \begin{bmatrix}
+            -x_1 & -y_1 & -1 & 0 & 0 & 0 & x_1x_1' & y_1x_1' & x_1' \\
+            0 & 0 & 0 & -x_1 & -y_1 & -1 & x_1y_1' & y_1y_1' & y_1' \\
+            \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+            -x_n & -y_n & -1 & 0 & 0 & 0 & x_nx_n' & y_nx_n' & x_n' \\
+            0 & 0 & 0 & -x_n & -y_n & -1 & x_ny_n' & y_ny_n' & y_n'
+            \end{bmatrix}
+            \]
+        </p>
+        <p>
+            Each pair of corresponding points \( (x, y) \) and \( (x', y') \) contributes two rows to the matrix \( \mathbf{A} \). The vector \( \mathbf{h} \) is a column vector containing the elements \( h_{11}, h_{12}, h_{13}, h_{21}, h_{22}, h_{23}, h_{31}, h_{32}, h_{33} \), and the goal is to solve \( \mathbf{A} \mathbf{h} = 0 \) for \( \mathbf{h} \).
+        </p>
     </div>
 
     <div class="equation-container">
