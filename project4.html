@@ -184,6 +184,52 @@
     </p>
 </div>
 
+<div class="equation-container">
+    <h2>7. Bounding Box of the Warped Image</h2>
+    <p>
+        After warping an image using the homography matrix \( \mathbf{H} \), the transformed image might not align neatly within the original image boundaries. To ensure that the entire warped image is visible, we compute the bounding box of the transformed image.
+    </p>
+    <p>
+        The bounding box is determined by applying the homography transformation to the four corners of the source image. The corners of an image at coordinates \( (0, 0), (w, 0), (w, h), (0, h) \) (where \( w \) and \( h \) are the width and height of the source image, respectively) are warped using the homography matrix:
+    </p>
+    <p>
+        \[
+        \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \mathbf{H} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+        \]
+    </p>
+    <p>
+        Once the new positions of the four corners are calculated, the minimum and maximum \( x' \) and \( y' \) values provide the extents of the bounding box. This defines the size of the canvas required to display the entire warped image without cropping.
+    </p>
+    <p>
+        It is important to adjust the image translation so that the warped image fits within the computed bounding box. This may involve shifting the image if negative coordinates are present.
+    </p>
+</div>
+
+<div class="equation-container">
+    <h2>8. Alpha Blending</h2>
+    <p>
+        When stitching multiple warped images together into a mosaic, alpha blending is used to smooth the transitions between overlapping images. This technique blends the pixel intensities of the overlapping regions, resulting in a seamless transition between images.
+    </p>
+    <p>
+        Alpha blending works by assigning each pixel a blending factor, or alpha value, which determines how much of each image contributes to the final pixel value in the mosaic. The alpha value ranges from 0 (completely transparent) to 1 (completely opaque). In overlapping regions, pixels are a weighted combination of the overlapping images:
+    </p>
+    <p>
+        \[
+        I_{\text{final}}(x, y) = \alpha I_1(x, y) + (1 - \alpha) I_2(x, y)
+        \]
+    </p>
+    <p>
+        Here, \( I_1(x, y) \) and \( I_2(x, y) \) are the pixel values from the two overlapping images, and \( \alpha \) is the blending factor.
+    </p>
+    <p>
+        A common approach is to gradually vary the alpha values across the overlapping region, so that the transition between images is smooth. Linear or Gaussian blending can be applied based on the distance from the edges of the overlapping area. This reduces visible seams and artifacts, producing a more natural-looking mosaic.
+    </p>
+    <p>
+        By using alpha blending, we ensure that images with different lighting, exposure, or minor alignment errors still combine seamlessly in the final mosaic.
+    </p>
+</div>
+
+
 
     <!-- Footer Section -->
     <footer>
