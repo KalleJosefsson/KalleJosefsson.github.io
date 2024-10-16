@@ -227,26 +227,47 @@
     <p>
         This approach is effective for cases where the overlap between images occurs in a horizontal band. By applying a linear gradient across the width of the overlap, the transition between the images is smooth and natural. The non-overlapping regions of the images are concatenated directly to form the final mosaic.
     </p>
+<div class="equation-container">
+    <h2>9. Image Stitching Using Two Corresponding Points</h2>
+    <p>
+        Instead of manually determining the overlap and setting an offset, we can use two corresponding points from each image to align the images. These corresponding points are feature points (e.g., corners or key points) that match between the two images. By selecting two pairs of corresponding points, one pair from each image, we can align the images precisely and perform blending in the overlapping region.
+    </p>
+
+    <p>
+        The stitching process begins by identifying two pairs of corresponding points, \( p_1 \) and \( p_2 \) in the first image, and their corresponding points \( p_1' \) and \( p_2' \) in the second image. These points are then used to calculate a transformation that aligns the two images. By ensuring that both \( p_1 \) aligns with \( p_1' \), and \( p_2 \) aligns with \( p_2' \), we can accurately position the images for stitching.
+    </p>
+
+    <p>
+        The transformation required to align the two images is typically a combination of translation, scaling, and rotation. Once this transformation is applied, the images are aligned based on the two selected points. We can then perform alpha blending in the overlapping region to create a seamless transition between the two images.
+    </p>
+
+    <h3>Stitching Process Using Two Corresponding Points</h3>
+    <ol>
+        <li>Identify at least two corresponding points \( p_1, p_2 \) in the first image and their corresponding points \( p_1', p_2' \) in the second image using feature detection algorithms (e.g., SIFT, ORB).</li>
+        <li>Compute the transformation matrix \( T \) that maps the two points \( p_1, p_2 \) in the first image to \( p_1', p_2' \) in the second image. This transformation can include translation, scaling, and rotation.</li>
+        <li>Apply the transformation \( T \) to warp the second image so that both pairs of corresponding points are aligned with their counterparts in the first image.</li>
+        <li>Blend the overlapping region using alpha blending. This ensures a smooth transition between the two aligned images.</li>
+        <li>Concatenate the non-overlapping parts of the images to form the final mosaic.</li>
+    </ol>
+
+    <p>
+        Using two corresponding points for alignment provides a more accurate and flexible approach to stitching. The transformation matrix ensures that both points are aligned, accounting for potential scaling or rotational differences between the images. This eliminates the need for manual adjustments and provides a robust framework for stitching.
+    </p>
+
+    <h3>Alpha Blending After Alignment</h3>
+    <p>
+        After aligning the images based on the two corresponding points, alpha blending is used to merge the overlapping region smoothly. A linear blending gradient is applied across the width of the overlap, as described in the alpha blending section. The formula for blending at each pixel in the overlap is:
+    </p>
+    <p>
+        \[
+        I_{\text{final}}(x, y) = \alpha(x) I_1(x, y) + (1 - \alpha(x)) I_2(x, y)
+        \]
+    </p>
+    <p>
+        Here, \( \alpha(x) \) is a linear gradient that transitions from 1 at the beginning of the overlap to 0 at the end, smoothly merging the two images.
+    </p>
 </div>
 
-    <div class="equation-container">
-    <h2>9. Image Stitching and Offset Handling</h2>
-    <p>
-        After warping and blending the images, the final step in creating a mosaic is stitching the images together. Image stitching involves aligning the two images by overlapping their corresponding regions and ensuring that they are combined seamlessly.
-    </p>
-    <p>
-        In some cases, an offset may be required during the stitching process. This offset occurs because the center of projection might have shifted slightly when the photographs were taken. Ideally, if the camera position and orientation are kept constant, the homography transformation alone would perfectly align the images. However, any slight changes in the center of projection or camera movement can lead to misalignment, making an additional offset necessary.
-    </p>
-    <p>
-        The offset represents a horizontal shift in the starting point of the overlap between the two images. In your alpha blending function, the parameter <code>overlap_start</code> specifies the point where the overlap begins in the first image. This parameter accounts for any misalignment caused by changes in the center of projection, ensuring that the images are properly aligned before blending.
-    </p>
-    <p>
-        By manually adjusting the overlap start, we can account for these small changes in the capture setup and ensure that the images are stitched together correctly. Without this adjustment, the images might not align as expected, leading to visible seams or distortions in the final mosaic.
-    </p>
-    <p>
-        Once the images are aligned and blended using the alpha blending technique, the final step is concatenating the non-overlapping parts of the images along with the blended region to form a complete mosaic. The stitching process ensures that the images are seamlessly combined into a unified scene.
-    </p>
-</div>
 
     <div class="equation-container">
     <h2>10. Image Rectification</h2>
