@@ -229,6 +229,25 @@
     </p>
 </div>
 
+    <div class="equation-container">
+    <h2>9. Image Stitching and Offset Handling</h2>
+    <p>
+        After warping and blending the images, the final step in creating a mosaic is stitching the images together. Image stitching involves aligning the two images by overlapping their corresponding regions and ensuring that they are combined seamlessly.
+    </p>
+    <p>
+        In some cases, an offset may be required during the stitching process. This offset occurs because the center of projection might have shifted slightly when the photographs were taken. Ideally, if the camera position and orientation are kept constant, the homography transformation alone would perfectly align the images. However, any slight changes in the center of projection or camera movement can lead to misalignment, making an additional offset necessary.
+    </p>
+    <p>
+        The offset represents a horizontal shift in the starting point of the overlap between the two images. In your alpha blending function, the parameter <code>overlap_start</code> specifies the point where the overlap begins in the first image. This parameter accounts for any misalignment caused by changes in the center of projection, ensuring that the images are properly aligned before blending.
+    </p>
+    <p>
+        By manually adjusting the overlap start, we can account for these small changes in the capture setup and ensure that the images are stitched together correctly. Without this adjustment, the images might not align as expected, leading to visible seams or distortions in the final mosaic.
+    </p>
+    <p>
+        Once the images are aligned and blended using the alpha blending technique, the final step is concatenating the non-overlapping parts of the images along with the blended region to form a complete mosaic. The stitching process ensures that the images are seamlessly combined into a unified scene.
+    </p>
+</div>
+
 
 
 
