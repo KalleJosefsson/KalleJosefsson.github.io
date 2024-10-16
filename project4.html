@@ -206,28 +206,29 @@
 </div>
 
 <div class="equation-container">
-    <h2>8. Alpha Blending</h2>
+    <h2>8. Alpha Blending Using Linear Gradient</h2>
     <p>
-        When stitching multiple warped images together into a mosaic, alpha blending is used to smooth the transitions between overlapping images. This technique blends the pixel intensities of the overlapping regions, resulting in a seamless transition between images.
+        When merging two overlapping images into a mosaic, alpha blending is used to create a smooth transition in the overlapping region. In this approach, the blending factor changes linearly across the overlap, ensuring that the transition from one image to the other is gradual and seamless.
     </p>
     <p>
-        Alpha blending works by assigning each pixel a blending factor, or alpha value, which determines how much of each image contributes to the final pixel value in the mosaic. The alpha value ranges from 0 (completely transparent) to 1 (completely opaque). In overlapping regions, pixels are a weighted combination of the overlapping images:
+        The blending process begins by identifying the overlap between the two images. Suppose the overlap starts at a specific column in the first image and extends across both images. A horizontal gradient mask is created to determine the contribution of each image at every pixel in the overlapping region.
+    </p>
+    <p>
+        For each pixel in the overlapping region, the alpha value is assigned based on a linear gradient from 1 to 0. Pixels closer to the beginning of the overlap are weighted more heavily toward the first image, while pixels closer to the end of the overlap are weighted more toward the second image. The alpha blending formula for each pixel in the overlap is:
     </p>
     <p>
         \[
-        I_{\text{final}}(x, y) = \alpha I_1(x, y) + (1 - \alpha) I_2(x, y)
+        I_{\text{final}}(x, y) = \alpha(x) I_1(x, y) + (1 - \alpha(x)) I_2(x, y)
         \]
     </p>
     <p>
-        Here, \( I_1(x, y) \) and \( I_2(x, y) \) are the pixel values from the two overlapping images, and \( \alpha \) is the blending factor.
+        Here, \( \alpha(x) \) is the blending factor that linearly decreases from 1 to 0 across the width of the overlap, \( I_1(x, y) \) is the pixel intensity from the first image, and \( I_2(x, y) \) is the pixel intensity from the second image. The closer a pixel is to the start of the overlap, the more it contributes from the first image, and vice versa.
     </p>
     <p>
-        A common approach is to gradually vary the alpha values across the overlapping region, so that the transition between images is smooth. Linear or Gaussian blending can be applied based on the distance from the edges of the overlapping area. This reduces visible seams and artifacts, producing a more natural-looking mosaic.
-    </p>
-    <p>
-        By using alpha blending, we ensure that images with different lighting, exposure, or minor alignment errors still combine seamlessly in the final mosaic.
+        This approach is effective for cases where the overlap between images occurs in a horizontal band. By applying a linear gradient across the width of the overlap, the transition between the images is smooth and natural. The non-overlapping regions of the images are concatenated directly to form the final mosaic.
     </p>
 </div>
+
 
 
 
