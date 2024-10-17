@@ -201,7 +201,7 @@
         Once the new positions of the four corners are calculated, the minimum and maximum \( x' \) and \( y' \) values provide the extents of the bounding box. This defines the size of the canvas required to display the entire warped image without cropping.
     </p>
     <p>
-        It is important to adjust the image translation so that the warped image fits within the computed bounding box. This may involve shifting the image if negative coordinates are present.
+        It is important to adjust the image translation so that the warped image fits within the computed bounding box. 
     </p>
 </div>
 
@@ -241,10 +241,10 @@
         Image rectification is the process of transforming two or more images to align them onto a common plane. This technique is particularly useful when dealing with stereo images or overlapping images that need to be stitched together. The goal of rectification is to make corresponding points in the images appear at the same vertical position, which simplifies the stitching or matching process.
     </p>
     <p>
-        Rectification involves calculating the homography transformations needed to warp both images so that their epipolar lines are aligned. Once the images are rectified, any point in one image will have a corresponding point along the same row in the second image. This ensures that when images are stitched together or matched, the alignment is accurate and seamless.
+        Rectification involves calculating the homography transformations needed to warp both images so that their epipolar lines are aligned. Once the images are rectified, any point in one image will have a corresponding point along the same row in the second image. This ensures that when images are stitched together or matched, the alignment is accurate and seamless which is why we warp images to a cneter image.
     </p>
     <p>
-        Below are examples of image rectification applied to two pairs of images. For each pair, we show the original images followed by the rectified versions. The rectified images demonstrate how the homography transformation has aligned them onto a common plane, making it easier to perform tasks such as image stitching.
+        Below are examples of image rectification applied to two pairs of images. For each pair, we show the original images followed by the rectified versions. The rectified images demonstrate how the homography transformation has changed where the image is projecteed.
     </p>
 
     <h3>10.1 Pair 1: Original and Rectified Images</h3>
