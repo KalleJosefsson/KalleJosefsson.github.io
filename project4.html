@@ -231,26 +231,23 @@
 
 <div class="equation-container">
     <h2>8. Image Stitching Using Two Corresponding Points and alpha blending</h2>
-    <p>
-        Instead of manually determining the overlap and setting an offset, we can use two corresponding points from each image to align the images. These corresponding points are feature points (e.g., corners or key points) that match between the two images. By selecting two pairs of corresponding points, one pair from each image, we can align the images precisely and perform blending in the overlapping region.
-    </p>
+<p>
+    The stitching process begins by identifying two pairs of corresponding points, \( p_1 \) and \( p_2 \) in the first image, and their corresponding points \( p_1' \) and \( p_2' \) in the second image. These points are used to calculate the transformation needed to align the images. Specifically, we ensure that both \( p_1 \) aligns with \( p_1' \), and \( p_2 \) aligns with \( p_2' \), which enables us to precisely position the images for stitching.
+</p>
 
-    <p>
-        The stitching process begins by identifying two pairs of corresponding points, \( p_1 \) and \( p_2 \) in the first image, and their corresponding points \( p_1' \) and \( p_2' \) in the second image. These points are then used to calculate a transformation that aligns the two images. By ensuring that both \( p_1 \) aligns with \( p_1' \), and \( p_2 \) aligns with \( p_2' \), we can accurately position the images for stitching.
-    </p>
+<p>
+    The required transformation to align the two images is primarily a translation, as we use the distance between the corresponding points to shift one image relative to the other. Although this translation is mostly in the x-direction (horizontal), slight vertical adjustments in the y-direction may be necessary due to differences in the camera’s center of projection (COP). Once the translation is applied, the images are aligned, and we can perform alpha blending in the overlapping region to create a smooth transition between them.
+</p>
 
-    <p>
-        The transformation required to align the two images is typically a combination of translation, scaling, and rotation. Once this transformation is applied, the images are aligned based on the two selected points. We can then perform alpha blending in the overlapping region to create a seamless transition between the two images.
-    </p>
+<h3>Stitching Process Using Two Corresponding Points</h3>
+<ol>
+    <li>Identify two corresponding points \( p_1, p_2 \) in the first image and their corresponding points \( p_1', p_2' \) in the second image by warping the points.</li>
+    <li>Compute the translation matrix \( T \) that moves \( p_1 \) in the first image to align with \( p_1' \) in the second image. This translation primarily occurs in the x-direction, though a slight y-translation may be applied to account for small vertical offsets.</li>
+    <li>Apply the transformation \( T \) to shift the second image, aligning the two pairs of corresponding points with their counterparts in the first image.</li>
+    <li>Perform alpha blending in the overlapping region. The blending weights are determined based on the distance from the center of each image, with influence decreasing as the distance increases. This results in a smooth transition between the two aligned images.</li>
+    <li>Concatenate the non-overlapping parts of the images with the blended region to form the final mosaic.</li>
+</ol>
 
-    <h3>Stitching Process Using Two Corresponding Points</h3>
-    <ol>
-        <li>Identify two corresponding points \( p_1, p_1' \) in the first image and their corresponding point in the second image by warping the correspondence points.</li>
-        <li>Compute the translation matrix \( T \) that translate the point \ p_1\ in the first image to \ p_1'\ in the second image. This should just be in x but due to COP differing slighlty might be slight translation in y.</li>
-        <li>Apply the transformation \( T \) to warp the second image so that the pair of corresponding points are aligned with their counterpart in the first image.</li>
-        <li>Blend the overlapping region using alpha blending where weight is based on distance from center of each image, decreasing with distance. This ensures a smooth transition between the two aligned images.</li>
-        <li>Concatenate the non-overlapping parts of the images with the blended part to form the final mosaic.</li>
-    </ol>
 
   
 
