@@ -236,7 +236,7 @@
 
 
     <div class="equation-container">
-    <h2>10. Image Rectification</h2>
+    <h2>9. Image Rectification</h2>
     <p>
         Image rectification is the process of transforming two or more images to align them onto a common plane. This technique is particularly useful when dealing with stereo images or overlapping images that need to be stitched together. The goal of rectification is to make corresponding points in the images appear at the same vertical position, which simplifies the stitching or matching process.
     </p>
@@ -245,6 +245,44 @@
     </p>
     <p>
         Below are examples of image rectification applied to two pairs of images. For each pair, we show the original images followed by the rectified versions. The rectified images demonstrate how the homography transformation has changed where the image is projecteed.
+    </p>
+
+    <h3>9.1 Pair 1: Original and Rectified Images</h3>
+    <div class="image-grid">
+        <div class="image-pair">
+            <img src="./images4/book_front.jpg" alt="Original Image 1">
+            <p class="caption">Figure 1: Original Image of book from the front</p>
+        </div>
+        <div class="image-pair">
+            <img src="./images4/book_up.jpg" alt="Rectified Image 1">
+            <p class="caption">Figure 2: Rectified Image seeing the book from above </p>
+        </div>
+    </div>
+    
+    <div class="image-grid">
+        <div class="image-pair">
+            <img src="./images4/comp_left.jpg" alt="Original Image 2">
+            <p class="caption">Figure 3: Original Image of computer from the left </p>
+        </div>
+        <div class="image-pair">
+            <img src="./images4/comp_front.jpg" alt="Rectified Image 2">
+            <p class="caption">Figure 4: Rectified Image seing the computer from the front </p>
+        </div>
+    </div>
+
+   
+
+    <p>
+        These rectified images illustrate how the process transforms the original images, ensuring that they are aligned on the same plane. This alignment is crucial for performing tasks like image stitching or stereo matching, where corresponding points must appear at the same vertical location in both images.
+    </p>
+</div>
+
+     <div class="equation-container">
+    <h2>10. Creating the mosaics</h2>
+    <p>
+        Below are the three created mosaics which are created by following the above steps and then combining them together. I will show three examples the last two of them with alpha blending with weights being based on distance from image centers. 
+        The first example I tried to just use a vertical mask with weights being changen linearly from 0-1 and 1-0 for respective images over the blending area. I thought this would work well
+        since we are stitching the images horizontally but since images are of different size the artifacts could be found.
     </p>
 
     <h3>10.1 Pair 1: Original and Rectified Images</h3>
@@ -276,6 +314,7 @@
         These rectified images illustrate how the process transforms the original images, ensuring that they are aligned on the same plane. This alignment is crucial for performing tasks like image stitching or stereo matching, where corresponding points must appear at the same vertical location in both images.
     </p>
 </div>
+
 
 
 
