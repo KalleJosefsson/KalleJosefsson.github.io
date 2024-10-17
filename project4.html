@@ -75,6 +75,29 @@
             border-radius: 8px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
+
+        .image-grid {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
+
+    .image-pair img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    /* Make the smaller image smaller */
+    .smaller-image .image-pair img {
+        width: 60%;  /* Adjust this to control the size */
+        margin: 0 auto;
+    }
+
+    .caption {
+        text-align: center;
+        font-style: italic;
+    }
     </style>
 </head>
 <body>
@@ -285,8 +308,8 @@
         since we are stitching the images horizontally but since images are of different size the artifacts could be found.
     </p>
 
-    <h2>10.1 Creations of Mosaics</h3>
-   <h3>Ex: Originals and Mosaic (Vertical blend)</h3>
+   <h2>10.1 Creations of Mosaics</h2>
+<h3>Ex: Originals and Mosaic (Vertical blend)</h3>
 <div class="image-grid">
     <!-- First Row: 3 Images -->
     <div class="image-pair">
@@ -295,7 +318,7 @@
     </div>
     <div class="image-pair">
         <img src="./images4/a_right.jpg" alt="Rectified Image 1">
-        <p class="caption">Right image of a group room at Moffitt </p>
+        <p class="caption">Right image of a group room at Moffitt</p>
     </div>
     <div class="image-pair">
         <img src="./images4/filip_wared.jpg" alt="Original Image 2">
@@ -303,39 +326,39 @@
     </div>
 </div>
 
-         <div class="image-grid">
-   <div class="image-pair">
+<!-- Smaller Image Below the First Row -->
+<div class="image-grid smaller-image">
+    <div class="image-pair">
         <img src="./images4/filip_mosaic.jpg" alt="Original Image 2">
         <p class="caption">Mosaic of a group room (Notice artifacts)</p>
     </div>
 </div>
-
-
-
 
 <h3>10.2 Ex 2: Originals and Mosaic (Distance to center based alpha blend)</h3>
 <div class="image-grid">
     <!-- First Row: 3 Images -->
     <div class="image-pair">
         <img src="./images4/b_left.jpg" alt="Original Image 3">
-        <p class="caption">Campus left side </p>
+        <p class="caption">Campus left side</p>
     </div>
     <div class="image-pair">
         <img src="./images4/b_middle.jpg" alt="Rectified Image 3">
         <p class="caption">Campus right side</p>
     </div>
     <div class="image-pair">
-        <img src="./images4/b_warped_to the right.jpg" alt="Original Image 4">
-        <p class="caption">Left warped to right </p>
+        <img src="./images4/b_warped_to_the_right.jpg" alt="Original Image 4">
+        <p class="caption">Left warped to right</p>
     </div>
 </div>
 
-          <div class="image-grid">
-   <div class="image-pair">
+<!-- Smaller Image Below the First Row -->
+<div class="image-grid smaller-image">
+    <div class="image-pair">
         <img src="./images4/stitched_berkely.jpg" alt="Original Image 4">
-        <p class="caption">Mosaic with alpha blend based on distance to centers (No artifacts) </p>
+        <p class="caption">Mosaic with alpha blend based on distance to centers (No artifacts)</p>
     </div>
 </div>
+
 
 
 
