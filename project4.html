@@ -205,30 +205,9 @@
     </p>
 </div>
 
+
 <div class="equation-container">
-    <h2>8. Alpha Blending Using Linear Gradient</h2>
-    <p>
-        When merging two overlapping images into a mosaic, alpha blending is used to create a smooth transition in the overlapping region. In this approach, the blending factor changes linearly across the overlap, ensuring that the transition from one image to the other is gradual and seamless.
-    </p>
-    <p>
-        The blending process begins by identifying the overlap between the two images. Suppose the overlap starts at a specific column in the first image and extends across both images. A horizontal gradient mask is created to determine the contribution of each image at every pixel in the overlapping region.
-    </p>
-    <p>
-        For each pixel in the overlapping region, the alpha value is assigned based on a linear gradient from 1 to 0. Pixels closer to the beginning of the overlap are weighted more heavily toward the first image, while pixels closer to the end of the overlap are weighted more toward the second image. The alpha blending formula for each pixel in the overlap is:
-    </p>
-    <p>
-        \[
-        I_{\text{final}}(x, y) = \alpha(x) I_1(x, y) + (1 - \alpha(x)) I_2(x, y)
-        \]
-    </p>
-    <p>
-        Here, \( \alpha(x) \) is the blending factor that linearly decreases from 1 to 0 across the width of the overlap, \( I_1(x, y) \) is the pixel intensity from the first image, and \( I_2(x, y) \) is the pixel intensity from the second image. The closer a pixel is to the start of the overlap, the more it contributes from the first image, and vice versa.
-    </p>
-    <p>
-        This approach is effective for cases where the overlap between images occurs in a horizontal band. By applying a linear gradient across the width of the overlap, the transition between the images is smooth and natural. The non-overlapping regions of the images are concatenated directly to form the final mosaic.
-    </p>
-<div class="equation-container">
-    <h2>9. Image Stitching Using Two Corresponding Points</h2>
+    <h2>8. Image Stitching Using Two Corresponding Points and alpha blending</h2>
     <p>
         Instead of manually determining the overlap and setting an offset, we can use two corresponding points from each image to align the images. These corresponding points are feature points (e.g., corners or key points) that match between the two images. By selecting two pairs of corresponding points, one pair from each image, we can align the images precisely and perform blending in the overlapping region.
     </p>
@@ -243,29 +222,16 @@
 
     <h3>Stitching Process Using Two Corresponding Points</h3>
     <ol>
-        <li>Identify at least two corresponding points \( p_1, p_2 \) in the first image and their corresponding points \( p_1', p_2' \) in the second image using feature detection algorithms (e.g., SIFT, ORB).</li>
-        <li>Compute the transformation matrix \( T \) that maps the two points \( p_1, p_2 \) in the first image to \( p_1', p_2' \) in the second image. This transformation can include translation, scaling, and rotation.</li>
-        <li>Apply the transformation \( T \) to warp the second image so that both pairs of corresponding points are aligned with their counterparts in the first image.</li>
-        <li>Blend the overlapping region using alpha blending. This ensures a smooth transition between the two aligned images.</li>
-        <li>Concatenate the non-overlapping parts of the images to form the final mosaic.</li>
+        <li>Identify two corresponding points \( p_1, p_1' \) in the first image and their corresponding point in the second image by warping the correspondence points.</li>
+        <li>Compute the translation matrix \( T \) that translate the point \ p_1\ in the first image to \ p_1'\ in the second image. This should just be in x but due to COP differing slighlty might be slight translation in y.</li>
+        <li>Apply the transformation \( T \) to warp the second image so that the pair of corresponding points are aligned with their counterpart in the first image.</li>
+        <li>Blend the overlapping region using alpha blending where weight is based on distance from center of each image, decreasing with distance. This ensures a smooth transition between the two aligned images.</li>
+        <li>Concatenate the non-overlapping parts of the images with the blended part to form the final mosaic.</li>
     </ol>
 
-    <p>
-        Using two corresponding points for alignment provides a more accurate and flexible approach to stitching. The transformation matrix ensures that both points are aligned, accounting for potential scaling or rotational differences between the images. This eliminates the need for manual adjustments and provides a robust framework for stitching.
-    </p>
+  
 
-    <h3>Alpha Blending After Alignment</h3>
-    <p>
-        After aligning the images based on the two corresponding points, alpha blending is used to merge the overlapping region smoothly. A linear blending gradient is applied across the width of the overlap, as described in the alpha blending section. The formula for blending at each pixel in the overlap is:
-    </p>
-    <p>
-        \[
-        I_{\text{final}}(x, y) = \alpha(x) I_1(x, y) + (1 - \alpha(x)) I_2(x, y)
-        \]
-    </p>
-    <p>
-        Here, \( \alpha(x) \) is a linear gradient that transitions from 1 at the beginning of the overlap to 0 at the end, smoothly merging the two images.
-    </p>
+   
 </div>
 
 
