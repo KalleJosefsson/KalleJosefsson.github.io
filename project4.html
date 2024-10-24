@@ -447,10 +447,11 @@
 <div class="equation-container">
     <h2>13. Feature Descriptor Extraction</h2>
     <p>
-        Once we have detected keypoints, the next step is to extract feature descriptors. For each keypoint, we extract an axis-aligned 8x8 patch of pixels around it. However, instead of taking this patch directly, we sample it from a larger 40x40 window. Sampling from a larger window allows us to blur the patch, which creates a descriptor that is more robust to small changes in scale or orientation.
+        Once we have detected keypoints, the next step is to extract feature descriptors. For each keypoint, we extract an axis-aligned 8x8 patch of pixels around it. However, instead of taking this patch directly, we sample it from a larger 40x40 window. Sampling from a larger window allows us to first gaussian blur the patch then downscale it to 8x8, which creates a descriptor that is more robust to small changes in scale, orientation but also differences in lightintenisties.
     </p>
     <p>
-        It's crucial to bias and gain-normalize the descriptor. Bias normalization ensures that the descriptor has zero mean, removing the effect of overall intensity changes, while gain normalization scales the descriptor so that it has unit variance, ensuring that the descriptor is not dominated by contrast variations.
+        It's crucial to bias and gain-normalize the descriptor. Bias normalization ensures that the descriptor has zero mean, removing the effect of overall intensity changes, while gain normalization scales the descriptor so that it has unit variance, ensuring that the descriptor is not dominated by contrast variations. By doing all of the above we create a higher chance of getting matches which are correct even though
+        there is some light intensity change or orientation change.
     </p>
     <p>
         Below are two images comparing a raw 8x8 patch and a normalized 8x8 patch:
