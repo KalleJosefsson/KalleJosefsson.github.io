@@ -461,7 +461,7 @@
             <p class="caption">64 first features from first image</p>
         </div>
         <div class="image-pair">
-            <img src="./images4/features1.png" alt="Normalized Patch">
+            <img src="./images4/feature1.png" alt="Normalized Patch">
             <p class="caption">64 first features from second image</p>
         </div>
     </div>
@@ -476,7 +476,7 @@
         To ensure robust matching, we use Lowe’s ratio test. For each descriptor in the first image, we find its two nearest neighbors in the second image. We accept the match only if the distance to the closest neighbor is significantly smaller than the distance to the second closest neighbor, as this indicates that the match is unambiguous. The threshold ratio is typically set around 0.8.
     </p>
     <p>
-        Below is an image showing matched features between two images after applying Lowe's ratio test:
+        Below is an image showing matched features between two images after applying Lowe's ratio test, notice that many of the matches are correct but there are still some which would affect the homography negatively. In the next section I explain how we get rid of these outliers.
     </p>
     <div class="image-grid">
         <div class="image-pair">
@@ -489,18 +489,19 @@
 <div class="equation-container">
     <h2>15. RANSAC for Outlier Removal</h2>
     <p>
-        Even with the best matching techniques, there may still be incorrect matches, or outliers, that could distort the final result. To remove these outliers, we use RANSAC (Random Sample Consensus). RANSAC is an iterative method that repeatedly selects a random subset of matches, computes a homography based on that subset, and then tests how well the homography aligns with the rest of the matches.
+        Even with the best matching techniques, there may still be incorrect matches, or outliers, that could distort the final result. To remove these outliers, we use RANSAC (Random Sample Consensus). RANSAC is an iterative method that repeatedly selects a random subset of four matches, computes a homography based on that subset, and then tests how well the homography aligns with the rest of the matches.
     </p>
     <p>
-        Matches that do not fit well with the computed homography are considered outliers and discarded. This leaves us with a set of inliers that can be used to compute a robust final transformation between the two images.
+        Matches that do not fit well with the computed homography are considered outliers and matches which are within a 1 pixel radiues are considered correct and are considered inliers. We do this process a number of times and record the which are inliers and the amount of them. The largest list of inliers is then used to compute the final homography matrix as in part A, i.e with more than 4 points and we
+        take the least square in order to get a robust and well working result.
     </p>
     <p>
-        Below is an image showing feature matches before and after RANSAC:
+        Below is an image showing feature matches after RANSAC. Compare it with the above and see that now we do not have any outliers which will result in a correct Homography matrix.
     </p>
     <div class="image-grid">
         <div class="image-pair">
             <img src="./images4/Ransac_corr.png" alt="Before RANSAC">
-            <p class="caption">Figure 10: Feature matches after RANSAC.</p>
+            <p class="caption"> Feature matches after RANSAC.</p>
         </div>
        
     </div>
@@ -531,11 +532,11 @@
     <!-- Second row of images -->
     <div class="image-grid">
         <div class="image-pair">
-            <img src="./images4/e_left" alt="Input Image 2 - A">
+            <img src="./images4/e_left.jpg" alt="Input Image 2 - A">
             <p class="caption"> Input Image 2 (Left).</p>
         </div>
         <div class="image-pair">
-            <img src="./images4/e_right" alt="Input Image 2 - B">
+            <img src="./images4/e_right.jpg" alt="Input Image 2 - B">
             <p class="caption"> Input Image 2 (Right).</p>
         </div>
         <div class="image-pair">
@@ -551,7 +552,7 @@
             <p class="caption">Input Image 3 (Left).</p>
         </div>
         <div class="image-pair">
-            <img src="./images4/g_righ.jpg" alt="Input Image 3 - B">
+            <img src="./images4/g_right.jpg" alt="Input Image 3 - B">
             <p class="caption">Input Image 3 (Right).</p>
         </div>
         <div class="image-pair">
@@ -594,7 +595,8 @@
     <p>
         These results demonstrate the effectiveness of the auto-mosaic generation process, showing accurate alignment and blending of images to create smooth and continuous mosaics. The last image show a mosaic with much less overlap than the others
         which I thought would be fun to try and it worked well. I also tried taking the images a bit more sloppy without a hyperfixed center of projection to see the results this can be seen in the second last mosaic. Notice how it is a little bit blurry.
-        Probably due to the fact that a simple translation is not good enough for alignment when the COP is changed between the images. All and all a very fun project, still amazed how simple these operations are and yet they produce so cool results
+        Probably due to the fact that a simple translation is not good enough for alignment when the COP is changed between the images. All and all a very fun project, still amazed how simple these operations are and yet they produce so cool results. My final function
+        just took two images no other adjustable paramaters and spat out a mosaic which was alos pretty cool.
     </p>
 </div>
 
