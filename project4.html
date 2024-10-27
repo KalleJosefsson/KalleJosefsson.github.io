@@ -426,23 +426,23 @@
 </div>
 
 <div class="equation-container">
-    <h2>12. Adaptive Non-Maximal Suppression</h2>
-    <p>
-        After detecting corners, not all of them are equally important or distinctive. To reduce redundancy, we apply Adaptive Non-Maximal Suppression (ANMS). ANMS helps retain only the most salient features by selecting corners that are stronger than their neighbors within a specified radius. This ensures an even distribution of keypoints across the image, which improves the robustness of matching and other subsequent tasks.
-    </p>
-    <p>
-        The suppression radius for each corner is computed based on the strength of its response and the distance to stronger nearby corners, ensuring that only distinctive and well-separated keypoints are retained.
-    </p>
-    <p>
-        Below is an image showing the result of applying ANMS to a set of detected Harris corners.
-    </p>
-    <div class="image-grid">
-        <div class="image-pair">
-            <img src="./images4/Top_corners.png" alt="ANMS Applied">
-            <p class="caption">Corners after applying Adaptive Non-Maximal Suppression.</p>
-        </div>
+<h2>12. Adaptive Non-Maximal Suppression</h2>
+<p>
+    After detecting corners, not all points are equally informative or unique. To enhance distinctiveness and reduce redundancy, we apply Adaptive Non-Maximal Suppression (ANMS). ANMS selectively retains only the most significant corners by considering both their strength and spatial distribution, resulting in a more even distribution of keypoints across the image. This technique helps ensure that only the most robust, well-separated features are retained, which significantly improves the accuracy of feature matching and other image alignment tasks.
+</p>
+<p>
+    In ANMS, each corner point’s "suppression radius" is calculated based on its Harris response strength and its spatial distance to stronger neighboring points. Corners with larger suppression radii are retained, as they represent well-separated and locally strongest features.
+</p>
+<p>
+    The result is a set of distinctive and spatially distributed keypoints that contribute to more effective matching and registration across images.
+</p>
+<div class="image-grid">
+    <div class="image-pair">
+        <img src="./images4/Top_corners.png" alt="ANMS Applied">
+        <p class="caption">Corners after applying Adaptive Non-Maximal Suppression.</p>
     </div>
 </div>
+
 
 <div class="equation-container">
     <h2>13. Feature Descriptor Extraction</h2>
@@ -573,7 +573,7 @@
             <p class="caption">Input Image 4 (Right).</p>
         </div>
         <div class="image-pair">
-            <img src="./images4/auto_mosaic_f.jpg" alt="Resulting Mosaic 3">
+            <img src="./images4/auto_mosaic_f1.jpg" alt="Resulting Mosaic 3">
             <p class="caption">Resulting Mosaic 4.</p>
         </div>
 
@@ -597,7 +597,8 @@
         These results demonstrate the effectiveness of the auto-mosaic generation process, showing accurate alignment and blending of images to create smooth and continuous mosaics. The last image show a mosaic with much less overlap than the others
         which I thought would be fun to try and it worked well. I also tried taking the images a bit more sloppy without a hyperfixed center of projection to see the results this can be seen in the second last mosaic. Notice how it is a little bit blurry.
         Probably due to the fact that a simple translation is not good enough for alignment when the COP is changed between the images. All and all a very fun project, still amazed how simple these operations are and yet they produce so cool results. My final function
-        just took two images no other adjustable paramaters and spat out a mosaic which was alos pretty cool.
+        just took two images no other adjustable paramaters and spat out a mosaic which was also pretty cool. I noticed that my ANMS function took the weakest corners at first and the RANSAC still worked, which I thought was really cool, underlining how powerful the 
+        algorithm is.
     </p>
 </div>
 
