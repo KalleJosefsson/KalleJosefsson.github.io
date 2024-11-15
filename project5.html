@@ -155,6 +155,30 @@
         <div class="caption">Final comparison with classical denoising</div>
     </div>
 
+        <h2>Part 5. Diffusion model sampling</h2>
+    <p>
+        In this part, we used the trained diffusion model to generate five random images. These images were sampled starting from pure noise and progressively denoised to create realistic outputs. This demonstrates the model's ability to synthesize diverse images based on the learned data distribution.
+    </p>
+    <div class="image-container">
+        <img src="images5/part1_5.png" alt="Five Randomly Generated Images">
+        <div class="caption">Five randomly generated images using the diffusion model</div>
+    </div>
+    <h2>Part 6. Classifier-Free Guidance (CFG)</h2>
+    <p>
+        To improve the quality of generated images, we implemented Classifier-Free Guidance (CFG). This technique combines a conditional noise estimate based on a text prompt with an unconditional noise estimate, weighted by a guidance parameter <code>γ</code>. The new noise estimate is computed as:
+    </p>
+    <blockquote>
+        <code>ϵ = ϵ<sub>u</sub> + γ(ϵ<sub>c</sub> − ϵ<sub>u</sub>)</code>
+    </blockquote>
+    <p>
+        By setting <code>γ > 1</code>, we achieve significantly higher-quality images at the expense of diversity. For <code>γ = 0</code>, the model generates unconditional results, and for <code>γ = 1</code>, it creates conditional results. The images below demonstrate the improvement in quality using CFG with <code>γ = 1.5</code>.
+    </p>
+    <div class="image-container">
+        <img src="images5/part1_6.png" alt="Images generated using CFG with γ=1.5">
+        <div class="caption">Images generated using Classifier-Free Guidance (γ=1.5)</div>
+    </div>
+
+
     <footer>
         <p>© 2024 Kalle's Portfolio | Project 5: Diffusion Models</p>
         <p>Contact: <a href="mailto:kj00@berkeley.edu">kj00@berkeley.edu</a></p>
