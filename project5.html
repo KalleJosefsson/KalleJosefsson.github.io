@@ -171,11 +171,11 @@
         <code>ϵ = ϵ<sub>u</sub> + γ(ϵ<sub>c</sub> − ϵ<sub>u</sub>)</code>
     </blockquote>
     <p>
-        By setting <code>γ > 1</code>, we achieve significantly higher-quality images at the expense of diversity. For <code>γ = 0</code>, the model generates unconditional results, and for <code>γ = 1</code>, it creates conditional results. The images below demonstrate the improvement in quality using CFG with <code>γ = 1.5</code>.
+        By setting <code>γ > 1</code>, we achieve significantly higher-quality images at the expense of diversity. For <code>γ = 0</code>, the model generates unconditional results, and for <code>γ = 1</code>, it creates conditional results. The images below demonstrate the improvement in quality using CFG with <code>γ = 7</code>.
     </p>
     <div class="image-container">
-        <img src="images5/part1_6.png" alt="Images generated using CFG with γ=1.5">
-        <div class="caption">Images generated using Classifier-Free Guidance (γ=1.5)</div>
+        <img src="images5/part1_6.png" alt="Images generated using CFG with γ=7">
+        <div class="caption">Images generated using Classifier-Free Guidance (γ=7)</div>
     </div>
 
 
@@ -183,5 +183,60 @@
         <p>© 2024 Kalle's Portfolio | Project 5: Diffusion Models</p>
         <p>Contact: <a href="mailto:kj00@berkeley.edu">kj00@berkeley.edu</a></p>
     </footer>
+
+        <h2>Part 7. Image-to-Image Translation</h2>
+    <p>
+        In this part, we explored the SDEdit algorithm to make creative edits to an image. By adding noise to a real image and denoising it using the diffusion model, we force the noisy image back onto the manifold of natural images. The extent of the edit depends on the noise level—higher noise levels lead to larger edits, while lower noise levels retain more of the original structure.
+    </p>
+    <p>
+        Using the prompt <code>"a high quality photo"</code>, we applied this technique to the original test image at noise levels <code>[1, 3, 5, 7, 10, 20]</code>. The results demonstrate how the image transitions from noisy to more refined, with creative edits made by the model.
+    </p>
+    <h3>Results: Original Test Image</h3>
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images5/part1_711.png" alt="Edit at noise level 1">
+            <div class="caption">First noise levels</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_712.png" alt="Edit at noise level 3">
+            <div class="caption">Last noise levels</div>
+        </div>
+        
+    </div>
+    
+    <h3>Results: Custom Test Images: Muhammed Ali</h3>
+       <p>
+        We repeated the process on two additional test images using the same noise levels. Below are the results for one of the custom images.
+    </p>
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images5/ali_1.png" alt="Edit at noise level 7">
+            <div class="caption">Early noise levels</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/ali_2.png" alt="Edit at noise level 10">
+            <div class="caption">Last noise levels</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/ali.webp" alt="Edit at noise level 20">
+            <div class="caption">Original image</div>
+        </div>
+    </div>
+
+  
+ 
+    <div class="image-container">
+        <img src="images5/goldengate_1.png" alt="Custom Test Image Edits">
+        <div class="caption">Early noise levels</div>
+    </div>
+    <div class="image-container">
+        <img src="images5/goldengate_2.png" alt="Custom Test Image Edits">
+        <div class="caption">Last noise levels</div>
+    </div>
+    <div class="image-container">
+        <img src="images5/goldengate.jpg" alt="Custom Test Image Edits">
+        <div class="caption">Original image image</div>
+    </div>
+
 </body>
 </html>
