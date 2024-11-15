@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">https://github.com/KalleJosefsson/KalleJosefsson.github.io/blob/main/project4.html
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project 5: Diffusion models</title>
+    <title>Project 5: Diffusion Models</title>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body {
@@ -20,7 +20,7 @@
             font-size: 2.5em;
             color: #4CAF50;
         }
-        h2, h3, h4, h5, h6 {
+        h2, h3 {
             color: #4CAF50;
             margin-top: 40px;
         }
@@ -28,14 +28,24 @@
             font-size: 1.2em;
             line-height: 1.6em;
         }
-        img {
+        .image-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-container {
+            text-align: center;
+        }
+        .image-container img {
             max-width: 100%;
             height: auto;
             border-radius: 10px;
-            margin: 20px 0;
         }
-        section {
-            margin-bottom: 40px;
+        .caption {
+            margin-top: 10px;
+            font-size: 14px;
+            font-style: italic;
         }
         footer {
             text-align: center;
@@ -43,179 +53,110 @@
             font-size: 0.8em;
             color: #777;
         }
-        .screenshot {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .image-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .image-pair {
-            flex: 1;
-            min-width: 300px;
-            text-align: center;
-        }
-        .image-pair img {
-            margin-bottom: 10px;
-            border-radius: 10px;
-        }
-        .caption {
-            font-style: italic;
-        }
-        .equation-container {
-            background-color: white;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .image-grid {
-        display: flex;
-        justify-content: space-around;
-        margin-bottom: 20px;
-    }
-
-    .image-pair img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 10px;
-    }
-
-    /* Make the smaller image smaller */
-    .smaller-image .image-pair img {
-        width: 60%;  /* Adjust this to control the size */
-        margin: 0 auto;
-    }
-
-    .caption {
-        text-align: center;
-        font-style: italic;
-    }
     </style>
 </head>
 <body>
-
-    <!-- Main Header -->
     <header>
-        <h1>Project 5: Diffusion models</h1>
+        <h1>Project 5: Diffusion Models</h1>
     </header>
 
-  
-
-<header>
-    <h2> Part 0. Setup</h2>
-</header>
+    <h2>Part 0. Setup</h2>
     <p>
-        For this part we just set up the diffusion model with a random seed, I choose mine to be 185 which will be used throughout the project if you want to recreate my
-        results. For part A we will only work with images of size 64x64 pixels thus the images might not be as sharp as one would like. But for part B the images will be even better. Below 
-        I will present and try to explain my resuults.
+        For this part, we set up the diffusion model with a random seed (185). This seed will be used throughout the project. In part A, we work with images of size 64x64 pixels, which might not be as sharp. In part B, the images improve significantly. Below, we show results with different inference steps.
     </p>
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images5/part1_1_n20.png" alt="20 Denoising Steps">
+            <div class="caption">20 Denoising Steps</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_1_n50.png" alt="50 Denoising Steps">
+            <div class="caption">50 Denoising Steps</div>
+        </div>
+    </div>
+
+    <h2>Part 1. Implementing the Forward Process</h2>
     <p>
-        First of all I generated 3 different images with 2 different values for number of inference steps. First I tried with 20 denoising steps which was faster with the trade-off 
-        being image quality which increased when I changed the number of denoising steps to 50. The results are shown below.
+        Adding noise progressively to an image is key in the diffusion process. This allows the model to learn how to reverse noise, recovering the clean image. Below are examples of the test image at various noise levels:
     </p>
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images5/part1_1_noise.png" alt="Image with 250 timesteps">
+            <div class="caption">250 timesteps</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_1_noise500.png" alt="Image with 500 timesteps">
+            <div class="caption">500 timesteps</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_1_noise750.png" alt="Image with 750 timesteps">
+            <div class="caption">750 timesteps</div>
+        </div>
+    </div>
 
+    <h2>Part 2. Denoising Using Classical Gaussian Blurring</h2>
+    <p>
+        Gaussian blurring was used to denoise the images. This method is not effective, as seen below:
+    </p>
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images5/part1_2_250.png" alt="Blurred image at 250 timesteps">
+            <div class="caption">250 timesteps</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_2_500.png" alt="Blurred image at 500 timesteps">
+            <div class="caption">500 timesteps</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_2_750.png" alt="Blurred image at 750 timesteps">
+            <div class="caption">750 timesteps</div>
+        </div>
+    </div>
 
-  <div class="image-container">
-        <img src="images5/part1_1_n20.png" alt="Concatenated Image - 20 Steps">
-        <div class="caption">20 Denoising Steps</div>
+    <h2>Part 3. One-Step Denoising Using the Diffusion Model</h2>
+    <p>
+        A U-Net estimates and removes Gaussian noise. The model considers the timestep as an input parameter, making it easier to determine the amount of noise to remove:
+    </p>
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images5/part1_3_250.png" alt="Denoised image at 250 timesteps">
+            <div class="caption">250 timesteps</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_3_500.png" alt="Denoised image at 500 timesteps">
+            <div class="caption">500 timesteps</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_3_750.png" alt="Denoised image at 750 timesteps">
+            <div class="caption">750 timesteps</div>
+        </div>
+    </div>
+
+    <h2>Part 4. Iterative Denoising Using the Diffusion Model</h2>
+    <p>
+        Iterative denoising works better than classical methods. To speed up the process, denoising is performed every 30 timesteps. Below is the progression of denoising and the final comparison to classical methods:
+    </p>
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images5/part1_4_690.png" alt="Denoising begins">
+            <div class="caption">Beginning of denoising</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_4_390.png" alt="Midway through denoising">
+            <div class="caption">Middle of denoising</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_4_90.png" alt="Denoising completed">
+            <div class="caption">End of denoising</div>
+        </div>
     </div>
     <div class="image-container">
-        <img src="images5/part1_1_n50.png" alt="Concatenated Image - 50 Steps">
-        <div class="caption">50 Denoising Steps</div>
+        <img src="images5/part1_4_finals.png" alt="Final comparison to classical methods">
+        <div class="caption">Final comparison with classical denoising</div>
     </div>
 
-    <h2> Part 1. Implementing forward process</h2>
-    <p>
-        Making an image noisy is an essential part of the diffusion process because it allows the model to learn how to reverse the noise and recover the original image. By progressively adding noise, the model is trained to understand the transition from noisy to clean data. This step is crucial in generative modeling, where the goal is to sample realistic images starting from random noise.
-        Therefor we take a clean image and gradually make it noisier for each timestep, below you will see the testimage at different stages of noise addition.
-    </p>
-
-      <div class="image-row">
-        <div class="image-container">
-            <img src="images5/part1_1_noise.png" alt="Image 1">
-            <div class="caption">250 timesteps</div>
-        </div>
-        <div class="image-container">
-            <img src="images5/part1_1_noise500.png>
-            <div class="caption">500 timesteps</div>
-        </div>
-        <div class="image-container">
-            <img src="images5/part1_1_noise750.png" alt="Image 3">
-            <div class="caption">750 timesteps</div>
-        </div>
-    </div>
-
-    <h2> Part 2. Denoising using classical gaussian blurring</h2>
-    <p>
-        Here we just use Gaussian blurring in order to denoise the images, as you can see the method is not very effective.
-
-      <div class="image-row">
-        <div class="image-container">
-            <img src="images5/part1_2_250.png" alt="Image 1">
-            <div class="caption">250 timesteps</div>
-        </div>
-        <div class="image-container">
-            <img src="images5/part1_2_500.png>
-            <div class="caption">500 timesteps</div>
-        </div>
-        <div class="image-container">
-            <img src="images5/part1_2_750.png" alt="Image 3">
-            <div class="caption">750 timesteps</div>
-        </div>
-    </div>
-
-
-     <h2> Part 3. One-step denoising using the diffusion model</h2>
-    <p>
-        Here we just use the U-Net which calculates the Gaussian noise in the image and then removes it giving a clean image close to the original image. In order to get good results
-        the model has which timestep it is on as as an inparameter. This gives the model knowledge about how much noise is in the image and then it is easier to calculate how much to remove.
-
-      <div class="image-row">
-        <div class="image-container">
-            <img src="images5/part1_3_250.png" alt="Image 1">
-            <div class="caption">250 timesteps</div>
-        </div>
-        <div class="image-container">
-            <img src="images5/part1_3_500.png>
-            <div class="caption">500 timesteps</div>
-        </div>
-        <div class="image-container">
-            <img src="images5/part1_3_750.png" alt="Image 3">
-            <div class="caption">750 timesteps</div>
-        </div>
-    </div>
-
-     <h2> Part 4. Iterative denoising using the diffusion model</h2>
-    <p>
-       As we saw in the before section the model works much better at denosing than classical methods, however it works worse for the noisier image which is not suprising. The model works iteratively and in order to speed up the process
-        without damaging the results noticebly we can do denoise every 30 timestep. Below I will first show the denosing process as the image becomes less and less noisy and also the results next to the classical denoising method.
-      <div class="image-row">
-        <div class="image-container">
-            <img src="images5/part1_3_250.png" alt="Image 1">
-            <div class="caption">250 timesteps</div>
-        </div>
-        <div class="image-container">
-            <img src="images5/part1_3_500.png>
-            <div class="caption">500 timesteps</div>
-        </div>
-        <div class="image-container">
-            <img src="images5/part1_3_750.png" alt="Image 3">
-            <div class="caption">750 timesteps</div>
-        </div>
-    </div>
-  
-    
-    <!-- Footer Section -->
     <footer>
-        <p>© 2024 Kalle's Portfolio | Project 5: Diffusion models</p>
+        <p>© 2024 Kalle's Portfolio | Project 5: Diffusion Models</p>
         <p>Contact: <a href="mailto:kj00@berkeley.edu">kj00@berkeley.edu</a></p>
     </footer>
 </body>
