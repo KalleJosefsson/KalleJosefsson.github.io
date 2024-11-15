@@ -132,7 +132,68 @@
         <div class="caption">50 Denoising Steps</div>
     </div>
 
+    <h2> Part 1. Implementing forward process</h2>
+    <p>
+        Making an image noisy is an essential part of the diffusion process because it allows the model to learn how to reverse the noise and recover the original image. By progressively adding noise, the model is trained to understand the transition from noisy to clean data. This step is crucial in generative modeling, where the goal is to sample realistic images starting from random noise.
+        Therefor we take a clean image and gradually make it noisier for each timestep, below you will see the testimage at different stages of noise addition.
+    </p>
 
+      <div class="image-row">
+        <div class="image-container">
+            <img src="images5/part1_1_noise.png" alt="Image 1">
+            <div class="caption">250 timesteps</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_1_noise500.png>
+            <div class="caption">500 timesteps</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_1_noise750.png" alt="Image 3">
+            <div class="caption">750 timesteps</div>
+        </div>
+    </div>
+
+    <h2> Part 2. Denoising using classical gaussian blurring</h2>
+    <p>
+        Here we just use Gaussian blurring in order to denoise the images, as you can see the method is not very effective.
+
+      <div class="image-row">
+        <div class="image-container">
+            <img src="images5/part1_2_250.png" alt="Image 1">
+            <div class="caption">250 timesteps</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_2_500.png>
+            <div class="caption">500 timesteps</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_2_750.png" alt="Image 3">
+            <div class="caption">750 timesteps</div>
+        </div>
+    </div>
+
+
+     <h2> Part 3. One-step denoising using the diffusion model</h2>
+    <p>
+        Here we just use the U-Net which calculates the Gaussian noise in the image and then removes it giving a clean image close to the original image. In order to get good results
+        the model has which timestep it is on as as an inparameter. This gives the model knowledge about how much noise is in the image and then it is easier to calculate how much to remove.
+
+      <div class="image-row">
+        <div class="image-container">
+            <img src="images5/part1_3_250.png" alt="Image 1">
+            <div class="caption">250 timesteps</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_3_500.png>
+            <div class="caption">500 timesteps</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_3_750.png" alt="Image 3">
+            <div class="caption">750 timesteps</div>
+        </div>
+    </div>
+  
+    
     <!-- Footer Section -->
     <footer>
         <p>© 2024 Kalle's Portfolio | Project 5: Diffusion models</p>
