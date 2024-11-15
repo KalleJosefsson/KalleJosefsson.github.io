@@ -276,6 +276,62 @@
         </div>
     </div>
 
+        <h2>Part 7.2 Inpainting</h2>
+    <p>
+        In this section, we explore inpainting by following a method inspired by the RePaint paper. Given an image (<code>x<sub>orig</sub></code>) and a binary mask (<code>m</code>), we create a new image that preserves the original content where the mask is 0 and introduces new content where the mask is 1.
+    </p>
+    <p>
+        To achieve this, we use the diffusion denoising loop with a small modification. At each denoising step, after obtaining <code>x<sub>t</sub></code>, we force it to retain the original pixels where <code>m</code> is 0, effectively leaving the masked areas intact. The process is defined as:
+    </p>
+    <blockquote>
+        <code>x<sub>t</sub> ← m * x<sub>t</sub> + (1 − m) * forward(x<sub>orig</sub>, t)</code>
+    </blockquote>
+    <p>
+        By iteratively applying this approach, the diffusion model fills in the masked area with new content while preserving the rest of the image. We applied this technique to inpaint the top of the Campanile using a custom mask.
+    </p>
+    
+    <h3>Results: Inpainting the Campanile</h3>
+    <div class="image-row">
+       
+        <div class="image-container">
+            <img src="images5/part_1_7_mask.png" alt="Inpainting Mask for Campanile">
+            <div class="caption">Stages</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part_1_7_inpainted1.png" alt="Inpainted Image of the Campanile">
+            <div class="caption">Inpainted Image of the Campanile</div>
+        </div>
+    </div>
+
+    <h3>Results: Custom Inpainting on Two Additional Images</h3>
+    <p>
+        We further experimented with inpainting on two custom images, using different masks to replace selected areas of each image.
+    </p>
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images5/eiffeltower.jpg" alt="Custom Image 1 - Original">
+            <div class="caption">Original Image </div>
+        </div>
+        
+        <div class="image-container">
+            <img src="images5/part_1_7_altered_eiffell.png" alt="Inpainted Custom Image 1">
+            <div class="caption">Inpainted Image </div>
+        </div>
+    </div>
+    
+    <div class="image-row">
+        
+        <div class="image-container">
+            <img src="images5/eye_mask.png" alt="Inpainting Mask for Custom Image 2">
+            <div class="caption">Stages</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part_1_7_altered_eye.png" alt="Inpainted Custom Image 2">
+            <div class="caption">Inpainted Image </div>
+        </div>
+    </div>
+
+
       <footer>
         <p>© 2024 Kalle's Portfolio | Project 5: Diffusion Models</p>
         <p>Contact: <a href="mailto:kj00@berkeley.edu">kj00@berkeley.edu</a></p>
