@@ -192,6 +192,25 @@
             <div class="caption">750 timesteps</div>
         </div>
     </div>
+
+     <h2> Part 4. Iterative denoising using the diffusion model</h2>
+    <p>
+       As we saw in the before section the model works much better at denosing than classical methods, however it works worse for the noisier image which is not suprising. The model works iteratively and in order to speed up the process
+        without damaging the results noticebly we can do denoise every 30 timestep. Below I will first show the denosing process as the image becomes less and less noisy and also the results next to the classical denoising method.
+      <div class="image-row">
+        <div class="image-container">
+            <img src="images5/part1_3_250.png" alt="Image 1">
+            <div class="caption">250 timesteps</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_3_500.png>
+            <div class="caption">500 timesteps</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/part1_3_750.png" alt="Image 3">
+            <div class="caption">750 timesteps</div>
+        </div>
+    </div>
   
     
     <!-- Footer Section -->
