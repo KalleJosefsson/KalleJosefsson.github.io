@@ -331,6 +331,54 @@
         </div>
     </div>
 
+        <h2>Part 7.3 Text-Conditioned Image-to-Image Translation</h2>
+    <p>
+        In this part, we perform image-to-image translation with guidance from a text prompt. By combining the model's inpainting ability with language control, we can adjust the output to match a specific description. This goes beyond simple "projection to the natural image manifold" by incorporating semantic information from the prompt.
+    </p>
+    <p>
+        To achieve this, we modify the prompt from <code>"a high quality photo"</code> to a descriptive phrase, applying different noise levels <code>[1, 3, 5, 7, 10, 20]</code>. The resulting images should maintain characteristics of the original image while aligning with the text prompt.
+    </p>
+
+    <h3>Results: Text-Conditioned Edits of the Test Image " a rocket ship"</h3>
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images5/rockettower_1.png" alt="Text-Conditioned Edit at Noise Level 1">
+            <div class="caption">Low Noise Levels"</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/rockettower_2.png" alt="Text-Conditioned Edit at Noise Level 3">
+            <div class="caption"> High Noise Levels"</div>
+        </div>
+        
+    </div>
+   
+
+    <h3>Results: Text-Conditioned Edits on Custom Images</h3>
+    <p>
+        We applied the same process to two custom images using the prompt <code>"a photo of a hipster barrista" and "a pencil"</code> and varying noise levels. The outputs show a blend of the original image (a banana) and the characteristics described in the prompt.
+    </p>
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images5/bananapencil_1.png" alt="Text-Conditioned Edit on Custom Image 1">
+            <div class="caption">Pencil Banana High noise</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/bananapencil_2.png" alt="Text-Conditioned Edit on Custom Image 2">
+            <div class="caption">Pencil Banana Low noise</div>
+        </div>
+    </div>
+
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images5/baristabanana_1.png" alt="Text-Conditioned Edit on Custom Image 1">
+            <div class="caption">Barista Banana High noise</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/baristabanana_2.png" alt="Text-Conditioned Edit on Custom Image 2">
+            <div class="caption">Barista Banana Low noise</div>
+        </div>
+    </div>
+
 
       <footer>
         <p>© 2024 Kalle's Portfolio | Project 5: Diffusion Models</p>
