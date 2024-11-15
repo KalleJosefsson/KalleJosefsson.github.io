@@ -109,9 +109,28 @@
 
   
 
+<header>
+    <h2> Part 0. Setup</h2>
+</header>
+    <p>
+        For this part we just set up the diffusion model with a random seed, I choose mine to be 185 which will be used throughout the project if you want to recreate my
+        results. For part A we will only work with images of size 64x64 pixels thus the images might not be as sharp as one would like. But for part B the images will be even better. Below 
+        I will present and try to explain my resuults.
+    </p>
+    <p>
+        First of all I generated 3 different images with 2 different values for number of inference steps. First I tried with 20 denoising steps which was faster with the trade-off 
+        being image quality which increased when I changed the number of denoising steps to 50. The results are shown below.
+    </p>
 
 
-
+  <div class="image-container">
+        <img src="images5/part1_1_n20.png" alt="Concatenated Image - 20 Steps">
+        <div class="caption">20 Denoising Steps</div>
+    </div>
+    <div class="image-container">
+        <img src="images5/part1_1_n50.png" alt="Concatenated Image - 50 Steps">
+        <div class="caption">50 Denoising Steps</div>
+    </div>
 
 
     <!-- Footer Section -->
