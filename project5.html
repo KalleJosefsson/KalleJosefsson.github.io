@@ -378,6 +378,45 @@
             <div class="caption">Barista Banana Low noise</div>
         </div>
     </div>
+    <h2>Part 8 Visual Anagrams</h2>
+    <p>
+        In this part, we use diffusion models to create visual anagrams—images that show two different scenes when viewed upright and flipped upside down. Our goal is to create an image that appears as <em>"an oil painting of an old man"</em> when viewed normally, and as <em>"an oil painting of people around a campfire"</em> when flipped.
+    </p>
+    <p>
+        To achieve this effect, we perform diffusion denoising on an image <code>x<sub>t</sub></code> at a particular timestep <code>t</code>, with two different prompts. First, we denoise the image using the prompt <em>"an oil painting of an old man"</em>, obtaining a noise estimate <code>ϵ<sub>1</sub></code>. Next, we flip <code>x<sub>t</sub></code> upside down and denoise it with the prompt <em>"an oil painting of people around a campfire"</em>, resulting in <code>ϵ<sub>2</sub></code>. We then flip <code>ϵ<sub>2</sub></code> back to its original orientation and average it with <code>ϵ<sub>1</sub></code> to create the final noise estimate <code>ϵ</code>.
+    </p>
+
+    <h3>Algorithm Steps</h3>
+    <p>The steps for creating a visual anagram are as follows:</p>
+    <ol>
+        <li>Generate <code>ϵ<sub>1</sub> = UNet(x<sub>t</sub>, t, p<sub>1</sub>)</code> using the prompt <em>"an oil painting of an old man"</em>.</li>
+        <li>Flip <code>x<sub>t</sub></code> upside down and generate <code>ϵ<sub>2</sub> = flip(UNet(flip(x<sub>t</sub>), t, p<sub>2</sub>))</code> using the prompt <em>"an oil painting of people around a campfire"</em>.</li>
+        <li>Average the two noise estimates: <code>ϵ = (ϵ<sub>1</sub> + ϵ<sub>2</sub>) / 2</code>.</li>
+        <li>Perform a reverse diffusion step with the averaged noise estimate <code>ϵ</code> to obtain the final image.</li>
+    </ol>
+
+    <h3>Results: Visual Anagrams</h3>
+    <p>
+        Below are examples of visual anagrams created using this method. The first image appears as "an oil painting of an old man" when viewed normally and as "an oil painting of people around a campfire" when flipped. We also include two additional anagram illusions that reveal different images when flipped upside down.
+    </p>
+    
+    
+    <div class="image-row">
+        <div class="image-container">
+            <img src="flipped_campfire.png" alt="Visual Anagram - Upright">
+            <div class="caption">"an oil painting of an old man" and "an oil painting of people around a campfire"</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/snowy_campfire.png" alt="Visual Anagram - Flipped">
+            <div class="caption">"an oil painting of a snowy mountain village" and "an oil painting of people around a campfire"</div>
+        </div>
+        <div class="image-container">
+            <img src="images5/snowy_man.png" alt="Visual Anagram - Flipped">
+            <div class="caption">"an oil painting of a snowy mountain village" and "an oil painting of an old man"</div>
+        </div>
+    </div>
+
+  
 
 
       <footer>
