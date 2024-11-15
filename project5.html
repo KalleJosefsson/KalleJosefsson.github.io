@@ -403,7 +403,7 @@
     
     <div class="image-row">
         <div class="image-container">
-            <img src="flipped_campfire.png" alt="Visual Anagram - Upright">
+            <img src="images5/flipped_campfire.png" alt="Visual Anagram - Upright">
             <div class="caption">"an oil painting of an old man" and "an oil painting of people around a campfire"</div>
         </div>
         <div class="image-container">
@@ -417,7 +417,65 @@
     </div>
 
   
+    <h2>Part 1.10 Hybrid Images</h2>
+    <p>
+        In this part, we implement Factorized Diffusion to create hybrid images, inspired by techniques from project 2. A hybrid image combines different elements that appear as one thing when viewed from a distance and something else up close. Here, we use a diffusion model to blend low and high frequencies from two different text prompts, creating a composite effect.
+    </p>
+    <p>
+        The process involves estimating noise using two prompts, combining the low frequencies from one estimate and the high frequencies from the other. This approach allows us to create an image that looks like one subject from afar and transforms into a different subject upon closer inspection.
+    </p>
 
+    <h3>Algorithm Steps</h3>
+    <p>The steps for generating a hybrid image are as follows:</p>
+    <ol>
+        <li>Generate the first noise estimate, <code>ϵ<sub>1</sub> = UNet(x<sub>t</sub>, t, p<sub>1</sub>)</code>, with the first prompt.</li>
+        <li>Generate the second noise estimate, <code>ϵ<sub>2</sub> = UNet(x<sub>t</sub>, t, p<sub>2</sub>)</code>, with the second prompt.</li>
+        <li>Apply a low-pass filter to <code>ϵ<sub>1</sub></code> and a high-pass filter to <code>ϵ<sub>2</sub>:</code> <br>
+            <code>ϵ = flowpass(ϵ<sub>1</sub>) + fhighpass(ϵ<sub>2</sub>)</code>.
+        </li>
+        <li>Use the composite noise estimate <code>ϵ</code> to complete a reverse diffusion step and obtain the final hybrid image.</li>
+    </ol>
+    <p>
+        For this part, we use a Gaussian blur with a kernel size of 33 and sigma of 2 for the low-pass filter, which smooths out the details in the first noise estimate, while the high-pass filter captures the finer details from the second estimate.
+    </p>
+
+    <h3>Results: Hybrid Images</h3>
+    <p>
+        Below are examples of hybrid images created with this technique. The first image appears as a skull from afar and as a waterfall up close. We also include two additional hybrid illusions that transform depending on viewing distance.
+    </p>
+    
+    <h4>Example 1: Skull / Waterfall</h4>
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images5/hybrid_skull_waterfall.png" alt="Hybrid Image - Skull / Waterfall">
+            <div class="caption">Hybrid Image: Skull from afar, Waterfall up close</div>
+        </div>
+    </div>
+
+    <h4>Example 2: Custom Hybrid Image 1</h4>
+    <p>Another hybrid image that shows a different subject from far away and a detailed close-up view of another scene.</p>
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images5/doghat.png" alt="Hybrid Image - Custom 1">
+            <div class="caption">Hybrid Image: A photo of a dog and a man in a hat</div>
+        </div>
+    </div>
+
+    <h4>Example 3: Custom Hybrid Image 2</h4>
+    <p>A third hybrid image showcasing the visual effect of combining high and low frequencies to create distinct viewing experiences.</p>
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images5/hybrid_hatwaterfall.png" alt="Hybrid Image - Custom 2">
+            <div class="caption">Hybrid Image: A man with a hat and a waterfall</div>
+        </div>
+    </div>
+
+
+    <h2> Final remarks for part A</h2>
+    <p>
+        I thought this first part of the project was really cool. I think it is very intersting how the images are generated and can't wait for part B which I assume will be even cooler.
+        
+    </p>
 
       <footer>
         <p>© 2024 Kalle's Portfolio | Project 5: Diffusion Models</p>
