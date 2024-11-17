@@ -471,11 +471,51 @@
     </div>
 
 
-    <h2> Final remarks for part A</h2>
+    <h3> Final remarks for part A</h3>
     <p>
         I thought this first part of the project was really cool. I think it is very intersting how the images are generated and can't wait for part B which I assume will be even cooler.
         
     </p>
+
+    <h2> Part B creating and training a UNet</h2>
+
+   <h2>Warm-Up: Building a One-Step Denoiser</h2>
+<p>
+    To start, we train a simple denoiser <code>Dθ</code> that maps a noisy image <code>x<sub>noisy</sub></code> to a clean image <code>x<sub>clean</sub></code>. The L2 loss is optimized as:
+</p>
+<blockquote>
+    <code>ℒ = ||Dθ(x<sub>noisy</sub>) - x<sub>clean</sub>||²</code>
+</blockquote>
+
+<h3>1.1 Implementing the UNet</h3>
+<p>
+    We use a UNet for the denoiser. It consists of downsampling and upsampling blocks with skip connections, capturing both global and local features. This structure is ideal for image-to-image tasks like denoising.
+</p>
+<div class="image-container variable-height">
+    <img src="images5/Uncond_unet.png" alt="UNet Architecture">
+    <div class="caption">UNet Architecture for Denoising</div>
+</div>
+
+    <h2>1.2 Denoising Problem and Data Generation</h2>
+<p>
+    In this part, we implement and visualize the noising process for generating training data. The objective is to train a denoiser <code>Dθ</code> to map noisy images <code>x<sub>noisy</sub></code> to clean images <code>x<sub>clean</sub></code>, minimizing the L2 loss:
+</p>
+<blockquote>
+    <code>ℒ = ||Dθ(x<sub>noisy</sub>) - x<sub>clean</sub>||²</code>
+</blockquote>
+<p>
+    To achieve this, clean MNIST digits <code>x<sub>clean</sub></code> are progressively noised using a defined process to create training pairs (<code>x<sub>noisy</sub></code>, <code>x<sub>clean</sub></code>).
+</p>
+
+<h3>Results: Visualization of the Noising Process</h3>
+<p>
+    Below is the output of the implemented noising process applied to a normalized MNIST digit. The images show the effect of increasing noise levels:
+</p>
+<div class="image-container">
+    <img src="images5/noisy_imgs" alt="Noising Process Visualization">
+    <div class="caption">Progressive noising of a normalized MNIST digit</div>
+</div>
+
 
       <footer>
         <p>© 2024 Kalle's Portfolio | Project 5: Diffusion Models</p>
