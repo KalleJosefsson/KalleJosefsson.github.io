@@ -582,6 +582,7 @@
 <p>
     Below is the updated UNet architecture, which includes both time and class conditioning as well as the new training algorithm used:
 </p>
+    <div class="image-row">
 <div class="image-container variable-height">
     <img src="images5/Timecond_unet.png" alt="Updated UNet Architecture">
     <div class="caption">UNet Architecture with Time and Class Conditioning</div>
@@ -590,11 +591,36 @@
     <img src="images5/class_algo.png" alt="Updated UNet Architecture">
     <div class="caption">Training algorithm with Time and Class Conditioning</div>
 </div>
-
+    </div>
 <h3>Training Algorithm</h3>
 <p>
     The training process involves generating noisy images <code>x<sub>t</sub></code> for random timesteps, computing their one-hot class vectors, and training the UNet to predict <code>ϵ</code>. The addition of class conditioning ensures better control over the generated images, while time conditioning enables iterative denoising.
 </p>
+
+<h3>Results from Time and Class Conditional UNet wtih Gudienscale: 5.0 </h3>
+
+    </div>
+    <div class="image-container variable-height">
+    <img src="images5/part2_train_loss" alt="Updated UNet Architecture">
+    <div class="caption">Training loss per iteration</div>
+</div>
+    </div>
+    <div class="image-container variable-height">
+    <img src="images5/part2_epoch1.png" alt="Updated UNet Architecture">
+    <div class="caption">Results after one epoch of training</div>
+</div>
+
+    </div>
+    <div class="image-container variable-height">
+    <img src="images5/part2_epoch5.png" alt="Updated UNet Architecture">
+    <div class="caption">Results after five epochs of training</div>
+</div>
+
+    </div>
+    <div class="image-container variable-height">
+    <img src="images5/part2_epoch20.png" alt="Updated UNet Architecture">
+    <div class="caption">Results after the final and 20th epoch of training</div>
+</div>
 
       <footer>
         <p>© 2024 Kalle's Portfolio | Project 5: Diffusion Models</p>
