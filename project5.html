@@ -571,8 +571,7 @@
 </p>
 
 <p>
-    To handle time conditioning, we integrate fully connected layers to embed <code>t</code> into the UNet. For class conditioning, we use a one-hot vector to represent each digit class (<code>{0,…,9}</code>). We further add two fully connected layers to embed the class vector. Additionally, we implement dropout: 10% of the time, the one-hot vector is set to 0 to ensure the model performs well without explicit class conditioning.
-</p>
+    To handle time conditioning, we integrate fully connected layers to embed <code>t</code> into the UNet. For class conditioning, we use a one-hot vector to represent each digit class (<code>{0,…,9}</code>). We further add two fully connected layers to embed the class vector. </p>
 
 <h3>Updated UNet Architecture</h3>
 <p>
