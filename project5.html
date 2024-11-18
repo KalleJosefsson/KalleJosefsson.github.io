@@ -589,7 +589,8 @@
     </div>
 <h3>Training Algorithm</h3>
 <p>
-    The training process involves generating noisy images <code>x<sub>t</sub></code> for random timesteps, computing their one-hot class vectors, and training the UNet to predict <code>ϵ</code>. The addition of class conditioning ensures better control over the generated images, while time conditioning enables iterative denoising.
+    The training process involves generating noisy images <code>x<sub>t</sub></code> for random timesteps, computing their one-hot class vectors, and training the UNet to predict <code>ϵ</code>. The addition of class conditioning ensures better control over the generated images, while time conditioning enables iterative denoising. As we can see
+    in the results presented below after the twentieth epoch the model works very well and produces fine, correct and detailed numbers.
 </p>
 
 <h3>Results from Time and Class Conditional UNet wtih Gudienscale: 5.0 </h3>
@@ -617,22 +618,43 @@
     <div class="caption">Results after the final and 20th epoch of training</div>
 </div>
 
-    <h3>Sampling with Different Guidance Scales</h3>
-<p>
-    We sampled images using different guidance scales <code>γ</code>, which balance fidelity to the conditioning signal and diversity. Higher <code>γ</code> values create sharper images but reduce diversity, while lower values allow more randomness.
-</p>
-
-<p>
-    Below are the generated images with guidance scales <code>γ = [0, 5, 10]</code>:
-</p>
-<div class="image-container">
-    <img src="images5/final_img.png" alt="Sampling with Different Guidance Scales" style="width: 100%; height: auto; border-radius: 0;">
-    <div class="caption">Results for guidance scales <code>γ = [0, 5, 10]</code></div>
-</div>
+  
 
     <h2>Comparing with the only TimeConditioned UNet</h2>
+<p>
+    If we now only look at the Time Conditioned UNet, i.e no classes. The results are presented below. As we can see the numbers are not as good without the classifier free guidance.
+</p>
 
+    <h3>Results from TimeCOnditioned UNet, no classes</h3>
 
+     </div>
+    <div class="image-container variable-height">
+    <img src="images5/time_loss.png" alt="Updated UNet Architecture" style="width: 100%; height: auto; border-radius: 0;">
+    <div class="caption">Training loss per iteration</div>
+</div>
+    </div>
+    <div class="image-container variable-height">
+    <img src="images5/time_epoch1.png" alt="Updated UNet Architecture">
+    <div class="caption">Results after one epoch of training</div>
+</div>
+
+    </div>
+    <div class="image-container variable-height">
+    <img src="images5/time_epoch5.png" alt="Updated UNet Architecture">
+    <div class="caption">Results after five epochs of training</div>
+</div>
+
+    </div>
+    <div class="image-container variable-height">
+    <img src="images5/time_epoc20.png" alt="Updated UNet Architecture">
+    <div class="caption">Results after the final and 20th epoch of training</div>
+</div>
+
+    <h4>Final remarks</h4>
+
+    <p>
+        Very cool and fun project. The most interting part was definetely to see how adding classes (CFG) increased the performance of our model and how easy teh change was to do.
+    </p>
       <footer>
         <p>© 2024 Kalle's Portfolio | Project 5: Diffusion Models</p>
         <p>Contact: <a href="mailto:kj00@berkeley.edu">kj00@berkeley.edu</a></p>
