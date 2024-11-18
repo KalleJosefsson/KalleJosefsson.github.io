@@ -512,7 +512,7 @@
     Below is the output of the implemented noising process applied to a normalized MNIST digit. The images show the effect of increasing noise levels:
 </p>
 <div class="image-container">
-    <img src="images5/a_noisy_imgs.png" alt="Noising Process Visualization">
+    <img src="images5/a_noiselvl.png" alt="Noising Process Visualization">
     <div class="caption">Progressive noising of a normalized MNIST digit</div>
 </div>
 
@@ -528,7 +528,7 @@
 
     <div class="image-container">
     <img src="images5/loss_part1_iter.png" alt="Noising Process Visualization">
-    <div class="caption">Loss per epoch during training</div>
+    <div class="caption">Loss per iteration during training</div>
     </div>
 </div>
     <p>
@@ -558,7 +558,44 @@
     </div>
 
 
-    <h2>Part 2 Training a diffusion model</h2>
+  <h2> Part 2. Time and Class Conditioning</h2>
+<p>
+    Previously, our UNet model predicted the clean image. In this section, we update the approach to predict the noise <code>ϵ</code> added to the image instead. This allows us to start with pure noise <code>ϵ ∼ N(0, I)</code> and iteratively denoise to generate a realistic image <code>x</code>. 
+</p>
+
+<h3>Combining Time and Class Conditioning</h3>
+<p>
+    Instead of implementing time conditioning first and then adding class conditioning, we simultaneously condition the UNet on both the timestep <code>t</code> and the class of the digit. Using the equation:
+</p>
+<blockquote>
+    <code>x<sub>t</sub> = √ᾱ<sub>t</sub>x<sub>0</sub> + √(1−ᾱ<sub>t</sub>)ϵ, ϵ∼N(0,1)</code>
+</blockquote>
+<p>
+    we generate a noisy image <code>x<sub>t</sub></code> from <code>x<sub>0</sub></code> for a timestep <code>t∈{0,1,…,T}</code>. When <code>t=0</code>, <code>x<sub>t</sub></code> is clean, and when <code>t=T</code>, <code>x<sub>t</sub></code> is pure noise. For intermediate values of <code>t</code>, <code>x<sub>t</sub></code> is a linear combination of the clean image and noise. The derivations for <code>β</code>, <code>α<sub>t</sub></code>, and <code>ᾱ<sub>t</sub></code> follow the DDPM paper, and we set <code>T=300</code> due to the simplicity of our dataset.
+</p>
+
+<p>
+    To handle time conditioning, we integrate fully connected layers to embed <code>t</code> into the UNet. For class conditioning, we use a one-hot vector to represent each digit class (<code>{0,…,9}</code>). We further add two fully connected layers to embed the class vector. Additionally, we implement dropout: 10% of the time, the one-hot vector is set to 0 to ensure the model performs well without explicit class conditioning.
+</p>
+
+<h3>Updated UNet Architecture</h3>
+<p>
+    Below is the updated UNet architecture, which includes both time and class conditioning as well as the new training algorithm used:
+</p>
+<div class="image-container variable-height">
+    <img src="images5/Timecond_unet.png" alt="Updated UNet Architecture">
+    <div class="caption">UNet Architecture with Time and Class Conditioning</div>
+</div>
+    <div class="image-container variable-height">
+    <img src="images5/class_algo.png" alt="Updated UNet Architecture">
+    <div class="caption">Training algorithm with Time and Class Conditioning</div>
+</div>
+
+<h3>Training Algorithm</h3>
+<p>
+    The training process involves generating noisy images <code>x<sub>t</sub></code> for random timesteps, computing their one-hot class vectors, and training the UNet to predict <code>ϵ</code>. The addition of class conditioning ensures better control over the generated images, while time conditioning enables iterative denoising.
+</p>
+
       <footer>
         <p>© 2024 Kalle's Portfolio | Project 5: Diffusion Models</p>
         <p>Contact: <a href="mailto:kj00@berkeley.edu">kj00@berkeley.edu</a></p>
