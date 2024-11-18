@@ -571,7 +571,7 @@
     <code>x<sub>t</sub> = √ᾱ<sub>t</sub>x<sub>0</sub> + √(1−ᾱ<sub>t</sub>)ϵ, ϵ∼N(0,1)</code>
 </blockquote>
 <p>
-    we generate a noisy image <code>x<sub>t</sub></code> from <code>x<sub>0</sub></code> for a timestep <code>t∈{0,1,…,T}</code>. When <code>t=0</code>, <code>x<sub>t</sub></code> is clean, and when <code>t=T</code>, <code>x<sub>t</sub></code> is pure noise. For intermediate values of <code>t</code>, <code>x<sub>t</sub></code> is a linear combination of the clean image and noise. The derivations for <code>β</code>, <code>α<sub>t</sub></code>, and <code>ᾱ<sub>t</sub></code> follow the DDPM paper, and we set <code>T=300</code> due to the simplicity of our dataset.
+    we generate a noisy image <code>x<sub>t</sub></code> from <code>x<sub>0</sub></code> for a timestep <code>t∈{0,1,…,T}</code>. When <code>t=0</code>, <code>x<sub>t</sub></code> is clean, and when <code>t=T</code>, <code>x<sub>t</sub></code> is pure noise. For intermediate values of <code>t</code>, <code>x<sub>t</sub></code> is a linear combination of the clean image and noise. The derivations for <code>β</code>, <code>α<sub>t</sub></code>, and <code>ᾱ<sub>t</sub></code> follow the DDPM paper, and we set <code>T=400</code> due to the simplicity of our dataset.
 </p>
 
 <p>
@@ -621,6 +621,20 @@
     <img src="images5/part2_epoch20.png" alt="Updated UNet Architecture">
     <div class="caption">Results after the final and 20th epoch of training</div>
 </div>
+
+    <h3>Sampling with Different Guidance Scales</h3>
+<p>
+    We sampled images using different guidance scales <code>γ</code>, which balance fidelity to the conditioning signal and diversity. Higher <code>γ</code> values create sharper images but reduce diversity, while lower values allow more randomness.
+</p>
+
+<p>
+    Below are the generated images with guidance scales <code>γ = [0, 5, 10]</code>:
+</p>
+<div class="image-container">
+    <img src="images5/final_img.png" alt="Sampling with Different Guidance Scales" style="width: 100%;">
+    <div class="caption">Results for guidance scales <code>γ = [1, 5, 10]</code></div>
+</div>
+
 
       <footer>
         <p>© 2024 Kalle's Portfolio | Project 5: Diffusion Models</p>
