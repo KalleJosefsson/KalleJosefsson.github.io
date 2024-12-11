@@ -71,9 +71,45 @@
         MLP is presented below.
     </p>
     <div class="image-container">
-            <img src="images6/part1_4_690.png" alt="Denoising begins">
-            <div class="caption">Beginning of denoising</div>
+            <img src="images6/arc1.jpg" alt="Denoising begins">
+            <div class="caption">MLP architecture for Part 1</div>
         </div>
+    <p>
+        As you can see in the image above, the MLP has 3 layers with each having 256 hidden dimensions. All of the hidden layers uses the ReLU activation function and the final output layer using the Sigmoid activation function instead.
+        Throughout part 1 I used the Adam optimizer function and Mean Squared Error as loss. For this part I tried out some different settings for the hyper parameters to see what worked best. Below you will se the results.
+    </p>
+    <div class="image-container">
+            <img src="images6/fox_1.png" alt="Denoising begins">
+            <div class="caption">1. Number of Encoding Functions: 10 & Learningrate: 1e-3 & Number Iterations: 1000</div>
+        </div>
+    <div class="image-container">
+            <img src="images6/fox_2.png" alt="Denoising begins">
+            <div class="caption">2. Number of Encoding Functions: 21 & Learningrate: 1e-2 & Number Iterations: 1000</div>
+        </div>
+    <div class="image-container">
+            <img src="images6/fox_final.png" alt="Denoising begins">
+            <div class="caption">3. Number of Encoding Functions: 10 & Learningrate: 1e-2 & Number Iterations: 2000</div>
+        </div>
+
+    <p>
+        Below I present the PSNR (Peak Signal to Noise Ratio) plots which we used as the metric to evaluate the performance of our model.
+    </p>
+
+     <div class="image-row">
+        <div class="image-container">
+            <img src="images6/psnr_1.png" alt="Edit at noise level 1">
+            <div class="caption">1.PSNR for Hyperparameters settings 1</div>
+        </div>
+        <div class="image-container">
+            <img src="images6/psnr_2.png" alt="Edit at noise level 3">
+            <div class="caption">PSNR for Hyperparameters settings 2</div>
+        </div>
+         <div class="image-container">
+            <img src="images6/psnr_final.png" alt="Edit at noise level 3">
+            <div class="caption">PSNR for Hyperparameters settings 3</div>
+        </div>
+        
+    </div>
   
       <footer>
         <p>© 2024 Kalle's Portfolio | Final Project: NeRFs</p>
