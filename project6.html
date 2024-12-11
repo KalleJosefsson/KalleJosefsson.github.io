@@ -76,7 +76,7 @@
         </div>
     <p>
         As you can see in the image above, the MLP has 3 layers with each having 256 hidden dimensions. All of the hidden layers uses the ReLU activation function and the final output layer using the Sigmoid activation function instead.
-        Throughout part 1 I used the Adam optimizer function and Mean Squared Error as loss. For this part I tried out some different settings for the hyper parameters to see what worked best. Below you will se the results.
+        Throughout part 1 I used the Adam optimizer function and Mean Squared Error as loss. For this part I tried out some different settings for the hyper parameters to see what worked best. Below you will se the results. 
     </p>
     <div class="image-container">
             <img src="images6/fox_1.png" alt="Denoising begins">
@@ -122,6 +122,8 @@
         
     </p>
 
+ 
+
     <div class="image-container">
             <img src="images6/ali_results.png" alt="Edit at noise level 1">
             <div class="caption">Number of Encoding Functions: 10 & Learningrate: 1e-2 & Number Iterations: 1000</div>
@@ -130,7 +132,72 @@
             <img src="images6/ali_psnr.png" alt="Edit at noise level 3">
             <div class="caption">PSNR and Loss for Ali</div>
         </div>
-  
+
+    <p> Training took around 40 seconds using the GPU however since the model almost converged after 500 iterations we could decrease training time to around 20 seconds which I consider very fast</p>
+     <h2>
+        Part 2: 3D NeRFs
+    </h2>
+    
+
+    <p>
+        When constructing a neural radiance field for 3D, the process is similar to that for 2D but involves additional steps for ray sampling and volumetric rendering.
+    </p>
+
+    <p>
+        To create the dataset, we start with a list of images, camera-to-world matrices, and the focal length, from which we compute the intrinsic matrix. For each ray, we randomly select a pixel from the available images and project it into 3D as a ray originating from the camera. This projected ray is then returned as the sampled ray.
+    </p>
+
+    <p>
+        Using the sampled rays, we perform discrete steps along each ray, introducing a small perturbation to the sampling positions for added robustness. At these discrete points, we query the neural radiance field and aggregate the sampled values to generate the volumetric rendering.
+
+Below is a visualization illustrating the ray sampling process from some of the cameras since all of them would be to much and give an unclear representation.
+    </p>
+
+    <div class="image-container">
+            <img src="images6/3d_rays.png" alt="Edit at noise level 3">
+            <div class="caption">Viser showing camera ray samples</div>
+        </div>
+
+    <p>
+        When training the network I did it over 3000 iterations with a batchsize of 10000. Again we use the Adam optimizer and MSE as loss function. Now we have a larger MLP for which the architecture is
+        presented in the image below.
+    </p>
+
+    <div class="image-container">
+            <img src="images6/2arc.png" alt="Edit at noise level 3">
+            <div class="caption">Network architecture for part 2</div>
+        </div>
+<p>
+    Below is the progress during training.
+</p>
+
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images6/iter100.jpg" alt="Edit at noise level 1">
+            <div class="caption">Iteration 100</div>
+        </div>
+        <div class="image-container">
+            <img src="images6/iter300.jpg" alt="Edit at noise level 3">
+            <div class="caption">Iteration 300</div>
+        </div>
+         <div class="image-container">
+            <img src="images6/iter800.jpg" alt="Edit at noise level 3">
+            <div class="caption">Iteration 800</div>
+        </div>
+    </div>
+
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images6/iter1800.jpg" alt="Edit at noise level 1">
+            <div class="caption">Iteration 1800</div>
+        </div>
+        <div class="image-container">
+            <img src="images6/iter2400.jpg" alt="Edit at noise level 3">
+            <div class="caption">Iteration 2400</div>
+        </div>
+        
+    </div>
+    
       <footer>
         <p>© 2024 Kalle's Portfolio | Final Project: NeRFs</p>
         <p>Contact: <a href="mailto:kj00@berkeley.edu">kj00@berkeley.edu</a></p>
