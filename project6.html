@@ -168,7 +168,7 @@ Below is a visualization illustrating the ray sampling process from some of the 
             <div class="caption">Network architecture for part 2</div>
         </div>
 <p>
-    Below is the progress during training.
+    Below is the progress during training for some different views. Note however tha novel views will by default be of lower quality due to less information from these views.
 </p>
 
     <div class="image-row">
@@ -197,7 +197,32 @@ Below is a visualization illustrating the ray sampling process from some of the 
         </div>
         
     </div>
-    
+
+    <p>
+    I trained the model for around 10-15 minutes which made the model reach a Peak Signal to Noise Ratio of around 25 which I thought was good enough for the short training duration.
+    However if I would increase the number of iterations and batchsize I could probavly increase the quality of the final 3D which was created using all the newly created novel views. Below is the PSNR plot for the training of the nerf. As you can see in the image
+    the model has not yet converged which means by increasing the number of iterations would in fact yield an even better result
+    </p>
+<div class="image-container">
+            <img src="images6/psnr_nerf.png" alt="Edit at noise level 3">
+            <div class="caption">PSNR plot for 3D NeRF </div>
+        </div>
+
+    <p> THe final 3D model constructed is presented in the GIF below</p>
+
+    <div class="image-container">
+            <img src="images6/training_color.gif" alt="Edit at noise level 3">
+            <div class="caption">GIF showing 3D colorized reconstruction </div>
+        </div>
+
+    <p>
+        Since NeRFs output both RGB values and density (or opacity), we can leverage this to achieve something fascinating: depth rendering. Instead of generating RGB values, we can modify the output to represent a single value between 0 and 1, indicating how far each pixel is from the camera.
+    </p>
+
+    <div class="image-container">
+            <img src="images6/training.gif" alt="Edit at noise level 3">
+            <div class="caption">GIF showing 3D depth reconstruction </div>
+        </div>
       <footer>
         <p>© 2024 Kalle's Portfolio | Final Project: NeRFs</p>
         <p>Contact: <a href="mailto:kj00@berkeley.edu">kj00@berkeley.edu</a></p>
