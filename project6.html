@@ -71,7 +71,7 @@
         MLP is presented below.
     </p>
     <div class="image-container">
-            <img src="images6/arc1.jpg" alt="Denoising begins">
+            <img src="images6/1arc.jpg" alt="Denoising begins">
             <div class="caption">MLP architecture for Part 1</div>
         </div>
     <p>
@@ -115,6 +115,21 @@
         As we can see the model which has 10 positional encoding function works great for both learning rates and number of iterations. The model converges faster with a higher learning rate
         but utlimately reaches the same PSNR. However if we increase the number of positional encodings the model does not work well with reproducing the image, however the PSNR is still high.
     </p>
+
+    <p>
+        I also tested the model on an image of Ali the famous boxer. This image had fewer pixels than the image of the fox, making it easier for the model to get a good results.
+        As we can see below the results are in fact better.
+        
+    </p>
+
+    <div class="image-container">
+            <img src="images6/ali_results.png" alt="Edit at noise level 1">
+            <div class="caption">Number of Encoding Functions: 10 & Learningrate: 1e-2 & Number Iterations: 1000</div>
+        </div>
+    <div class="image-container">
+            <img src="images6/ali_psnr.png" alt="Edit at noise level 3">
+            <div class="caption">PSNR and Loss for Ali</div>
+        </div>
   
       <footer>
         <p>© 2024 Kalle's Portfolio | Final Project: NeRFs</p>
