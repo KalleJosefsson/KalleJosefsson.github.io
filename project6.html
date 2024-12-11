@@ -92,24 +92,29 @@
         </div>
 
     <p>
-        Below I present the PSNR (Peak Signal to Noise Ratio) plots which we used as the metric to evaluate the performance of our model.
+        Below I present the PSNR (Peak Signal to Noise Ratio) and Loss plots which we used as the metrics to evaluate the performance of our model.
     </p>
 
      <div class="image-row">
         <div class="image-container">
             <img src="images6/psnr_1.png" alt="Edit at noise level 1">
-            <div class="caption">1.PSNR for Hyperparameters settings 1</div>
+            <div class="caption">1.PSNR and Loss for Hyperparameters settings 1</div>
         </div>
         <div class="image-container">
             <img src="images6/psnr_2.png" alt="Edit at noise level 3">
-            <div class="caption">PSNR for Hyperparameters settings 2</div>
+            <div class="caption">PSNR and Loss for Hyperparameters settings 2</div>
         </div>
          <div class="image-container">
             <img src="images6/psnr_final.png" alt="Edit at noise level 3">
-            <div class="caption">PSNR for Hyperparameters settings 3</div>
+            <div class="caption">PSNR and Loss for Hyperparameters settings 3</div>
         </div>
         
     </div>
+
+    <p>
+        As we can see the model which has 10 positional encoding function works great for both learning rates and number of iterations. The model converges faster with a higher learning rate
+        but utlimately reaches the same PSNR. However if we increase the number of positional encodings the model does not work well with reproducing the image, however the PSNR is still high.
+    </p>
   
       <footer>
         <p>© 2024 Kalle's Portfolio | Final Project: NeRFs</p>
