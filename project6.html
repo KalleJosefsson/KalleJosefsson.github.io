@@ -216,6 +216,31 @@
     </div>
 
     <p>
+        And below you can see how the reconstruction from same novel view became better during training:
+    </p>
+
+    <div class="image-row">
+        <div class="image-container">
+            <img src="images6/nov_iter300.jpg" alt="Edit at noise level 1">
+            <div class="caption">Iteration 300</div>
+        </div>
+        <div class="image-container">
+            <img src="images6/psnr_2.png" alt="Edit at noise level 3">
+            <div class="caption">Iteration 300</div>
+        </div>
+         <div class="image-container">
+            <img src="images6/psnr_final.png" alt="Edit at noise level 3">
+            <div class="caption">Iteration 300</div>
+        </div>
+
+        <div class="image-container">
+            <img src="images6/psnr_final.png" alt="Edit at noise level 3">
+            <div class="caption">Iteration 300</div>
+        </div>
+        
+    </div>
+
+    <p>
     I trained the model for around 10-15 minutes which made the model reach a Peak Signal to Noise Ratio of around 25 which I thought was good enough for the short training duration.
     However if I would increase the number of iterations and batchsize I could probably increase the quality of the final 3D which was created using all the newly created novel views. Below is the PSNR plot for the training of the nerf. As you can see in the image
     the model has not yet converged which means by increasing the number of iterations would in fact yield an even better result
